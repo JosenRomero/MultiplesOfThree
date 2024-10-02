@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.josenromero.multiplesofthree.ui.main.views.HomeScreen
+import com.josenromero.multiplesofthree.ui.main.views.PlayScreen
 
 @Composable
 fun AppNavigation() {
@@ -13,7 +14,14 @@ fun AppNavigation() {
 
     NavHost(navController = navController, startDestination = AppScreens.HomeScreen.route) {
         composable(route = AppScreens.HomeScreen.route) {
-            HomeScreen()
+            HomeScreen(
+                onNavigateToAScreen = { route ->
+                    navController.navigate(route)
+                }
+            )
+        }
+        composable(route = AppScreens.PlayScreen.route) {
+            PlayScreen()
         }
     }
 
