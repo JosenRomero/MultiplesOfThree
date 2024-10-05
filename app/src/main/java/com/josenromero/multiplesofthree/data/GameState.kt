@@ -1,5 +1,6 @@
 package com.josenromero.multiplesofthree.data
 
 data class GameState(
-    val board: List<List<Int>> = emptyList()
+    val board: List<List<Int>> = emptyList(),
+    var isGameOver: Boolean = false
 )

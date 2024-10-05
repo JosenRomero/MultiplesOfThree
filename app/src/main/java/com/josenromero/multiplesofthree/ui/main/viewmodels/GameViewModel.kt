@@ -24,7 +24,8 @@ class GameViewModel @Inject constructor(
     private fun startNewGame() {
         _gameState.update {
             it.copy(
-                board = boardGame.createBoard(size = 3)
+                board = boardGame.createBoard(size = 3),
+                isGameOver = false
             )
         }
     }
