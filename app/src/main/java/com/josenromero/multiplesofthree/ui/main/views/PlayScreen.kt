@@ -10,11 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.josenromero.multiplesofthree.ui.main.components.Board
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlayScreen() {
+fun PlayScreen(
+    board: List<List<Int>>
+) {
 
     Scaffold {
         Column(
@@ -23,6 +26,7 @@ fun PlayScreen() {
                 .padding(it)
         ) {
             Text(text = "PlayScreen")
+            Board(board = board)
         }
     }
 
@@ -32,6 +36,8 @@ fun PlayScreen() {
 @Composable
 fun PlayScreenPreview() {
     MultiplesOfThreeTheme {
-        PlayScreen()
+        PlayScreen(
+            board = emptyList()
+        )
     }
 }
