@@ -5,20 +5,21 @@ import kotlin.random.Random
 
 class AddNumberToBoardGame {
 
-    fun addNumber(boardGame: MutableList<MutableList<Int>>, initialNumber: Boolean = false): MutableList<MutableList<Int>>  {
+    fun addNumber(boardGame: List<List<Int>>, initialNumber: Boolean = false): List<List<Int>>  {
 
         val position = getAvailablePosition(boardGame)
         val number = getNumber(initialNumber)
+        val newBoard: MutableList<MutableList<Int>> = boardGame.map { it.toMutableList() }.toMutableList()
 
         if (position != null) {
-            boardGame[position.first][position.second] = number
+            newBoard[position.first][position.second] = number
         }
 
-        return boardGame
+        return newBoard
 
     }
 
-    private fun getAvailablePosition(boardGame: MutableList<MutableList<Int>>): Pair<Int, Int>? {
+    private fun getAvailablePosition(boardGame: List<List<Int>>): Pair<Int, Int>? {
         val lineSize = boardGame.size
         val availableCells = mutableListOf<Pair<Int, Int>>()
 

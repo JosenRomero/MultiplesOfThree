@@ -9,8 +9,8 @@ class CreateBoardGame @Inject constructor(
 
     fun createBoard(size: Int): List<List<Int>> {
 
-        var emptyMatrix = MutableList(size) { //rows
-            MutableList(size) {//columns
+        var emptyMatrix = List(size) { //rows
+            List(size) {//columns
                 Constants.DEFAULT_VALUE
             }
         }
