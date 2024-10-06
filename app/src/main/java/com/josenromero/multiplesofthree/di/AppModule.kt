@@ -1,5 +1,6 @@
 package com.josenromero.multiplesofthree.di
 
+import com.josenromero.multiplesofthree.domain.AddNumberToBoardGame
 import com.josenromero.multiplesofthree.domain.CreateBoardGame
 import dagger.Module
 import dagger.Provides
@@ -13,8 +14,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCreateBoardGame(): CreateBoardGame {
-        return CreateBoardGame()
+    fun provideCreateBoardGame(addNumberToBoard: AddNumberToBoardGame): CreateBoardGame {
+        return CreateBoardGame(addNumberToBoard)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAddNumberToBoardGame(): AddNumberToBoardGame {
+        return AddNumberToBoardGame()
     }
 
 }
