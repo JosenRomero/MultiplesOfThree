@@ -23,6 +23,7 @@ fun AppNavigation() {
         composable(route = AppScreens.HomeScreen.route) {
             HomeScreen(
                 onNavigateToAScreen = { route ->
+                    gameViewModel.initGame()
                     navController.navigate(route)
                 }
             )
