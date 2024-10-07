@@ -1,6 +1,7 @@
 package com.josenromero.multiplesofthree.ui.main.views
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -8,6 +9,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.josenromero.multiplesofthree.ui.main.components.Board
@@ -23,7 +25,9 @@ fun PlayScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it)
+                .padding(it),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "PlayScreen")
             Board(board = board)
@@ -37,7 +41,7 @@ fun PlayScreen(
 fun PlayScreenPreview() {
     MultiplesOfThreeTheme {
         PlayScreen(
-            board = emptyList()
+            board = listOf(listOf(-1, -1, 3), listOf(-1, -1, -1), listOf(-1, -1, -1))
         )
     }
 }
