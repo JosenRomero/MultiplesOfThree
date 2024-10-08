@@ -19,7 +19,8 @@ import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayScreen(
-    board: List<List<Int>>
+    board: List<List<Int>>,
+    onClick: (position: Pair<Int, Int>) -> Unit
 ) {
 
     Scaffold(
@@ -33,7 +34,7 @@ fun PlayScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "PlayScreen")
-            Board(board = board)
+            Board(board = board, onClick = onClick)
         }
     }
 
@@ -44,7 +45,8 @@ fun PlayScreen(
 fun PlayScreenPreview() {
     MultiplesOfThreeTheme {
         PlayScreen(
-            board = listOf(listOf(-1, -1, 3), listOf(-1, -1, -1), listOf(-1, -1, -1))
+            board = listOf(listOf(-1, -1, 3), listOf(-1, -1, -1), listOf(-1, -1, -1)),
+            onClick = {}
         )
     }
 }

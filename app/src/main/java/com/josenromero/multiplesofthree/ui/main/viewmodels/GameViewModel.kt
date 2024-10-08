@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.josenromero.multiplesofthree.data.GameState
 import com.josenromero.multiplesofthree.domain.AddNumberToBoardGame
 import com.josenromero.multiplesofthree.domain.CreateBoardGame
+import com.josenromero.multiplesofthree.domain.RemoveNumberToBoardGame
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class GameViewModel @Inject constructor(
     private val boardGame: CreateBoardGame,
-    private val addNumberToBoardGame: AddNumberToBoardGame
+    private val addNumberToBoardGame: AddNumberToBoardGame,
+    private val removeNumberToBoardGame: RemoveNumberToBoardGame
 ): ViewModel() {
 
     private val _gameState = MutableStateFlow(GameState())
@@ -49,6 +51,15 @@ class GameViewModel @Inject constructor(
         _gameState.update {
             it.copy(
                 board = addNumberToBoardGame.addNumber(_gameState.value.board),
+                isGameOver = false
+            )
+        }
+    }
+
+    fun removeNumber(position: Pair<Int, Int>) {
+        _gameState.update {
+            it.copy(
+                board = removeNumberToBoardGame.removeNumber(_gameState.value.board, position),
                 isGameOver = false
             )
         }
