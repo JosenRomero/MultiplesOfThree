@@ -6,5 +6,6 @@ object Constants {
     const val FIRST_NUMBER = 3
     const val START_NUMBER = 1
     const val END_NUMBER = 100
+    const val PLAYER_TABLE = "player_table"
 
 }
