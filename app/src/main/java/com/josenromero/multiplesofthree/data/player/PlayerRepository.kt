@@ -6,7 +6,7 @@ class PlayerRepository @Inject constructor(
     private val playerDao: PlayerDao
 ) {
 
-    fun getPlayer(): PlayerEntity {
+    fun getPlayer(): PlayerEntity? {
         return playerDao.getPlayer()
     }
 

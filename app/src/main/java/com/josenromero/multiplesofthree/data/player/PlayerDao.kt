@@ -12,7 +12,7 @@ import com.josenromero.multiplesofthree.utils.Constants
 interface PlayerDao {
 
     @Query("SELECT * FROM ${Constants.PLAYER_TABLE}")
-    fun getPlayer(): PlayerEntity
+    fun getPlayer(): PlayerEntity?
 
     @Insert
     fun addPlayer(player: PlayerEntity)

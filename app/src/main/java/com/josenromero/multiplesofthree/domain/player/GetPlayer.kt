@@ -8,7 +8,7 @@ class GetPlayer @Inject constructor(
     private val playerRepository: PlayerRepository
 ) {
 
-    suspend operator fun invoke(): PlayerEntity {
+    suspend operator fun invoke(): PlayerEntity? {
         return playerRepository.getPlayer()
     }
 
