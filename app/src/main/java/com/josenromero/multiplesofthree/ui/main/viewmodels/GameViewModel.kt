@@ -67,13 +67,21 @@ class GameViewModel @Inject constructor(
         }
     }
 
-    private fun startNewGame() {
+    private fun gameStateUpdate(board: List<List<Int>>, score: Int? = null, hearts: Int? = null, isGameOver: Boolean? = null) {
         _gameState.update {
             it.copy(
-                board = boardGame.createBoard(size = 3),
-                isGameOver = false
+                board = board,
+                score = score ?: _gameState.value.score,
+                hearts = hearts ?: _gameState.value.hearts,
+                isGameOver = isGameOver ?: _gameState.value.isGameOver
             )
         }
+    }
+
+    private fun startNewGame() {
+        gameStateUpdate(
+            board = boardGame.createBoard(size = 3)
+        )
     }
 
     private fun startTimer() {
@@ -86,21 +94,15 @@ class GameViewModel @Inject constructor(
     }
 
     private fun addNumber() {
-        _gameState.update {
-            it.copy(
-                board = addNumberToBoardGame.addNumber(_gameState.value.board),
-                isGameOver = false
-            )
-        }
+        gameStateUpdate(
+            board = addNumberToBoardGame.addNumber(_gameState.value.board)
+        )
     }
 
     fun removeNumber(position: Pair<Int, Int>) {
-        _gameState.update {
-            it.copy(
-                board = removeNumberToBoardGame.removeNumber(_gameState.value.board, position),
-                isGameOver = false
-            )
-        }
+        gameStateUpdate(
+            board = removeNumberToBoardGame.removeNumber(_gameState.value.board, position)
+        )
     }
 
 }
