@@ -9,6 +9,7 @@ import com.josenromero.multiplesofthree.domain.CreateBoardGame
 import com.josenromero.multiplesofthree.domain.RemoveNumberToBoardGame
 import com.josenromero.multiplesofthree.domain.player.AddPlayer
 import com.josenromero.multiplesofthree.domain.player.GetPlayer
+import com.josenromero.multiplesofthree.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -67,13 +68,13 @@ class GameViewModel @Inject constructor(
         }
     }
 
-    private fun gameStateUpdate(board: List<List<Int>>, score: Int? = null, hearts: Int? = null, isGameOver: Boolean? = null) {
+    private fun gameStateUpdate(board: List<List<Int>>, score: Int? = null, hearts: Int? = null) {
         _gameState.update {
             it.copy(
                 board = board,
                 score = score ?: _gameState.value.score,
                 hearts = hearts ?: _gameState.value.hearts,
-                isGameOver = isGameOver ?: _gameState.value.isGameOver
+                isGameOver = hearts == 0
             )
         }
     }
@@ -100,8 +101,13 @@ class GameViewModel @Inject constructor(
     }
 
     fun removeNumber(position: Pair<Int, Int>) {
+
+        val isMultiple: Boolean = _gameState.value.board[position.first][position.second] % Constants.FIRST_NUMBER == 0
+
         gameStateUpdate(
-            board = removeNumberToBoardGame.removeNumber(_gameState.value.board, position)
+            board = removeNumberToBoardGame.removeNumber(_gameState.value.board, position),
+            score = if (isMultiple) _gameState.value.score + 1 else null,
+            hearts = if (!isMultiple) _gameState.value.hearts - 1 else null
         )
     }
 

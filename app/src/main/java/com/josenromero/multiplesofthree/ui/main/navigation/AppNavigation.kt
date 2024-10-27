@@ -30,7 +30,7 @@ fun AppNavigation() {
         }
         composable(route = AppScreens.PlayScreen.route) {
             PlayScreen(
-                board = gameState.board,
+                gameState = gameState,
                 onClick = { position ->
                     gameViewModel.removeNumber(position)
                 }
