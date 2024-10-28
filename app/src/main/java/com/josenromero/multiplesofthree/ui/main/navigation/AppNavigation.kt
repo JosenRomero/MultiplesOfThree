@@ -18,6 +18,7 @@ fun AppNavigation() {
 
     val gameViewModel: GameViewModel = viewModel()
     val gameState by gameViewModel.gameState.collectAsState()
+    val player by gameViewModel.player.collectAsState()
 
     NavHost(navController = navController, startDestination = AppScreens.HomeScreen.route) {
         composable(route = AppScreens.HomeScreen.route) {
@@ -31,8 +32,12 @@ fun AppNavigation() {
         composable(route = AppScreens.PlayScreen.route) {
             PlayScreen(
                 gameState = gameState,
+                player = player,
                 onClick = { position ->
                     gameViewModel.removeNumber(position)
+                },
+                onNavigateToAScreen = { route ->
+                    navController.navigate(route)
                 }
             )
         }

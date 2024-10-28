@@ -69,13 +69,15 @@ class GameViewModel @Inject constructor(
     }
 
     private fun gameStateUpdate(board: List<List<Int>>, score: Int? = null, hearts: Int? = null) {
-        _gameState.update {
-            it.copy(
-                board = board,
-                score = score ?: _gameState.value.score,
-                hearts = hearts ?: _gameState.value.hearts,
-                isGameOver = hearts == 0
-            )
+        if (!_gameState.value.isGameOver) {
+            _gameState.update {
+                it.copy(
+                    board = board,
+                    score = score ?: _gameState.value.score,
+                    hearts = hearts ?: _gameState.value.hearts,
+                    isGameOver = hearts == 0
+                )
+            }
         }
     }
 
