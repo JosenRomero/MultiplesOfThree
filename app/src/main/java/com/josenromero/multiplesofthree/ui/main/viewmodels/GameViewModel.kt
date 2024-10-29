@@ -40,6 +40,7 @@ class GameViewModel @Inject constructor(
     }
 
     fun initGame() {
+        _gameState.value.isGameOver = false
         startNewGame()
         startTimer()
     }
@@ -83,7 +84,9 @@ class GameViewModel @Inject constructor(
 
     private fun startNewGame() {
         gameStateUpdate(
-            board = boardGame.createBoard(size = 3)
+            board = boardGame.createBoard(size = 3),
+            score = 0,
+            hearts = 3
         )
     }
 

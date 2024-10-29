@@ -37,6 +37,9 @@ fun AppNavigation() {
                     gameViewModel.removeNumber(position)
                 },
                 onNavigateToAScreen = { route ->
+                    if (route == AppScreens.PlayScreen.route) {
+                        gameViewModel.initGame()
+                    }
                     navController.navigate(route)
                 }
             )
