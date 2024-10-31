@@ -9,17 +9,24 @@ class CreateBoardGame @Inject constructor(
 
     fun createBoard(size: Int): List<List<Int>> {
 
-        var emptyMatrix = List(size) { //rows
-            List(size) {//columns
-                Constants.DEFAULT_VALUE
-            }
-        }
+        var emptyMatrix = getEmptyMatrix(size)
 
         // Adds the first number
         emptyMatrix = addNumberToBoard.addNumber(emptyMatrix, true)
 
         return emptyMatrix
 
+    }
+
+    fun getEmptyMatrix(size: Int): List<List<Int>> {
+
+        val emptyMatrix = List(size) { //rows
+            List(size) {//columns
+                Constants.DEFAULT_VALUE
+            }
+        }
+
+        return emptyMatrix
     }
 
 }
