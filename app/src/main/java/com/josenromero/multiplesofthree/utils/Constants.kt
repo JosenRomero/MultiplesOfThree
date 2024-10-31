@@ -7,6 +7,7 @@ object Constants {
     const val START_NUMBER = 1
     const val END_NUMBER = 100
     const val AVAILABLE_CELLS = 4
+    const val BOARD_SIZE = 3
     const val PLAYER_TABLE = "player_table"
     const val PLAYER_DATABASE = "player_database"
 

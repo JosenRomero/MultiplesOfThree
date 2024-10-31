@@ -84,7 +84,7 @@ class GameViewModel @Inject constructor(
 
     private fun startNewGame() {
         gameStateUpdate(
-            board = boardGame.createBoard(size = 3),
+            board = boardGame.createBoard(size = Constants.BOARD_SIZE),
             score = 0,
             hearts = 3
         )
@@ -93,8 +93,9 @@ class GameViewModel @Inject constructor(
     private fun startTimer() {
         viewModelScope.launch {
             while (!_gameState.value.isGameOver) {
+                val isFewCellsAvailable = addNumberToBoardGame.fewCellsAvailable(_gameState.value.board)
                 delay(3000)
-                addNumber()
+                if (isFewCellsAvailable) cleanBoard() else addNumber()
             }
         }
     }
@@ -113,6 +114,12 @@ class GameViewModel @Inject constructor(
             board = removeNumberToBoardGame.removeNumber(_gameState.value.board, position),
             score = if (isMultiple) _gameState.value.score + 1 else null,
             hearts = if (!isMultiple) _gameState.value.hearts - 1 else null
+        )
+    }
+
+    private fun cleanBoard() {
+        gameStateUpdate(
+            board = boardGame.getEmptyMatrix(size = Constants.BOARD_SIZE)
         )
     }
 
