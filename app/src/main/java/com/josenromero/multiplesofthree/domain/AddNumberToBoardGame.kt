@@ -19,7 +19,8 @@ class AddNumberToBoardGame {
 
     }
 
-    private fun getAvailablePosition(boardGame: List<List<Int>>): Pair<Int, Int>? {
+    private fun getAvailableCells(boardGame: List<List<Int>>): List<Pair<Int, Int>> {
+
         val lineSize = boardGame.size
         val availableCells = mutableListOf<Pair<Int, Int>>()
 
@@ -31,6 +32,23 @@ class AddNumberToBoardGame {
                 }
             }
         }
+
+        return availableCells
+
+    }
+
+    fun fewCellsAvailable(boardGame: List<List<Int>>): Boolean {
+        val availableCells = getAvailableCells(boardGame)
+
+        if (availableCells.size <= Constants.AVAILABLE_CELLS) {
+            return true
+        }
+
+        return false
+    }
+
+    private fun getAvailablePosition(boardGame: List<List<Int>>): Pair<Int, Int>? {
+        val availableCells = getAvailableCells(boardGame)
 
         if (availableCells.isEmpty()) {
             return null
