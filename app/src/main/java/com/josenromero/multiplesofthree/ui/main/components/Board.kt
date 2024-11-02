@@ -63,7 +63,7 @@ fun TableCell(
             .width(100.dp)
             .height(100.dp)
             .background(
-                color = if (emptyCell) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSecondary,
+                color = if (emptyCell) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary,
                 shape = RoundedCornerShape(25.dp)
             )
             .border(
@@ -76,6 +76,7 @@ fun TableCell(
     ) {
         Text(
             text = if (emptyCell) "" else item.toString(),
+            color = MaterialTheme.colorScheme.onSecondary,
             fontSize = 33.sp
         )
     }
