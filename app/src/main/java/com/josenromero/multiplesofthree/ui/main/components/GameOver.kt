@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -62,7 +63,10 @@ fun GameOverContent(
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Game Over!")
+            Text(
+                text = "Game Over!",
+                color = MaterialTheme.colorScheme.onPrimary
+            )
         }
         Column(
             modifier = Modifier
@@ -96,7 +100,7 @@ fun GameOverContent(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Button(onClick = { onNavigateToAScreen(AppScreens.HomeScreen.route) }) {
+                OutlinedButton(onClick = { onNavigateToAScreen(AppScreens.HomeScreen.route) }) {
                     Text(text = "Menu")
                 }
                 Button(onClick = { onNavigateToAScreen(AppScreens.PlayScreen.route) }) {
