@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +32,7 @@ fun Board(
 
     LazyColumn(
         modifier = Modifier
-            .background(MaterialTheme.colorScheme.secondary),
+            .background(color = MaterialTheme.colorScheme.background),
         contentPadding = PaddingValues(5.dp)
     ) {
         itemsIndexed(items = board) {i, rowItems ->
@@ -62,17 +63,20 @@ fun TableCell(
             .width(100.dp)
             .height(100.dp)
             .background(
-                color = if (emptyCell) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSecondary
+                color = if (emptyCell) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSecondary,
+                shape = RoundedCornerShape(25.dp)
             )
-            .border(5.dp, MaterialTheme.colorScheme.secondary)
+            .border(
+                width = 5.dp,
+                color = MaterialTheme.colorScheme.background
+            )
             .padding(16.dp)
             .clickable { onClick(position) },
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = if (emptyCell) "" else item.toString(),
-            color = MaterialTheme.colorScheme.onTertiary,
-            fontSize = 16.sp
+            fontSize = 33.sp
         )
     }
 
