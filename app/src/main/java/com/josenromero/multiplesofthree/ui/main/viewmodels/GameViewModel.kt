@@ -108,13 +108,18 @@ class GameViewModel @Inject constructor(
 
     fun removeNumber(position: Pair<Int, Int>) {
 
-        val isMultiple: Boolean = _gameState.value.board[position.first][position.second] % Constants.FIRST_NUMBER == 0
+        val currentNumber = _gameState.value.board[position.first][position.second]
 
-        gameStateUpdate(
-            board = removeNumberToBoardGame.removeNumber(_gameState.value.board, position),
-            score = if (isMultiple) _gameState.value.score + 1 else null,
-            hearts = if (!isMultiple) _gameState.value.hearts - 1 else null
-        )
+        if (currentNumber != Constants.DEFAULT_VALUE) {
+
+            val isMultiple: Boolean = currentNumber % Constants.FIRST_NUMBER == 0
+
+            gameStateUpdate(
+                board = removeNumberToBoardGame.removeNumber(_gameState.value.board, position),
+                score = if (isMultiple) _gameState.value.score + 1 else null,
+                hearts = if (!isMultiple) _gameState.value.hearts - 1 else null
+            )
+        }
     }
 
     private fun cleanBoard() {
