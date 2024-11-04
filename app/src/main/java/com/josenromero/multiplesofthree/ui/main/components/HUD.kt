@@ -5,7 +5,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.MaterialTheme
@@ -24,18 +23,17 @@ import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 
 @Composable
 fun HUD(
-    score: Int,
+    bestScore: Int,
     hearts: Int
 ) {
 
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 40.dp),
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "Score: $score",
+            text = "Best Score: $bestScore",
             color = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier.weight(1f),
             fontSize = 20.sp,
@@ -63,7 +61,7 @@ fun HUD(
 fun HUDPreview() {
     MultiplesOfThreeTheme {
         HUD(
-            score = 100,
+            bestScore = 100,
             hearts = 3
         )
     }

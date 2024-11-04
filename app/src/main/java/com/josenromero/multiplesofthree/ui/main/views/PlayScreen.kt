@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.data.GameState
 import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.ui.main.components.Board
@@ -43,7 +45,13 @@ fun PlayScreen(
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                HUD(score = gameState.score, hearts = gameState.hearts)
+                HUD(bestScore = player.bestScore, hearts = gameState.hearts)
+                Text(
+                    text = "Find and tap all multiples of 3",
+                    modifier = Modifier.padding(vertical = 40.dp),
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontSize = 14.sp
+                )
                 Board(board = gameState.board, onClick = onClick)
                 if (gameState.isGameOver) {
                     GameOver(
