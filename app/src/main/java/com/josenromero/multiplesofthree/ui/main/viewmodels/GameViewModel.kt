@@ -9,6 +9,7 @@ import com.josenromero.multiplesofthree.domain.CreateBoardGame
 import com.josenromero.multiplesofthree.domain.RemoveNumberToBoardGame
 import com.josenromero.multiplesofthree.domain.player.AddPlayer
 import com.josenromero.multiplesofthree.domain.player.GetPlayer
+import com.josenromero.multiplesofthree.domain.player.UpdatePlayer
 import com.josenromero.multiplesofthree.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +27,8 @@ class GameViewModel @Inject constructor(
     private val addNumberToBoardGame: AddNumberToBoardGame,
     private val removeNumberToBoardGame: RemoveNumberToBoardGame,
     private val getPlayer: GetPlayer,
-    private val addPlayer: AddPlayer
+    private val addPlayer: AddPlayer,
+    private val updatePlayer: UpdatePlayer
 ): ViewModel() {
 
     private val _gameState = MutableStateFlow(GameState())
@@ -66,6 +68,19 @@ class GameViewModel @Inject constructor(
             withContext(Dispatchers.Main) {
                 checkPlayer()
             }
+        }
+    }
+
+    fun updatingPlayer(bestScore: Int?, achievements: List<String>?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            updatePlayer(
+                PlayerEntity(
+                    uid = _player.value.uid,
+                    bestScore = bestScore ?: _player.value.bestScore,
+                    achievements = achievements ?: _player.value.achievements
+                )
+            )
+            checkPlayer()
         }
     }
 

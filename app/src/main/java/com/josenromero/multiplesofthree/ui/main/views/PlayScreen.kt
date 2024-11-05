@@ -29,6 +29,7 @@ import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 fun PlayScreen(
     gameState:  GameState,
     player: PlayerEntity,
+    updatePlayer: (bestScore: Int?, achievements: List<String>?) -> Unit,
     onClick: (position: Pair<Int, Int>) -> Unit,
     onNavigateToAScreen: (route: String) -> Unit
 ) {
@@ -64,6 +65,11 @@ fun PlayScreen(
                 )
                 Board(board = gameState.board, onClick = onClick)
                 if (gameState.isGameOver) {
+
+                    if (gameState.score > player.bestScore) {
+                        updatePlayer(gameState.score, null)
+                    }
+
                     GameOver(
                         score = gameState.score,
                         bestScore = player.bestScore,
@@ -83,6 +89,7 @@ fun PlayScreenPreview() {
         PlayScreen(
             gameState = GameState(board = listOf(listOf(-1, -1, 3), listOf(-1, -1, -1), listOf(-1, -1, -1))),
             player = PlayerEntity(bestScore = 0, achievements = emptyList()),
+            updatePlayer = { _, _ ->},
             onClick = {},
             onNavigateToAScreen = {}
         )

@@ -33,6 +33,9 @@ fun AppNavigation() {
             PlayScreen(
                 gameState = gameState,
                 player = player,
+                updatePlayer = { bestScore, achievements ->
+                    gameViewModel.updatingPlayer(bestScore, achievements)
+                },
                 onClick = { position ->
                     gameViewModel.removeNumber(position)
                 },
