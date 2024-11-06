@@ -83,6 +83,8 @@ dependencies {
     kapt("androidx.room:room-compiler:$roomVersion")
 
     implementation("com.google.code.gson:gson:2.9.0")
+
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }
 
 kapt {

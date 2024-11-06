@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.MultiplesOfThree" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.MultiplesOfThree" parent="Theme.SplashScreen">
+        <item name="android:statusBarColor">#FF121212</item>
+        <item name="windowSplashScreenBackground">#FF121212</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/heart</item>
+    </style>
+
 </resources>
