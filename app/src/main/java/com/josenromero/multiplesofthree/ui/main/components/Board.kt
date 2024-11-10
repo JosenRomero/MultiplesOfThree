@@ -1,6 +1,8 @@
 package com.josenromero.multiplesofthree.ui.main.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -16,13 +18,23 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 import com.josenromero.multiplesofthree.utils.Constants
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun Board(
@@ -30,19 +42,21 @@ fun Board(
     onClick: (position: Pair<Int, Int>) -> Unit
 ) {
 
-    LazyColumn(
-        modifier = Modifier
-            .background(color = MaterialTheme.colorScheme.background),
-        contentPadding = PaddingValues(5.dp)
-    ) {
-        itemsIndexed(items = board) {i, rowItems ->
-            LazyRow {
-                itemsIndexed(rowItems) { j, item ->
-                    TableCell(
-                        item = item,
-                        position = Pair(i, j),
-                        onClick = onClick
-                    )
+    AnimatedFadeIn {
+        LazyColumn(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.background),
+            contentPadding = PaddingValues(5.dp)
+        ) {
+            itemsIndexed(items = board) {i, rowItems ->
+                LazyRow {
+                    itemsIndexed(rowItems) { j, item ->
+                        TableCell(
+                            item = item,
+                            position = Pair(i, j),
+                            onClick = onClick
+                        )
+                    }
                 }
             }
         }
@@ -57,6 +71,17 @@ fun TableCell(
 ) {
 
     val emptyCell = item == Constants.DEFAULT_VALUE
+    var isAnimated by remember { mutableStateOf(false) }
+    val rotationAngle by animateFloatAsState(
+        targetValue = if (isAnimated) 70F else 0F,
+        animationSpec = tween(500),
+        label = "rotate animation"
+    )
+    val alpha by animateFloatAsState(
+        targetValue = if (isAnimated) 0f else 1f,
+        animationSpec = tween(500),
+        label = "alpha animation"
+    )
 
     Box(
         modifier = Modifier
@@ -71,14 +96,27 @@ fun TableCell(
                 color = MaterialTheme.colorScheme.background
             )
             .padding(16.dp)
-            .clickable { onClick(position) },
+            .rotate(rotationAngle)
+            .alpha(alpha)
+            .clickable {
+                CoroutineScope(Dispatchers.Default).launch {
+                    isAnimated = true
+                    delay(700)
+                    onClick(position)
+                    isAnimated = false
+                }
+            },
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = if (emptyCell) "" else item.toString(),
-            color = MaterialTheme.colorScheme.onSecondary,
-            fontSize = 33.sp
-        )
+        if (!emptyCell) {
+            AnimatedFadeAndExpandVertically {
+                Text(
+                    text = item.toString(),
+                    color = MaterialTheme.colorScheme.onSecondary,
+                    fontSize = 33.sp
+                )
+            }
+        }
     }
 
 }
