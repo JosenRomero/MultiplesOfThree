@@ -27,29 +27,33 @@ fun HUD(
     hearts: Int
 ) {
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+    AnimatedFadeAndExpandHorizontally(
+        delayTime = 1000
     ) {
-        Text(
-            text = "Best Score: $bestScore",
-            color = MaterialTheme.colorScheme.onPrimary,
-            modifier = Modifier.weight(1f),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Start
-        )
-        LazyRow(
-            modifier = Modifier.weight(1f),
-            horizontalArrangement = Arrangement.End
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            items(hearts) {
-                Image(
-                    painter = painterResource(id = R.drawable.heart),
-                    contentDescription = "heart icon",
-                    modifier = Modifier.size(44.dp)
-                )
+            Text(
+                text = "Best Score: $bestScore",
+                color = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.weight(1f),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Start
+            )
+            LazyRow(
+                modifier = Modifier.weight(1f),
+                horizontalArrangement = Arrangement.End
+            ) {
+                items(hearts) {
+                    Image(
+                        painter = painterResource(id = R.drawable.heart),
+                        contentDescription = "heart icon",
+                        modifier = Modifier.size(44.dp)
+                    )
+                }
             }
         }
     }
