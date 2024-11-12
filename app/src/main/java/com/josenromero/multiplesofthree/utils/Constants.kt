@@ -8,6 +8,7 @@ object Constants {
     const val END_NUMBER = 100
     const val AVAILABLE_CELLS = 4
     const val BOARD_SIZE = 3
+    const val NUMBER_OF_HEARTS = 3
     const val PLAYER_TABLE = "player_table"
     const val PLAYER_DATABASE = "player_database"
 
