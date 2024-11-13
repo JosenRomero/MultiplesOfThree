@@ -13,6 +13,7 @@ import com.josenromero.multiplesofthree.domain.player.UpdatePlayer
 import com.josenromero.multiplesofthree.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -36,6 +37,8 @@ class GameViewModel @Inject constructor(
 
     private val _player: MutableStateFlow<PlayerEntity> = MutableStateFlow(PlayerEntity(bestScore = 0, achievements = arrayListOf()))
     val player = _player.asStateFlow()
+
+    private var timerJob: Job? = null
 
     init {
         checkPlayer()
@@ -101,18 +104,22 @@ class GameViewModel @Inject constructor(
         gameStateUpdate(
             board = boardGame.createBoard(size = Constants.BOARD_SIZE),
             score = 0,
-            hearts = 3
+            hearts = Constants.NUMBER_OF_HEARTS
         )
     }
 
     private fun startTimer() {
-        viewModelScope.launch {
+
+        timerJob?.cancel()
+
+        timerJob = viewModelScope.launch {
             while (!_gameState.value.isGameOver) {
                 val isFewCellsAvailable = addNumberToBoardGame.fewCellsAvailable(_gameState.value.board)
                 delay(3000)
                 if (isFewCellsAvailable) cleanBoard() else addNumber()
             }
         }
+
     }
 
     private fun addNumber() {
@@ -141,6 +148,11 @@ class GameViewModel @Inject constructor(
         gameStateUpdate(
             board = boardGame.getEmptyMatrix(size = Constants.BOARD_SIZE)
         )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        timerJob?.cancel()
     }
 
 }
