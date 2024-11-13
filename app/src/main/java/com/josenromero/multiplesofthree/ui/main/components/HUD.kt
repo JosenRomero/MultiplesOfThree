@@ -38,9 +38,7 @@ fun HUD(
     hearts: Int
 ) {
 
-    AnimatedFadeAndExpandHorizontally(
-        delayTime = 1000
-    ) {
+    AnimatedFadeAndExpandHorizontally {
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
