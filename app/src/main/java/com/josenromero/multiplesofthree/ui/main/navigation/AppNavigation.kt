@@ -7,8 +7,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.ui.main.viewmodels.AudioViewModel
+import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
 import com.josenromero.multiplesofthree.ui.main.viewmodels.GameViewModel
 import com.josenromero.multiplesofthree.ui.main.views.HomeScreen
 import com.josenromero.multiplesofthree.ui.main.views.PlayScreen
@@ -27,7 +27,7 @@ fun AppNavigation() {
         composable(route = AppScreens.HomeScreen.route) {
             HomeScreen(
                 onNavigateToAScreen = { route ->
-                    audioViewModel.play(R.raw.tap)
+                    audioViewModel.play(Audios.AudioTap.name)
                     gameViewModel.initGame()
                     navController.navigate(route)
                 }
@@ -41,11 +41,11 @@ fun AppNavigation() {
                     gameViewModel.updatingPlayer(bestScore, achievements)
                 },
                 onClick = { position ->
-                    audioViewModel.play(R.raw.tap)
+                    audioViewModel.play(Audios.AudioTap.name)
                     gameViewModel.removeNumber(position)
                 },
                 onNavigateToAScreen = { route ->
-                    audioViewModel.play(R.raw.tap)
+                    audioViewModel.play(Audios.AudioTap.name)
                     if (route == AppScreens.PlayScreen.route) {
                         gameViewModel.initGame()
                     }

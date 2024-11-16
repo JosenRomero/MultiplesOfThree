@@ -9,9 +9,8 @@ class Audio @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
 
-    fun play(resId: Int) {
-        val mPlayer = MediaPlayer.create(context, resId)
-        mPlayer.start()
+    fun loadAudio(resId: Int): MediaPlayer {
+        return MediaPlayer.create(context, resId)
     }
 
 }
