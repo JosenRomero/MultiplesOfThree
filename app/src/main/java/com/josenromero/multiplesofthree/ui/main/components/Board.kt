@@ -6,10 +6,12 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -73,7 +75,7 @@ fun TableCell(
     val emptyCell = item == Constants.DEFAULT_VALUE
     var isAnimated by remember { mutableStateOf(false) }
     val rotationAngle by animateFloatAsState(
-        targetValue = if (isAnimated) 70F else 0F,
+        targetValue = if (isAnimated) 100F else 0F,
         animationSpec = tween(500),
         label = "rotate animation"
     )
@@ -88,33 +90,43 @@ fun TableCell(
             .width(100.dp)
             .height(100.dp)
             .background(
-                color = if (emptyCell) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary,
+                color = MaterialTheme.colorScheme.secondary,
                 shape = RoundedCornerShape(25.dp)
             )
             .border(
                 width = 5.dp,
                 color = MaterialTheme.colorScheme.background
-            )
-            .padding(16.dp)
-            .rotate(rotationAngle)
-            .alpha(alpha)
-            .clickable {
-                CoroutineScope(Dispatchers.Default).launch {
-                    isAnimated = true
-                    delay(700)
-                    onClick(position)
-                    isAnimated = false
-                }
-            },
+            ),
         contentAlignment = Alignment.Center
     ) {
         if (!emptyCell) {
             AnimatedFadeAndExpandVertically {
-                Text(
-                    text = item.toString(),
-                    color = MaterialTheme.colorScheme.onSecondary,
-                    fontSize = 33.sp
-                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            color = MaterialTheme.colorScheme.tertiary,
+                            shape = RoundedCornerShape(25.dp)
+                        )
+                        .rotate(rotationAngle)
+                        .alpha(alpha)
+                        .clickable {
+                            CoroutineScope(Dispatchers.Default).launch {
+                                isAnimated = true
+                                delay(700)
+                                onClick(position)
+                                isAnimated = false
+                            }
+                        },
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = item.toString(),
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        fontSize = 33.sp
+                    )
+                }
             }
         }
     }
