@@ -41,7 +41,6 @@ fun AppNavigation() {
                     gameViewModel.updatingPlayer(bestScore, achievements)
                 },
                 onClick = { position ->
-                    audioViewModel.play(Audios.AudioTap.name)
                     gameViewModel.removeNumber(position)
                 },
                 onNavigateToAScreen = { route ->
@@ -50,6 +49,9 @@ fun AppNavigation() {
                         gameViewModel.initGame()
                     }
                     navController.navigate(route)
+                },
+                audioPlay = { name ->
+                    audioViewModel.play(name)
                 }
             )
         }

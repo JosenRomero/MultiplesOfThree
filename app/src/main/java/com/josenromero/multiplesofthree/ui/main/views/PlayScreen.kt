@@ -31,7 +31,8 @@ fun PlayScreen(
     player: PlayerEntity,
     updatePlayer: (bestScore: Int?, achievements: List<String>?) -> Unit,
     onClick: (position: Pair<Int, Int>) -> Unit,
-    onNavigateToAScreen: (route: String) -> Unit
+    onNavigateToAScreen: (route: String) -> Unit,
+    audioPlay: (name: String) -> Unit,
 ) {
 
     Scaffold(
@@ -63,7 +64,11 @@ fun PlayScreen(
                     color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 14.sp
                 )
-                Board(board = gameState.board, onClick = onClick)
+                Board(
+                    board = gameState.board,
+                    onClick = onClick,
+                    audioPlay = audioPlay
+                )
                 if (gameState.isGameOver) {
 
                     if (gameState.score > player.bestScore) {
@@ -91,7 +96,8 @@ fun PlayScreenPreview() {
             player = PlayerEntity(bestScore = 0, achievements = emptyList()),
             updatePlayer = { _, _ ->},
             onClick = {},
-            onNavigateToAScreen = {}
+            onNavigateToAScreen = {},
+            audioPlay = {}
         )
     }
 }

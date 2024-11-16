@@ -31,6 +31,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 import com.josenromero.multiplesofthree.utils.Constants
 import kotlinx.coroutines.CoroutineScope
@@ -41,7 +42,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun Board(
     board: List<List<Int>>,
-    onClick: (position: Pair<Int, Int>) -> Unit
+    onClick: (position: Pair<Int, Int>) -> Unit,
+    audioPlay: (name: String) -> Unit
 ) {
 
     AnimatedFadeIn {
@@ -56,7 +58,8 @@ fun Board(
                         TableCell(
                             item = item,
                             position = Pair(i, j),
-                            onClick = onClick
+                            onClick = onClick,
+                            audioPlay = audioPlay
                         )
                     }
                 }
@@ -69,7 +72,8 @@ fun Board(
 fun TableCell(
     item: Int,
     position: Pair<Int, Int>,
-    onClick: (position: Pair<Int, Int>) -> Unit
+    onClick: (position: Pair<Int, Int>) -> Unit,
+    audioPlay: (name: String) -> Unit
 ) {
 
     val emptyCell = item == Constants.DEFAULT_VALUE
@@ -112,6 +116,7 @@ fun TableCell(
                         .alpha(alpha)
                         .clickable {
                             CoroutineScope(Dispatchers.Default).launch {
+                                audioPlay(Audios.AudioTap.name)
                                 isAnimated = true
                                 delay(700)
                                 onClick(position)
@@ -139,7 +144,8 @@ fun BoardPreview() {
     MultiplesOfThreeTheme {
         Board(
             board = listOf(listOf(-1, -1, 3), listOf(-1, -1, -1), listOf(-1, -1, -1)),
-            onClick = {}
+            onClick = {},
+            audioPlay = {}
         )
     }
 }
