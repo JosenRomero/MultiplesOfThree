@@ -14,6 +14,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -30,13 +34,18 @@ fun GameOver(
     bestScore: Int,
     onNavigateToAScreen: (route: String) -> Unit
 ) {
-    
-    AnimatedTransitionDialog(onDismissRequest = { }) {
-        GameOverContent(
-            score = score,
-            bestScore = bestScore,
-            onNavigateToAScreen = onNavigateToAScreen
-        )
+
+    var isShowContent by remember { mutableStateOf(true) }
+
+    if (isShowContent) {
+        AnimatedTransitionDialog(onDismissRequest = { }) {
+            GameOverContent(
+                score = score,
+                bestScore = bestScore,
+                closeContent = { isShowContent = false },
+                onNavigateToAScreen = onNavigateToAScreen
+            )
+        }
     }
 
 }
@@ -45,6 +54,7 @@ fun GameOver(
 fun GameOverContent(
     score: Int,
     bestScore: Int,
+    closeContent: () -> Unit,
     onNavigateToAScreen: (route: String) -> Unit
 ) {
 
@@ -100,10 +110,16 @@ fun GameOverContent(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                OutlinedButton(onClick = { onNavigateToAScreen(AppScreens.HomeScreen.route) }) {
+                OutlinedButton(onClick = {
+                    onNavigateToAScreen(AppScreens.HomeScreen.route)
+                    closeContent()
+                }) {
                     Text(text = "Menu")
                 }
-                Button(onClick = { onNavigateToAScreen(AppScreens.PlayScreen.route) }) {
+                Button(onClick = {
+                    onNavigateToAScreen(AppScreens.PlayScreen.route)
+                    closeContent()
+                }) {
                     Text(text = "Try Again")
                 }
             }
@@ -119,6 +135,7 @@ fun GameOverPreview() {
         GameOverContent(
             score = 301,
             bestScore = 300,
+            closeContent = {},
             onNavigateToAScreen = {}
         )
     }
