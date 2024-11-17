@@ -1,5 +1,7 @@
 package com.josenromero.multiplesofthree.ui.main.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,7 +26,29 @@ fun AppNavigation() {
     val player by gameViewModel.player.collectAsState()
 
     NavHost(navController = navController, startDestination = AppScreens.HomeScreen.route) {
-        composable(route = AppScreens.HomeScreen.route) {
+        composable(
+            route = AppScreens.HomeScreen.route,
+            enterTransition = {
+                when (initialState.destination.route) {
+                    AppScreens.PlayScreen.route ->
+                        slideIntoContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(700)
+                        )
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when (targetState.destination.route) {
+                    AppScreens.PlayScreen.route ->
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(700)
+                        )
+                    else -> null
+                }
+            }
+        ) {
             HomeScreen(
                 onNavigateToAScreen = { route ->
                     audioViewModel.play(Audios.AudioTap.name)
@@ -33,7 +57,30 @@ fun AppNavigation() {
                 }
             )
         }
-        composable(route = AppScreens.PlayScreen.route) {
+        composable(
+            route = AppScreens.PlayScreen.route,
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = tween(700)
+                )
+            },
+            exitTransition = {
+                when (targetState.destination.route) {
+                    AppScreens.PlayScreen.route ->
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(700)
+                        )
+                    AppScreens.HomeScreen.route ->
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(700)
+                        )
+                    else -> null
+                }
+            }
+        ) {
             PlayScreen(
                 gameState = gameState,
                 player = player,

@@ -26,7 +26,9 @@ fun HomeScreen(
     onNavigateToAScreen: (route: String) -> Unit
 ) {
 
-    Scaffold {
+    Scaffold(
+        containerColor = MaterialTheme.colorScheme.background
+    ) {
         Column(
             modifier = Modifier.fillMaxSize().padding(it),
             verticalArrangement = Arrangement.Center,
