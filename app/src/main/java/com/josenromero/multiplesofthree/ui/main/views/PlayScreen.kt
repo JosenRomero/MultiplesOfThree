@@ -20,6 +20,7 @@ import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.ui.main.components.Board
 import com.josenromero.multiplesofthree.ui.main.components.GameOver
 import com.josenromero.multiplesofthree.ui.main.components.HUD
+import com.josenromero.multiplesofthree.ui.main.components.Score
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
@@ -38,7 +39,9 @@ fun PlayScreen(
     Scaffold(
         topBar = {
             SimpleTopAppBar(
-                title = "Score: ${gameState.score}",
+                title = {
+                    Score(value = gameState.score)
+                },
                 onNavigateToAScreen = {
                     onNavigateToAScreen(AppScreens.HomeScreen.route)
                 }
