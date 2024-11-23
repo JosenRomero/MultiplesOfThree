@@ -28,6 +28,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,7 +45,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun Board(
     board: List<List<Int>>,
-    onClick: (position: Pair<Int, Int>) -> Unit,
+    onClick: (position: Pair<Int, Int>, coordinates: Offset) -> Unit,
     audioPlay: (name: String) -> Unit
 ) {
 
@@ -72,10 +75,11 @@ fun Board(
 fun TableCell(
     item: Int,
     position: Pair<Int, Int>,
-    onClick: (position: Pair<Int, Int>) -> Unit,
+    onClick: (position: Pair<Int, Int>, coordinates: Offset) -> Unit,
     audioPlay: (name: String) -> Unit
 ) {
 
+    var coordinates by remember { mutableStateOf(Offset.Zero) }
     val emptyCell = item == Constants.DEFAULT_VALUE
     var isAnimated by remember { mutableStateOf(false) }
     val rotationAngle by animateFloatAsState(
@@ -100,7 +104,10 @@ fun TableCell(
             .border(
                 width = 5.dp,
                 color = MaterialTheme.colorScheme.background
-            ),
+            )
+            .onGloballyPositioned { layoutCoordinates ->
+                coordinates = layoutCoordinates.positionInRoot()
+            },
         contentAlignment = Alignment.Center
     ) {
         if (!emptyCell) {
@@ -119,7 +126,7 @@ fun TableCell(
                                 audioPlay(Audios.AudioTap.name)
                                 isAnimated = true
                                 delay(700)
-                                onClick(position)
+                                onClick(position, coordinates)
                                 isAnimated = false
                             }
                         },
@@ -144,7 +151,7 @@ fun BoardPreview() {
     MultiplesOfThreeTheme {
         Board(
             board = listOf(listOf(-1, -1, 3), listOf(-1, -1, -1), listOf(-1, -1, -1)),
-            onClick = {},
+            onClick = { _, _ -> },
             audioPlay = {}
         )
     }

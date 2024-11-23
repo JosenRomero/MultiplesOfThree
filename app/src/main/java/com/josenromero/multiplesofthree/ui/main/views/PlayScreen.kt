@@ -10,20 +10,25 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.data.GameState
 import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.ui.main.components.Board
+import com.josenromero.multiplesofthree.ui.main.components.AnimatedCoin
 import com.josenromero.multiplesofthree.ui.main.components.GameOver
 import com.josenromero.multiplesofthree.ui.main.components.HUD
 import com.josenromero.multiplesofthree.ui.main.components.Score
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
+import com.josenromero.multiplesofthree.utils.Constants
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,6 +40,8 @@ fun PlayScreen(
     onNavigateToAScreen: (route: String) -> Unit,
     audioPlay: (name: String) -> Unit,
 ) {
+
+    val coins = remember { mutableStateListOf<Offset>() }
 
     Scaffold(
         topBar = {
@@ -56,7 +63,6 @@ fun PlayScreen(
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -69,7 +75,13 @@ fun PlayScreen(
                 )
                 Board(
                     board = gameState.board,
-                    onClick = onClick,
+                    onClick = { position, currentCoinCoordinate ->
+                        onClick(position)
+                        // isMultiple
+                        if (gameState.board[position.first][position.second] % Constants.FIRST_NUMBER == 0) {
+                            coins.add(currentCoinCoordinate)
+                        }
+                    },
                     audioPlay = audioPlay
                 )
                 if (gameState.isGameOver) {
@@ -85,6 +97,16 @@ fun PlayScreen(
                     )
                 }
             }
+            coins.forEach { coordinate ->
+                AnimatedCoin(
+                    initialPosition = coordinate,
+                    finalPosition = Offset.Zero,
+                    onAnimationEnd = {
+                        coins.remove(coordinate)
+                    }
+                )
+            }
+
         }
     }
 
