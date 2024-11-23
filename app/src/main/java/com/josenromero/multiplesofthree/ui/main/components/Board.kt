@@ -91,8 +91,8 @@ fun TableCell(
 
     Box(
         modifier = Modifier
-            .width(100.dp)
-            .height(100.dp)
+            .width(Constants.CELL_SIZE)
+            .height(Constants.CELL_SIZE)
             .background(
                 color = MaterialTheme.colorScheme.secondary,
                 shape = RoundedCornerShape(25.dp)
