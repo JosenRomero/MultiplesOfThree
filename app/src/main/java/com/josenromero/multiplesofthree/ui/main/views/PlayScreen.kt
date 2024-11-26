@@ -30,6 +30,10 @@ import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 import com.josenromero.multiplesofthree.utils.Constants
 
+data class Coin(
+    val id: Int,
+    val coordinate: Offset
+)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayScreen(
@@ -41,7 +45,7 @@ fun PlayScreen(
     audioPlay: (name: String) -> Unit,
 ) {
 
-    val coins = remember { mutableStateListOf<Offset>() }
+    val coins = remember { mutableStateListOf<Coin>() }
 
     Scaffold(
         topBar = {
@@ -79,7 +83,8 @@ fun PlayScreen(
                         onClick(position)
                         // isMultiple
                         if (gameState.board[position.first][position.second] % Constants.FIRST_NUMBER == 0) {
-                            coins.add(currentCoinCoordinate)
+                            val newCoin = Coin(id = coins.size, coordinate = currentCoinCoordinate)
+                            coins.add(newCoin)
                         }
                     },
                     audioPlay = audioPlay
@@ -97,12 +102,13 @@ fun PlayScreen(
                     )
                 }
             }
-            coins.forEach { coordinate ->
+            coins.toList().forEach { coin ->
                 AnimatedCoin(
-                    initialPosition = coordinate,
+                    id = coin.id,
+                    initialPosition = coin.coordinate,
                     finalPosition = Offset.Zero,
                     onAnimationEnd = {
-                        coins.remove(coordinate)
+                        coins.remove(coin)
                     }
                 )
             }
