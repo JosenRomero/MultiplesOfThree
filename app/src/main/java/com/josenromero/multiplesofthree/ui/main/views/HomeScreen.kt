@@ -13,10 +13,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.josenromero.multiplesofthree.R
+import com.josenromero.multiplesofthree.ui.main.components.CustomBottomAppBar
+import com.josenromero.multiplesofthree.ui.main.components.CustomIconButton
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 
@@ -27,10 +31,31 @@ fun HomeScreen(
 ) {
 
     Scaffold(
+        bottomBar = {
+            CustomBottomAppBar {
+                CustomIconButton(
+                    onClick = { /*TODO*/ },
+                    icon = painterResource(id = R.drawable.about),
+                    contentDescription = "about icon"
+                )
+                CustomIconButton(
+                    onClick = { /*TODO*/ },
+                    icon = painterResource(id = R.drawable.achievements),
+                    contentDescription = "achievements icon"
+                )
+                CustomIconButton(
+                    onClick = { /*TODO*/ },
+                    icon = painterResource(id = R.drawable.settings),
+                    contentDescription = "setting icon"
+                )
+            }
+        },
         containerColor = MaterialTheme.colorScheme.background
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(it),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
