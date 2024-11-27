@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.josenromero.multiplesofthree.ui.main.viewmodels.AudioViewModel
 import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
 import com.josenromero.multiplesofthree.ui.main.viewmodels.GameViewModel
+import com.josenromero.multiplesofthree.ui.main.views.AboutScreen
 import com.josenromero.multiplesofthree.ui.main.views.HomeScreen
 import com.josenromero.multiplesofthree.ui.main.views.PlayScreen
 
@@ -35,6 +36,11 @@ fun AppNavigation() {
                             towards = AnimatedContentTransitionScope.SlideDirection.Right,
                             animationSpec = tween(700)
                         )
+                    AppScreens.AboutScreen.route ->
+                        slideIntoContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                            animationSpec = tween(700)
+                        )
                     else -> null
                 }
             },
@@ -45,6 +51,11 @@ fun AppNavigation() {
                             towards = AnimatedContentTransitionScope.SlideDirection.Left,
                             animationSpec = tween(700)
                         )
+                    AppScreens.AboutScreen.route ->
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                            animationSpec = tween(700)
+                        )
                     else -> null
                 }
             }
@@ -52,7 +63,9 @@ fun AppNavigation() {
             HomeScreen(
                 onNavigateToAScreen = { route ->
                     audioViewModel.play(Audios.AudioTap.name)
-                    gameViewModel.initGame()
+                    if (route == AppScreens.PlayScreen.route) {
+                        gameViewModel.initGame()
+                    }
                     navController.navigate(route)
                 }
             )
@@ -100,6 +113,25 @@ fun AppNavigation() {
                 audioPlay = { name ->
                     audioViewModel.play(name)
                 }
+            )
+        }
+        composable(
+            route = AppScreens.AboutScreen.route,
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                    animationSpec = tween(700)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                    animationSpec = tween(700)
+                )
+            }
+        ) {
+            AboutScreen(
+                onNavigateToBack = { navController.popBackStack() }
             )
         }
     }

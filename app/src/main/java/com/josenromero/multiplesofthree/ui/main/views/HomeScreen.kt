@@ -34,7 +34,7 @@ fun HomeScreen(
         bottomBar = {
             CustomBottomAppBar {
                 CustomIconButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { onNavigateToAScreen(AppScreens.AboutScreen.route) },
                     icon = painterResource(id = R.drawable.about),
                     contentDescription = "about icon"
                 )
