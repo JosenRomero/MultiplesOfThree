@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -66,9 +67,18 @@ fun HomeScreen(
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
-            Button(onClick = { onNavigateToAScreen(AppScreens.PlayScreen.route) }) {
+            Button(
+                onClick = { onNavigateToAScreen(AppScreens.PlayScreen.route) },
+                modifier = Modifier.padding(8.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.play),
+                    contentDescription = "play icon",
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
                 Text(
                     text = "Play",
+                    modifier = Modifier.padding(start = 8.dp),
                     fontSize = 16.sp
                 )
             }
