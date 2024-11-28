@@ -40,7 +40,7 @@ fun HomeScreen(
                     contentDescription = "about icon"
                 )
                 CustomIconButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { onNavigateToAScreen(AppScreens.AchievementsScreen.route) },
                     icon = painterResource(id = R.drawable.achievements),
                     contentDescription = "achievements icon"
                 )

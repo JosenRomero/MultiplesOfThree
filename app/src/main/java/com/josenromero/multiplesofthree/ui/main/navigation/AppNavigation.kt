@@ -13,6 +13,7 @@ import com.josenromero.multiplesofthree.ui.main.viewmodels.AudioViewModel
 import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
 import com.josenromero.multiplesofthree.ui.main.viewmodels.GameViewModel
 import com.josenromero.multiplesofthree.ui.main.views.AboutScreen
+import com.josenromero.multiplesofthree.ui.main.views.AchievementsScreen
 import com.josenromero.multiplesofthree.ui.main.views.HomeScreen
 import com.josenromero.multiplesofthree.ui.main.views.PlayScreen
 
@@ -36,7 +37,8 @@ fun AppNavigation() {
                             towards = AnimatedContentTransitionScope.SlideDirection.Right,
                             animationSpec = tween(700)
                         )
-                    AppScreens.AboutScreen.route ->
+                    AppScreens.AboutScreen.route,
+                    AppScreens.AchievementsScreen.route ->
                         slideIntoContainer(
                             towards = AnimatedContentTransitionScope.SlideDirection.Down,
                             animationSpec = tween(700)
@@ -51,7 +53,8 @@ fun AppNavigation() {
                             towards = AnimatedContentTransitionScope.SlideDirection.Left,
                             animationSpec = tween(700)
                         )
-                    AppScreens.AboutScreen.route ->
+                    AppScreens.AboutScreen.route,
+                    AppScreens.AchievementsScreen.route ->
                         slideOutOfContainer(
                             towards = AnimatedContentTransitionScope.SlideDirection.Up,
                             animationSpec = tween(700)
@@ -131,6 +134,25 @@ fun AppNavigation() {
             }
         ) {
             AboutScreen(
+                onNavigateToBack = { navController.popBackStack() }
+            )
+        }
+        composable(
+            route = AppScreens.AchievementsScreen.route,
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                    animationSpec = tween(700)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                    animationSpec = tween(700)
+                )
+            }
+        ) {
+            AchievementsScreen(
                 onNavigateToBack = { navController.popBackStack() }
             )
         }
