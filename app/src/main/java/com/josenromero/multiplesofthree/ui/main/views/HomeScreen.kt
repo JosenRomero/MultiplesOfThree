@@ -6,12 +6,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -22,14 +25,16 @@ import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.ui.main.components.CustomBottomAppBar
 import com.josenromero.multiplesofthree.ui.main.components.CustomIconButton
+import com.josenromero.multiplesofthree.ui.main.components.SettingsContent
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     onNavigateToAScreen: (route: String) -> Unit
 ) {
+
+    var showBottomSheet by remember { mutableStateOf(false) }
 
     Scaffold(
         bottomBar = {
@@ -45,7 +50,7 @@ fun HomeScreen(
                     contentDescription = "achievements icon"
                 )
                 CustomIconButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { showBottomSheet = true },
                     icon = painterResource(id = R.drawable.settings),
                     contentDescription = "setting icon"
                 )
@@ -80,6 +85,12 @@ fun HomeScreen(
                     text = "Play",
                     modifier = Modifier.padding(start = 8.dp),
                     fontSize = 16.sp
+                )
+            }
+            if (showBottomSheet) {
+                SettingsContent(
+                    onDismiss = { showBottomSheet = false },
+                    closeBtn = { showBottomSheet = false }
                 )
             }
         }
