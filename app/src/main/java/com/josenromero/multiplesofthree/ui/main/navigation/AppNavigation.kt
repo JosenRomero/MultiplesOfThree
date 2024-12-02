@@ -17,6 +17,7 @@ import com.josenromero.multiplesofthree.ui.main.views.AchievementsScreen
 import com.josenromero.multiplesofthree.ui.main.views.HomeScreen
 import com.josenromero.multiplesofthree.ui.main.views.LanguageScreen
 import com.josenromero.multiplesofthree.ui.main.views.PlayScreen
+import com.josenromero.multiplesofthree.ui.main.views.SettingsScreen
 
 @Composable
 fun AppNavigation() {
@@ -33,14 +34,14 @@ fun AppNavigation() {
             route = AppScreens.HomeScreen.route,
             enterTransition = {
                 when (initialState.destination.route) {
-                    AppScreens.PlayScreen.route,
-                    AppScreens.LanguageScreen.route->
+                    AppScreens.PlayScreen.route ->
                         slideIntoContainer(
                             towards = AnimatedContentTransitionScope.SlideDirection.Right,
                             animationSpec = tween(700)
                         )
                     AppScreens.AboutScreen.route,
-                    AppScreens.AchievementsScreen.route ->
+                    AppScreens.AchievementsScreen.route,
+                    AppScreens.SettingsScreen.route ->
                         slideIntoContainer(
                             towards = AnimatedContentTransitionScope.SlideDirection.Down,
                             animationSpec = tween(700)
@@ -50,14 +51,14 @@ fun AppNavigation() {
             },
             exitTransition = {
                 when (targetState.destination.route) {
-                    AppScreens.PlayScreen.route,
-                    AppScreens.LanguageScreen.route->
+                    AppScreens.PlayScreen.route ->
                         slideOutOfContainer(
                             towards = AnimatedContentTransitionScope.SlideDirection.Left,
                             animationSpec = tween(700)
                         )
                     AppScreens.AboutScreen.route,
-                    AppScreens.AchievementsScreen.route ->
+                    AppScreens.AchievementsScreen.route,
+                    AppScreens.SettingsScreen.route ->
                         slideOutOfContainer(
                             towards = AnimatedContentTransitionScope.SlideDirection.Up,
                             animationSpec = tween(700)
@@ -137,7 +138,10 @@ fun AppNavigation() {
             }
         ) {
             AboutScreen(
-                onNavigateToBack = { navController.popBackStack() }
+                onNavigateToBack = {
+                    audioViewModel.play(Audios.AudioTap.name)
+                    navController.popBackStack()
+                }
             )
         }
         composable(
@@ -156,7 +160,10 @@ fun AppNavigation() {
             }
         ) {
             AchievementsScreen(
-                onNavigateToBack = { navController.popBackStack() }
+                onNavigateToBack = {
+                    audioViewModel.play(Audios.AudioTap.name)
+                    navController.popBackStack()
+                }
             )
         }
         composable(
@@ -175,7 +182,54 @@ fun AppNavigation() {
             }
         ) {
             LanguageScreen(
-                onNavigateToBack = { navController.popBackStack() }
+                onNavigateToBack = {
+                    audioViewModel.play(Audios.AudioTap.name)
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(
+            route = AppScreens.SettingsScreen.route,
+            enterTransition = {
+                when (initialState.destination.route) {
+                    AppScreens.HomeScreen.route ->
+                        slideIntoContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                            animationSpec = tween(700)
+                        )
+                    AppScreens.LanguageScreen.route ->
+                        slideIntoContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(700)
+                        )
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when (targetState.destination.route) {
+                    AppScreens.HomeScreen.route ->
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                            animationSpec = tween(700)
+                        )
+                    AppScreens.LanguageScreen.route ->
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(700)
+                        )
+                    else -> null
+                }
+            }
+        ) {
+            SettingsScreen(
+                onNavigateToBack = {
+                    audioViewModel.play(Audios.AudioTap.name)
+                    navController.popBackStack()
+                },
+                onNavigateToAScreen = { route ->
+                    audioViewModel.play(Audios.AudioTap.name)
+                    navController.navigate(route)
+                }
             )
         }
     }
