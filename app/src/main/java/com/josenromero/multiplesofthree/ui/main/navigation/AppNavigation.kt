@@ -15,6 +15,7 @@ import com.josenromero.multiplesofthree.ui.main.viewmodels.GameViewModel
 import com.josenromero.multiplesofthree.ui.main.views.AboutScreen
 import com.josenromero.multiplesofthree.ui.main.views.AchievementsScreen
 import com.josenromero.multiplesofthree.ui.main.views.HomeScreen
+import com.josenromero.multiplesofthree.ui.main.views.LanguageScreen
 import com.josenromero.multiplesofthree.ui.main.views.PlayScreen
 
 @Composable
@@ -32,7 +33,8 @@ fun AppNavigation() {
             route = AppScreens.HomeScreen.route,
             enterTransition = {
                 when (initialState.destination.route) {
-                    AppScreens.PlayScreen.route ->
+                    AppScreens.PlayScreen.route,
+                    AppScreens.LanguageScreen.route->
                         slideIntoContainer(
                             towards = AnimatedContentTransitionScope.SlideDirection.Right,
                             animationSpec = tween(700)
@@ -48,7 +50,8 @@ fun AppNavigation() {
             },
             exitTransition = {
                 when (targetState.destination.route) {
-                    AppScreens.PlayScreen.route ->
+                    AppScreens.PlayScreen.route,
+                    AppScreens.LanguageScreen.route->
                         slideOutOfContainer(
                             towards = AnimatedContentTransitionScope.SlideDirection.Left,
                             animationSpec = tween(700)
@@ -153,6 +156,25 @@ fun AppNavigation() {
             }
         ) {
             AchievementsScreen(
+                onNavigateToBack = { navController.popBackStack() }
+            )
+        }
+        composable(
+            route = AppScreens.LanguageScreen.route,
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = tween(700)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = tween(700)
+                )
+            }
+        ) {
+            LanguageScreen(
                 onNavigateToBack = { navController.popBackStack() }
             )
         }
