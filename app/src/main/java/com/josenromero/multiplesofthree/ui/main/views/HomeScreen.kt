@@ -33,9 +33,14 @@ fun HomeScreen(
         bottomBar = {
             CustomBottomAppBar {
                 CustomIconButton(
-                    onClick = { onNavigateToAScreen(AppScreens.AboutScreen.route) },
-                    icon = painterResource(id = R.drawable.about),
-                    contentDescription = "about icon"
+                    onClick = { onNavigateToAScreen(AppScreens.HowToPlayScreen.route) },
+                    icon = painterResource(id = R.drawable.mark),
+                    contentDescription = "How To Play icon"
+                )
+                CustomIconButton(
+                    onClick = { onNavigateToAScreen(AppScreens.SettingsScreen.route) },
+                    icon = painterResource(id = R.drawable.settings),
+                    contentDescription = "setting icon"
                 )
                 CustomIconButton(
                     onClick = { onNavigateToAScreen(AppScreens.AchievementsScreen.route) },
@@ -43,9 +48,9 @@ fun HomeScreen(
                     contentDescription = "achievements icon"
                 )
                 CustomIconButton(
-                    onClick = { onNavigateToAScreen(AppScreens.SettingsScreen.route) },
-                    icon = painterResource(id = R.drawable.settings),
-                    contentDescription = "setting icon"
+                    onClick = { onNavigateToAScreen(AppScreens.AboutScreen.route) },
+                    icon = painterResource(id = R.drawable.about),
+                    contentDescription = "about icon"
                 )
             }
         },

@@ -1,6 +1,7 @@
 package com.josenromero.multiplesofthree.ui.main.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -15,6 +16,7 @@ import com.josenromero.multiplesofthree.ui.main.viewmodels.GameViewModel
 import com.josenromero.multiplesofthree.ui.main.views.AboutScreen
 import com.josenromero.multiplesofthree.ui.main.views.AchievementsScreen
 import com.josenromero.multiplesofthree.ui.main.views.HomeScreen
+import com.josenromero.multiplesofthree.ui.main.views.HowToPlayScreen
 import com.josenromero.multiplesofthree.ui.main.views.LanguageScreen
 import com.josenromero.multiplesofthree.ui.main.views.PlayScreen
 import com.josenromero.multiplesofthree.ui.main.views.SettingsScreen
@@ -63,6 +65,8 @@ fun AppNavigation() {
                             towards = AnimatedContentTransitionScope.SlideDirection.Up,
                             animationSpec = tween(700)
                         )
+                    AppScreens.HowToPlayScreen.route ->
+                        ExitTransition.None
                     else -> null
                 }
             }
@@ -229,6 +233,28 @@ fun AppNavigation() {
                 onNavigateToAScreen = { route ->
                     audioViewModel.play(Audios.AudioTap.name)
                     navController.navigate(route)
+                }
+            )
+        }
+        composable(
+            route = AppScreens.HowToPlayScreen.route,
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                    animationSpec = tween(700)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                    animationSpec = tween(700)
+                )
+            }
+        ) {
+            HowToPlayScreen(
+                onNavigateToBack = {
+                    audioViewModel.play(Audios.AudioTap.name)
+                    navController.popBackStack()
                 }
             )
         }
