@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.josenromero.multiplesofthree.ui.main.viewmodels.AudioViewModel
 import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
 import com.josenromero.multiplesofthree.ui.main.viewmodels.GameViewModel
+import com.josenromero.multiplesofthree.ui.main.viewmodels.PreferencesViewModel
 import com.josenromero.multiplesofthree.ui.main.views.AboutScreen
 import com.josenromero.multiplesofthree.ui.main.views.AchievementsScreen
 import com.josenromero.multiplesofthree.ui.main.views.HomeScreen
@@ -26,10 +27,12 @@ fun AppNavigation() {
 
     val navController = rememberNavController()
 
+    val preferencesViewModel: PreferencesViewModel = viewModel()
     val audioViewModel: AudioViewModel = viewModel()
     val gameViewModel: GameViewModel = viewModel()
     val gameState by gameViewModel.gameState.collectAsState()
     val player by gameViewModel.player.collectAsState()
+    val preferences by preferencesViewModel.preferences.collectAsState()
 
     NavHost(navController = navController, startDestination = AppScreens.HomeScreen.route) {
         composable(
@@ -72,6 +75,8 @@ fun AppNavigation() {
             }
         ) {
             HomeScreen(
+                preferencesLoading = preferencesViewModel.preferencesLoading.value,
+                firstTime = preferences.firstTime,
                 onNavigateToAScreen = { route ->
                     audioViewModel.play(Audios.AudioTap.name)
                     if (route == AppScreens.PlayScreen.route) {

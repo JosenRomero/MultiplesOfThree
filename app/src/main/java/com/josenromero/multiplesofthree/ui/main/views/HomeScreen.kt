@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -26,32 +27,42 @@ import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 
 @Composable
 fun HomeScreen(
+    preferencesLoading: Boolean,
+    firstTime: Boolean,
     onNavigateToAScreen: (route: String) -> Unit
 ) {
 
+    LaunchedEffect(key1 = preferencesLoading) {
+        if (firstTime && !preferencesLoading) {
+            onNavigateToAScreen(AppScreens.HowToPlayScreen.route)
+        }
+    }
+
     Scaffold(
         bottomBar = {
-            CustomBottomAppBar {
-                CustomIconButton(
-                    onClick = { onNavigateToAScreen(AppScreens.HowToPlayScreen.route) },
-                    icon = painterResource(id = R.drawable.mark),
-                    contentDescription = "How To Play icon"
-                )
-                CustomIconButton(
-                    onClick = { onNavigateToAScreen(AppScreens.SettingsScreen.route) },
-                    icon = painterResource(id = R.drawable.settings),
-                    contentDescription = "setting icon"
-                )
-                CustomIconButton(
-                    onClick = { onNavigateToAScreen(AppScreens.AchievementsScreen.route) },
-                    icon = painterResource(id = R.drawable.achievements),
-                    contentDescription = "achievements icon"
-                )
-                CustomIconButton(
-                    onClick = { onNavigateToAScreen(AppScreens.AboutScreen.route) },
-                    icon = painterResource(id = R.drawable.about),
-                    contentDescription = "about icon"
-                )
+            if (!firstTime && !preferencesLoading) {
+                CustomBottomAppBar {
+                    CustomIconButton(
+                        onClick = { onNavigateToAScreen(AppScreens.HowToPlayScreen.route) },
+                        icon = painterResource(id = R.drawable.mark),
+                        contentDescription = "How To Play icon"
+                    )
+                    CustomIconButton(
+                        onClick = { onNavigateToAScreen(AppScreens.SettingsScreen.route) },
+                        icon = painterResource(id = R.drawable.settings),
+                        contentDescription = "setting icon"
+                    )
+                    CustomIconButton(
+                        onClick = { onNavigateToAScreen(AppScreens.AchievementsScreen.route) },
+                        icon = painterResource(id = R.drawable.achievements),
+                        contentDescription = "achievements icon"
+                    )
+                    CustomIconButton(
+                        onClick = { onNavigateToAScreen(AppScreens.AboutScreen.route) },
+                        icon = painterResource(id = R.drawable.about),
+                        contentDescription = "about icon"
+                    )
+                }
             }
         },
         containerColor = MaterialTheme.colorScheme.background
@@ -70,20 +81,22 @@ fun HomeScreen(
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
-            Button(
-                onClick = { onNavigateToAScreen(AppScreens.PlayScreen.route) },
-                modifier = Modifier.padding(8.dp)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.play),
-                    contentDescription = "play icon",
-                    tint = MaterialTheme.colorScheme.onPrimary
-                )
-                Text(
-                    text = "Play",
-                    modifier = Modifier.padding(start = 8.dp),
-                    fontSize = 16.sp
-                )
+            if (!firstTime && !preferencesLoading) {
+                Button(
+                    onClick = { onNavigateToAScreen(AppScreens.PlayScreen.route) },
+                    modifier = Modifier.padding(8.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.play),
+                        contentDescription = "play icon",
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                    Text(
+                        text = "Play",
+                        modifier = Modifier.padding(start = 8.dp),
+                        fontSize = 16.sp
+                    )
+                }
             }
         }
     }
@@ -95,6 +108,8 @@ fun HomeScreen(
 fun HomeScreenPreview() {
     MultiplesOfThreeTheme {
         HomeScreen(
+            preferencesLoading = false,
+            firstTime = false,
             onNavigateToAScreen = {}
         )
     }

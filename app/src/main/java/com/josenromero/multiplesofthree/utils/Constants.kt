@@ -11,6 +11,7 @@ object Constants {
     val CELL_SIZE = 100.dp
     const val NUMBER_OF_HEARTS = 3
     const val PLAYER_TABLE = "player_table"
+    const val PREFERENCES_TABLE = "preferences_table"
     const val PLAYER_DATABASE = "player_database"
 
 }
