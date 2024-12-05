@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.josenromero.multiplesofthree.data.player.PlayerDao
 import com.josenromero.multiplesofthree.data.player.PlayerDataBase
+import com.josenromero.multiplesofthree.data.preferences.PreferencesDao
 import com.josenromero.multiplesofthree.domain.AddNumberToBoardGame
 import com.josenromero.multiplesofthree.domain.Audio
 import com.josenromero.multiplesofthree.domain.CreateBoardGame
@@ -37,6 +38,11 @@ object AppModule {
     @Singleton
     fun providesPlayerDao(playerDataBase: PlayerDataBase): PlayerDao {
         return playerDataBase.playerDao()
+    }
+    @Provides
+    @Singleton
+    fun providesPreferencesDao(playerDataBase: PlayerDataBase): PreferencesDao {
+        return playerDataBase.preferencesDao()
     }
 
     @Provides
