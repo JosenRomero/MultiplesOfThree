@@ -21,16 +21,17 @@ import com.josenromero.multiplesofthree.ui.main.components.CustomTitle
 import com.josenromero.multiplesofthree.ui.main.components.SettingItem
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
+import com.josenromero.multiplesofthree.ui.main.viewmodels.PreferencesViewModel
 
 @Composable
 fun SettingsScreen(
+    preferencesVM: PreferencesViewModel,
     onNavigateToBack: () -> Unit,
     onNavigateToAScreen: (route: String) -> Unit
 ) {
 
     val isMusic = remember { mutableStateOf(true) }
     val isSound = remember { mutableStateOf(true) }
-    val isDark = remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -82,12 +83,15 @@ fun SettingsScreen(
                 }
                 SettingItem(
                     text = "Dark Mode",
-                    onClick = { isDark.value = !isDark.value }
+                    onClick = {
+                        val currentValue = preferencesVM.preferences.value.darkMode
+                        preferencesVM.update(darkMode = !currentValue)
+                    }
                 ) {
                     CustomSwitch(
-                        checked = isDark.value,
+                        checked = preferencesVM.preferences.value.darkMode,
                         onCheckedChange = { value ->
-                            isDark.value = value
+                            preferencesVM.update(darkMode = value)
                         },
                         activeIcon = R.drawable.sun,
                         inactiveIcon = R.drawable.moon,

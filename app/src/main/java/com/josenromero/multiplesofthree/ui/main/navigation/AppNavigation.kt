@@ -21,6 +21,7 @@ import com.josenromero.multiplesofthree.ui.main.views.HowToPlayScreen
 import com.josenromero.multiplesofthree.ui.main.views.LanguageScreen
 import com.josenromero.multiplesofthree.ui.main.views.PlayScreen
 import com.josenromero.multiplesofthree.ui.main.views.SettingsScreen
+import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 
 @Composable
 fun AppNavigation() {
@@ -34,238 +35,243 @@ fun AppNavigation() {
     val player by gameViewModel.player.collectAsState()
     val preferences by preferencesViewModel.preferences.collectAsState()
 
-    NavHost(navController = navController, startDestination = AppScreens.HomeScreen.route) {
-        composable(
-            route = AppScreens.HomeScreen.route,
-            enterTransition = {
-                when (initialState.destination.route) {
-                    AppScreens.PlayScreen.route ->
-                        slideIntoContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                            animationSpec = tween(700)
-                        )
-                    AppScreens.AboutScreen.route,
-                    AppScreens.AchievementsScreen.route,
-                    AppScreens.SettingsScreen.route ->
-                        slideIntoContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Down,
-                            animationSpec = tween(700)
-                        )
-                    else -> null
-                }
-            },
-            exitTransition = {
-                when (targetState.destination.route) {
-                    AppScreens.PlayScreen.route ->
-                        slideOutOfContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                            animationSpec = tween(700)
-                        )
-                    AppScreens.AboutScreen.route,
-                    AppScreens.AchievementsScreen.route,
-                    AppScreens.SettingsScreen.route ->
-                        slideOutOfContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Up,
-                            animationSpec = tween(700)
-                        )
-                    AppScreens.HowToPlayScreen.route ->
-                        ExitTransition.None
-                    else -> null
-                }
-            }
-        ) {
-            HomeScreen(
-                preferencesLoading = preferencesViewModel.preferencesLoading.value,
-                firstTime = preferences.firstTime,
-                onNavigateToAScreen = { route ->
-                    audioViewModel.play(Audios.AudioTap.name)
-                    if (route == AppScreens.PlayScreen.route) {
-                        gameViewModel.initGame()
+    MultiplesOfThreeTheme(
+        darkTheme = preferences.darkMode
+    ) {
+        NavHost(navController = navController, startDestination = AppScreens.HomeScreen.route) {
+            composable(
+                route = AppScreens.HomeScreen.route,
+                enterTransition = {
+                    when (initialState.destination.route) {
+                        AppScreens.PlayScreen.route ->
+                            slideIntoContainer(
+                                towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                                animationSpec = tween(700)
+                            )
+                        AppScreens.AboutScreen.route,
+                        AppScreens.AchievementsScreen.route,
+                        AppScreens.SettingsScreen.route ->
+                            slideIntoContainer(
+                                towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                                animationSpec = tween(700)
+                            )
+                        else -> null
                     }
-                    navController.navigate(route)
-                }
-            )
-        }
-        composable(
-            route = AppScreens.PlayScreen.route,
-            enterTransition = {
-                slideIntoContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                    animationSpec = tween(700)
-                )
-            },
-            exitTransition = {
-                when (targetState.destination.route) {
-                    AppScreens.PlayScreen.route ->
-                        slideOutOfContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                            animationSpec = tween(700)
-                        )
-                    AppScreens.HomeScreen.route ->
-                        slideOutOfContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                            animationSpec = tween(700)
-                        )
-                    else -> null
-                }
-            }
-        ) {
-            PlayScreen(
-                gameState = gameState,
-                player = player,
-                updatePlayer = { bestScore, achievements ->
-                    gameViewModel.updatingPlayer(bestScore, achievements)
                 },
-                onClick = { position ->
-                    gameViewModel.removeNumber(position)
-                },
-                onNavigateToAScreen = { route ->
-                    audioViewModel.play(Audios.AudioTap.name)
-                    if (route == AppScreens.PlayScreen.route) {
-                        gameViewModel.initGame()
+                exitTransition = {
+                    when (targetState.destination.route) {
+                        AppScreens.PlayScreen.route ->
+                            slideOutOfContainer(
+                                towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                                animationSpec = tween(700)
+                            )
+                        AppScreens.AboutScreen.route,
+                        AppScreens.AchievementsScreen.route,
+                        AppScreens.SettingsScreen.route ->
+                            slideOutOfContainer(
+                                towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                                animationSpec = tween(700)
+                            )
+                        AppScreens.HowToPlayScreen.route ->
+                            ExitTransition.None
+                        else -> null
                     }
-                    navController.navigate(route)
+                }
+            ) {
+                HomeScreen(
+                    preferencesLoading = preferencesViewModel.preferencesLoading.value,
+                    firstTime = preferences.firstTime,
+                    onNavigateToAScreen = { route ->
+                        audioViewModel.play(Audios.AudioTap.name)
+                        if (route == AppScreens.PlayScreen.route) {
+                            gameViewModel.initGame()
+                        }
+                        navController.navigate(route)
+                    }
+                )
+            }
+            composable(
+                route = AppScreens.PlayScreen.route,
+                enterTransition = {
+                    slideIntoContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                        animationSpec = tween(700)
+                    )
                 },
-                audioPlay = { name ->
-                    audioViewModel.play(name)
+                exitTransition = {
+                    when (targetState.destination.route) {
+                        AppScreens.PlayScreen.route ->
+                            slideOutOfContainer(
+                                towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                                animationSpec = tween(700)
+                            )
+                        AppScreens.HomeScreen.route ->
+                            slideOutOfContainer(
+                                towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                                animationSpec = tween(700)
+                            )
+                        else -> null
+                    }
                 }
-            )
-        }
-        composable(
-            route = AppScreens.AboutScreen.route,
-            enterTransition = {
-                slideIntoContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
-                    animationSpec = tween(700)
-                )
-            },
-            exitTransition = {
-                slideOutOfContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Down,
-                    animationSpec = tween(700)
-                )
-            }
-        ) {
-            AboutScreen(
-                onNavigateToBack = {
-                    audioViewModel.play(Audios.AudioTap.name)
-                    navController.popBackStack()
-                }
-            )
-        }
-        composable(
-            route = AppScreens.AchievementsScreen.route,
-            enterTransition = {
-                slideIntoContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
-                    animationSpec = tween(700)
-                )
-            },
-            exitTransition = {
-                slideOutOfContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Down,
-                    animationSpec = tween(700)
+            ) {
+                PlayScreen(
+                    gameState = gameState,
+                    player = player,
+                    updatePlayer = { bestScore, achievements ->
+                        gameViewModel.updatingPlayer(bestScore, achievements)
+                    },
+                    onClick = { position ->
+                        gameViewModel.removeNumber(position)
+                    },
+                    onNavigateToAScreen = { route ->
+                        audioViewModel.play(Audios.AudioTap.name)
+                        if (route == AppScreens.PlayScreen.route) {
+                            gameViewModel.initGame()
+                        }
+                        navController.navigate(route)
+                    },
+                    audioPlay = { name ->
+                        audioViewModel.play(name)
+                    }
                 )
             }
-        ) {
-            AchievementsScreen(
-                onNavigateToBack = {
-                    audioViewModel.play(Audios.AudioTap.name)
-                    navController.popBackStack()
-                }
-            )
-        }
-        composable(
-            route = AppScreens.LanguageScreen.route,
-            enterTransition = {
-                slideIntoContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                    animationSpec = tween(700)
-                )
-            },
-            exitTransition = {
-                slideOutOfContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                    animationSpec = tween(700)
-                )
-            }
-        ) {
-            LanguageScreen(
-                onNavigateToBack = {
-                    audioViewModel.play(Audios.AudioTap.name)
-                    navController.popBackStack()
-                }
-            )
-        }
-        composable(
-            route = AppScreens.SettingsScreen.route,
-            enterTransition = {
-                when (initialState.destination.route) {
-                    AppScreens.HomeScreen.route ->
-                        slideIntoContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Up,
-                            animationSpec = tween(700)
-                        )
-                    AppScreens.LanguageScreen.route ->
-                        slideIntoContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                            animationSpec = tween(700)
-                        )
-                    else -> null
-                }
-            },
-            exitTransition = {
-                when (targetState.destination.route) {
-                    AppScreens.HomeScreen.route ->
-                        slideOutOfContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Down,
-                            animationSpec = tween(700)
-                        )
-                    AppScreens.LanguageScreen.route ->
-                        slideOutOfContainer(
-                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                            animationSpec = tween(700)
-                        )
-                    else -> null
-                }
-            }
-        ) {
-            SettingsScreen(
-                onNavigateToBack = {
-                    audioViewModel.play(Audios.AudioTap.name)
-                    navController.popBackStack()
+            composable(
+                route = AppScreens.AboutScreen.route,
+                enterTransition = {
+                    slideIntoContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                        animationSpec = tween(700)
+                    )
                 },
-                onNavigateToAScreen = { route ->
-                    audioViewModel.play(Audios.AudioTap.name)
-                    navController.navigate(route)
+                exitTransition = {
+                    slideOutOfContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                        animationSpec = tween(700)
+                    )
                 }
-            )
-        }
-        composable(
-            route = AppScreens.HowToPlayScreen.route,
-            enterTransition = {
-                slideIntoContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
-                    animationSpec = tween(700)
-                )
-            },
-            exitTransition = {
-                slideOutOfContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Down,
-                    animationSpec = tween(700)
+            ) {
+                AboutScreen(
+                    onNavigateToBack = {
+                        audioViewModel.play(Audios.AudioTap.name)
+                        navController.popBackStack()
+                    }
                 )
             }
-        ) {
-            HowToPlayScreen(
-                firstTime = preferences.firstTime,
-                howToPlayViewed = {
-                    preferencesViewModel.update(firstTime = false)
+            composable(
+                route = AppScreens.AchievementsScreen.route,
+                enterTransition = {
+                    slideIntoContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                        animationSpec = tween(700)
+                    )
                 },
-                onNavigateToBack = {
-                    audioViewModel.play(Audios.AudioTap.name)
-                    navController.popBackStack()
+                exitTransition = {
+                    slideOutOfContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                        animationSpec = tween(700)
+                    )
                 }
-            )
+            ) {
+                AchievementsScreen(
+                    onNavigateToBack = {
+                        audioViewModel.play(Audios.AudioTap.name)
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable(
+                route = AppScreens.LanguageScreen.route,
+                enterTransition = {
+                    slideIntoContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                        animationSpec = tween(700)
+                    )
+                },
+                exitTransition = {
+                    slideOutOfContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                        animationSpec = tween(700)
+                    )
+                }
+            ) {
+                LanguageScreen(
+                    onNavigateToBack = {
+                        audioViewModel.play(Audios.AudioTap.name)
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable(
+                route = AppScreens.SettingsScreen.route,
+                enterTransition = {
+                    when (initialState.destination.route) {
+                        AppScreens.HomeScreen.route ->
+                            slideIntoContainer(
+                                towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                                animationSpec = tween(700)
+                            )
+                        AppScreens.LanguageScreen.route ->
+                            slideIntoContainer(
+                                towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                                animationSpec = tween(700)
+                            )
+                        else -> null
+                    }
+                },
+                exitTransition = {
+                    when (targetState.destination.route) {
+                        AppScreens.HomeScreen.route ->
+                            slideOutOfContainer(
+                                towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                                animationSpec = tween(700)
+                            )
+                        AppScreens.LanguageScreen.route ->
+                            slideOutOfContainer(
+                                towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                                animationSpec = tween(700)
+                            )
+                        else -> null
+                    }
+                }
+            ) {
+                SettingsScreen(
+                    preferencesVM = preferencesViewModel,
+                    onNavigateToBack = {
+                        audioViewModel.play(Audios.AudioTap.name)
+                        navController.popBackStack()
+                    },
+                    onNavigateToAScreen = { route ->
+                        audioViewModel.play(Audios.AudioTap.name)
+                        navController.navigate(route)
+                    }
+                )
+            }
+            composable(
+                route = AppScreens.HowToPlayScreen.route,
+                enterTransition = {
+                    slideIntoContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                        animationSpec = tween(700)
+                    )
+                },
+                exitTransition = {
+                    slideOutOfContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                        animationSpec = tween(700)
+                    )
+                }
+            ) {
+                HowToPlayScreen(
+                    firstTime = preferences.firstTime,
+                    howToPlayViewed = {
+                        preferencesViewModel.update(firstTime = false)
+                    },
+                    onNavigateToBack = {
+                        audioViewModel.play(Audios.AudioTap.name)
+                        navController.popBackStack()
+                    }
+                )
+            }
         }
     }
 
