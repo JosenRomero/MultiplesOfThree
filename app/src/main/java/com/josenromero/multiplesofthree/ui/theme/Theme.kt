@@ -26,13 +26,13 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = primaryDark,
-    onPrimary = onPrimaryDark,
-    secondary = secondaryDark,
-    onSecondary = onSecondaryDark,
-    tertiary = tertiaryDark,
-    onTertiary = onTertiaryDark,
-    background = backgroundDark,
+    primary = primaryLight,
+    onPrimary = onPrimaryLight,
+    secondary = secondaryLight,
+    onSecondary = onSecondaryLight,
+    tertiary = tertiaryLight,
+    onTertiary = onTertiaryLight,
+    background = backgroundLight,
 )
 
 @Composable
