@@ -257,6 +257,10 @@ fun AppNavigation() {
             }
         ) {
             HowToPlayScreen(
+                firstTime = preferences.firstTime,
+                howToPlayViewed = {
+                    preferencesViewModel.update(firstTime = false)
+                },
                 onNavigateToBack = {
                     audioViewModel.play(Audios.AudioTap.name)
                     navController.popBackStack()
