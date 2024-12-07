@@ -89,11 +89,12 @@ fun HomeScreen(
                     Icon(
                         painter = painterResource(id = R.drawable.play),
                         contentDescription = "play icon",
-                        tint = MaterialTheme.colorScheme.onPrimary
+                        tint = MaterialTheme.colorScheme.surface
                     )
                     Text(
                         text = "Play",
                         modifier = Modifier.padding(start = 8.dp),
+                        color = MaterialTheme.colorScheme.surface,
                         fontSize = 16.sp
                     )
                 }

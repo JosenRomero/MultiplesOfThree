@@ -7,7 +7,6 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 
 @Composable
@@ -26,7 +25,7 @@ fun CustomSwitch(
             Icon(
                 painter = painterResource(id = if (checked) activeIcon else inactiveIcon),
                 contentDescription = "$contentDescription ${if (checked) "active" else "inactive"} icon",
-                tint = Color.White,
+                tint = if (checked) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.size(SwitchDefaults.IconSize)
             )
         },

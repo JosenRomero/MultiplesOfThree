@@ -75,14 +75,14 @@ fun GameOverContent(
         ) {
             Text(
                 text = "Game Over!",
-                color = MaterialTheme.colorScheme.onPrimary
+                color = MaterialTheme.colorScheme.surface
             )
         }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = MaterialTheme.colorScheme.background,
                     shape = RoundedCornerShape(0.dp, 0.dp, 25.dp, 10.dp)
                 )
                 .padding(16.dp),
@@ -120,7 +120,10 @@ fun GameOverContent(
                     onNavigateToAScreen(AppScreens.PlayScreen.route)
                     closeContent()
                 }) {
-                    Text(text = "Try Again")
+                    Text(
+                        text = "Try Again",
+                        color = MaterialTheme.colorScheme.surface
+                    )
                 }
             }
         }

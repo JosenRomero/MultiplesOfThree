@@ -27,6 +27,7 @@ private val DarkColorScheme = darkColorScheme(
     tertiary = tertiaryDark,
     onTertiary = onTertiaryDark,
     background = backgroundDark,
+    surface = surfaceDark
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -37,6 +38,7 @@ private val LightColorScheme = lightColorScheme(
     tertiary = tertiaryLight,
     onTertiary = onTertiaryLight,
     background = backgroundLight,
+    surface = surfaceLight
 )
 
 @Composable
@@ -88,5 +90,6 @@ fun ColorScheme.switch() = copy(
     onSecondary = animateColor(targetValue = onSecondary),
     tertiary = animateColor(targetValue = tertiary),
     onTertiary = animateColor(targetValue = onTertiary),
-    background = animateColor(targetValue = background)
+    background = animateColor(targetValue = background),
+    surface = animateColor(targetValue = surface)
 )

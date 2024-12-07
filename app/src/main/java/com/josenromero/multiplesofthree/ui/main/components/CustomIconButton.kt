@@ -31,7 +31,7 @@ fun CustomIconButton(
         Icon(
             painter = icon,
             contentDescription = contentDescription,
-            tint = MaterialTheme.colorScheme.onPrimary
+            tint = MaterialTheme.colorScheme.surface
         )
 
     }
