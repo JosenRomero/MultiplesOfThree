@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">multiples of three</string>
-    <string name="select_language">Select Language</string>
+    <string name="select_language">Selecciona el idioma</string>
 
     <string name="english" translatable="false">English</string>
     <string name="spanish" translatable="false">Español</string>
     <string name="japanese" translatable="false">日本語</string>
 
-    <string name="language">Language</string>
+    <string name="language">Idioma</string>
 </resources>

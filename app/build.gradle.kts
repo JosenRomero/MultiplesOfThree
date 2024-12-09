@@ -16,6 +16,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        resourceConfigurations += listOf("en", "es", "ja") // add the locale tags
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -68,6 +70,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    implementation("androidx.appcompat:appcompat:1.7.0-alpha03")
 
     // navigation-compose
     val navVersion = "2.8.1"
