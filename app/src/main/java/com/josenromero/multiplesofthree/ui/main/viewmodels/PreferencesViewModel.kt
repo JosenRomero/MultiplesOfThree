@@ -60,7 +60,7 @@ class PreferencesViewModel @Inject constructor(
         }
     }
 
-    fun update(sound: Boolean? = null, music: Boolean? = null, darkMode: Boolean? = null, language: String? = null, firstTime: Boolean? = null) {
+    fun update(sound: Boolean? = null, music: Boolean? = null, darkMode: Boolean? = null, firstTime: Boolean? = null) {
         viewModelScope.launch(Dispatchers.IO) {
             updatePreferences(
                 PreferencesEntity(
@@ -68,7 +68,6 @@ class PreferencesViewModel @Inject constructor(
                     sound = sound ?: _preferences.value.sound,
                     music = music ?: _preferences.value.music,
                     darkMode = darkMode ?: _preferences.value.darkMode,
-                    language = language ?: _preferences.value.language,
                     firstTime = firstTime ?: _preferences.value.firstTime
                 )
             )

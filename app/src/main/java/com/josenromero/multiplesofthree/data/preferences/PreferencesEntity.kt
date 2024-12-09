@@ -11,6 +11,5 @@ data class PreferencesEntity(
     @ColumnInfo val sound: Boolean = true,
     @ColumnInfo val music: Boolean = false,
     @ColumnInfo val darkMode: Boolean = true,
-    @ColumnInfo val language: String = "Es",
     @ColumnInfo val firstTime: Boolean = true,
 )
