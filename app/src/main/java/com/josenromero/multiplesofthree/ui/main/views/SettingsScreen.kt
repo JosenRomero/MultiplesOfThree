@@ -9,8 +9,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -29,9 +27,6 @@ fun SettingsScreen(
     onNavigateToBack: () -> Unit,
     onNavigateToAScreen: (route: String) -> Unit
 ) {
-
-    val isMusic = remember { mutableStateOf(true) }
-    val isSound = remember { mutableStateOf(true) }
 
     Scaffold(
         topBar = {
@@ -55,12 +50,15 @@ fun SettingsScreen(
             ) {
                 SettingItem(
                     text = "Music",
-                    onClick = { isMusic.value = !isMusic.value }
+                    onClick = {
+                        val currentValue = preferencesVM.preferences.value.music
+                        preferencesVM.update(music = !currentValue)
+                    }
                 ) {
                     CustomSwitch(
-                        checked = isMusic.value,
+                        checked = preferencesVM.preferences.value.music,
                         onCheckedChange = { value ->
-                            isMusic.value = value
+                            preferencesVM.update(music = value)
                         },
                         activeIcon = R.drawable.sound_up,
                         inactiveIcon = R.drawable.sound_off,
@@ -69,12 +67,15 @@ fun SettingsScreen(
                 }
                 SettingItem(
                     text = "Sound",
-                    onClick = { isSound.value = !isSound.value }
+                    onClick = {
+                        val currentValue = preferencesVM.preferences.value.sound
+                        preferencesVM.update(sound = !currentValue)
+                    }
                 ) {
                     CustomSwitch(
-                        checked = isSound.value,
+                        checked = preferencesVM.preferences.value.sound,
                         onCheckedChange = { value ->
-                            isSound.value = value
+                            preferencesVM.update(sound = value)
                         },
                         activeIcon = R.drawable.sound_up,
                         inactiveIcon = R.drawable.sound_off,

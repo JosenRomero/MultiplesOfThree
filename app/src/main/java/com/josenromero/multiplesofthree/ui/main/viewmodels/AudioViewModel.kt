@@ -18,9 +18,11 @@ class AudioViewModel @Inject constructor(
         audioTap = audio.loadAudio(R.raw.tap)
     }
 
-    fun play(audio: String) {
-        when (audio) {
-            Audios.AudioTap.name -> audioTap?.start()
+    fun play(audio: String, isSound: Boolean) {
+        if (isSound) {
+            when (audio) {
+                Audios.AudioTap.name -> audioTap?.start()
+            }
         }
     }
 

@@ -82,7 +82,7 @@ fun AppNavigation() {
                     preferencesLoading = preferencesViewModel.preferencesLoading.value,
                     firstTime = preferences.firstTime,
                     onNavigateToAScreen = { route ->
-                        audioViewModel.play(Audios.AudioTap.name)
+                        audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         if (route == AppScreens.PlayScreen.route) {
                             gameViewModel.initGame()
                         }
@@ -124,14 +124,14 @@ fun AppNavigation() {
                         gameViewModel.removeNumber(position)
                     },
                     onNavigateToAScreen = { route ->
-                        audioViewModel.play(Audios.AudioTap.name)
+                        audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         if (route == AppScreens.PlayScreen.route) {
                             gameViewModel.initGame()
                         }
                         navController.navigate(route)
                     },
                     audioPlay = { name ->
-                        audioViewModel.play(name)
+                        audioViewModel.play(audio = name, isSound = preferences.sound)
                     }
                 )
             }
@@ -152,7 +152,7 @@ fun AppNavigation() {
             ) {
                 AboutScreen(
                     onNavigateToBack = {
-                        audioViewModel.play(Audios.AudioTap.name)
+                        audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         navController.popBackStack()
                     }
                 )
@@ -174,7 +174,7 @@ fun AppNavigation() {
             ) {
                 AchievementsScreen(
                     onNavigateToBack = {
-                        audioViewModel.play(Audios.AudioTap.name)
+                        audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         navController.popBackStack()
                     }
                 )
@@ -196,7 +196,7 @@ fun AppNavigation() {
             ) {
                 LanguageScreen(
                     onNavigateToBack = {
-                        audioViewModel.play(Audios.AudioTap.name)
+                        audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         navController.popBackStack()
                     }
                 )
@@ -237,11 +237,11 @@ fun AppNavigation() {
                 SettingsScreen(
                     preferencesVM = preferencesViewModel,
                     onNavigateToBack = {
-                        audioViewModel.play(Audios.AudioTap.name)
+                        audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         navController.popBackStack()
                     },
                     onNavigateToAScreen = { route ->
-                        audioViewModel.play(Audios.AudioTap.name)
+                        audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         navController.navigate(route)
                     }
                 )
@@ -267,7 +267,7 @@ fun AppNavigation() {
                         preferencesViewModel.update(firstTime = false)
                     },
                     onNavigateToBack = {
-                        audioViewModel.play(Audios.AudioTap.name)
+                        audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         navController.popBackStack()
                     }
                 )
