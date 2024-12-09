@@ -29,12 +29,18 @@ import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 fun HomeScreen(
     preferencesLoading: Boolean,
     firstTime: Boolean,
+    backgroundMusicPlay: () -> Unit,
     onNavigateToAScreen: (route: String) -> Unit
 ) {
 
     LaunchedEffect(key1 = preferencesLoading) {
-        if (firstTime && !preferencesLoading) {
-            onNavigateToAScreen(AppScreens.HowToPlayScreen.route)
+        if (!preferencesLoading) {
+
+            backgroundMusicPlay()
+
+            if (firstTime) {
+                onNavigateToAScreen(AppScreens.HowToPlayScreen.route)
+            }
         }
     }
 
@@ -111,6 +117,7 @@ fun HomeScreenPreview() {
         HomeScreen(
             preferencesLoading = false,
             firstTime = false,
+            backgroundMusicPlay = {},
             onNavigateToAScreen = {}
         )
     }

@@ -81,6 +81,9 @@ fun AppNavigation() {
                 HomeScreen(
                     preferencesLoading = preferencesViewModel.preferencesLoading.value,
                     firstTime = preferences.firstTime,
+                    backgroundMusicPlay = {
+                        audioViewModel.backgroundMusicPlay(isMusic = preferences.music)
+                    },
                     onNavigateToAScreen = { route ->
                         audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         if (route == AppScreens.PlayScreen.route) {
@@ -236,6 +239,13 @@ fun AppNavigation() {
             ) {
                 SettingsScreen(
                     preferencesVM = preferencesViewModel,
+                    backgroundMusic = { value ->
+                        if (value) {
+                            audioViewModel.backgroundMusicPlay(isMusic = true)
+                        } else {
+                            audioViewModel.backgroundMusicStop()
+                        }
+                    },
                     onNavigateToBack = {
                         audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         navController.popBackStack()

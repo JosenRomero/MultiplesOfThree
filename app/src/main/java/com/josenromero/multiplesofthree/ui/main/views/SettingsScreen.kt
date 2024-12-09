@@ -24,6 +24,7 @@ import com.josenromero.multiplesofthree.ui.main.viewmodels.PreferencesViewModel
 @Composable
 fun SettingsScreen(
     preferencesVM: PreferencesViewModel,
+    backgroundMusic: (value: Boolean) -> Unit,
     onNavigateToBack: () -> Unit,
     onNavigateToAScreen: (route: String) -> Unit
 ) {
@@ -52,12 +53,14 @@ fun SettingsScreen(
                     text = "Music",
                     onClick = {
                         val currentValue = preferencesVM.preferences.value.music
+                        backgroundMusic(!currentValue)
                         preferencesVM.update(music = !currentValue)
                     }
                 ) {
                     CustomSwitch(
                         checked = preferencesVM.preferences.value.music,
                         onCheckedChange = { value ->
+                            backgroundMusic(value)
                             preferencesVM.update(music = value)
                         },
                         activeIcon = R.drawable.sound_up,

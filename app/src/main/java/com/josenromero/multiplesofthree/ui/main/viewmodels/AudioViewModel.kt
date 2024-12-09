@@ -12,9 +12,11 @@ class AudioViewModel @Inject constructor(
     private val audio: Audio
 ): ViewModel() {
 
+    private var audioBackground: MediaPlayer? = null
     private var audioTap: MediaPlayer? = null
 
     init {
+        audioBackground = audio.loadAudio(R.raw.piano_loops)
         audioTap = audio.loadAudio(R.raw.tap)
     }
 
@@ -23,6 +25,19 @@ class AudioViewModel @Inject constructor(
             when (audio) {
                 Audios.AudioTap.name -> audioTap?.start()
             }
+        }
+    }
+
+    fun backgroundMusicPlay(isMusic: Boolean) {
+        if (isMusic && audioBackground?.isPlaying == false) {
+            audioBackground?.start()
+            audioBackground?.isLooping = true
+        }
+    }
+
+    fun backgroundMusicStop() {
+        if (audioBackground?.isPlaying == true) {
+           audioBackground?.pause()
         }
     }
 
