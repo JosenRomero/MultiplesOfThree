@@ -14,4 +14,9 @@ object Constants {
     const val PREFERENCES_TABLE = "preferences_table"
     const val PLAYER_DATABASE = "player_database"
 
+    // language
+    const val englishTag = "en"
+    const val spanishTag = "es"
+    const val japaneseTag = "ja"
+
 }
