@@ -122,17 +122,14 @@ fun AppNavigation() {
                     gameState = gameState,
                     player = player,
                     coins = coins,
-                    addOneCoin = { coordinate ->
-                        gameViewModel.addOneCoin(coordinate)
-                    },
                     removeOneCoin = { coin ->
                         gameViewModel.removeOneCoin(coin)
                     },
                     updatePlayer = { bestScore, achievements ->
                         gameViewModel.updatingPlayer(bestScore, achievements)
                     },
-                    onClick = { position ->
-                        gameViewModel.removeNumber(position)
+                    onClick = { position, coordinate ->
+                        gameViewModel.selectedNumber(position, coordinate)
                     },
                     onNavigateToAScreen = { route ->
                         audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)

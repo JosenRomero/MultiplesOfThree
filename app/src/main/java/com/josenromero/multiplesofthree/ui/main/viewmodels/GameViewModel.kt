@@ -134,24 +134,32 @@ class GameViewModel @Inject constructor(
         )
     }
 
-    fun removeNumber(position: Pair<Int, Int>) {
+    private fun removeNumber(position: Pair<Int, Int>, isMultiple: Boolean) {
+        gameStateUpdate(
+            board = removeNumberToBoardGame.removeNumber(_gameState.value.board, position),
+            score = if (isMultiple) _gameState.value.score + 1 else null,
+            hearts = if (!isMultiple) _gameState.value.hearts - 1 else null
+        )
+    }
+
+    fun selectedNumber(position: Pair<Int, Int>, coordinate: Offset) {
 
         val currentNumber = _gameState.value.board[position.first][position.second]
 
-        if (currentNumber != Constants.DEFAULT_VALUE) {
+        val isCorrectAnswer: Boolean = currentNumber % Constants.FIRST_NUMBER == 0
 
-            val isMultiple: Boolean = currentNumber % Constants.FIRST_NUMBER == 0
+        val currentScore = _gameState.value.score
 
-            gameStateUpdate(
-                board = removeNumberToBoardGame.removeNumber(_gameState.value.board, position),
-                score = if (isMultiple) _gameState.value.score + 1 else null,
-                hearts = if (!isMultiple) _gameState.value.hearts - 1 else null
-            )
+        removeNumber(position, isCorrectAnswer)
+
+        if (isCorrectAnswer) {
+            addOneCoin(id = currentScore + 1, coordinate = coordinate)
         }
+
     }
 
-    fun addOneCoin(coordinate: Offset) {
-        val newCoin = Coin(id = _gameState.value.score, coordinate = coordinate)
+    private fun addOneCoin(id: Int, coordinate: Offset) {
+        val newCoin = Coin(id = id, coordinate = coordinate)
         _coins.value.add(newCoin)
     }
 

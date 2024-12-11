@@ -26,17 +26,15 @@ import com.josenromero.multiplesofthree.ui.main.components.Score
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
-import com.josenromero.multiplesofthree.utils.Constants
 
 @Composable
 fun PlayScreen(
     gameState:  GameState,
     player: PlayerEntity,
     coins: MutableList<Coin>,
-    addOneCoin: (coordinate: Offset) -> Unit,
     removeOneCoin: (coin: Coin) -> Unit,
     updatePlayer: (bestScore: Int?, achievements: List<String>?) -> Unit,
-    onClick: (position: Pair<Int, Int>) -> Unit,
+    onClick: (position: Pair<Int, Int>, coordinate: Offset) -> Unit,
     onNavigateToAScreen: (route: String) -> Unit,
     audioPlay: (name: String) -> Unit,
 ) {
@@ -73,13 +71,7 @@ fun PlayScreen(
                 )
                 Board(
                     board = gameState.board,
-                    onClick = { position, currentCoinCoordinate ->
-                        onClick(position)
-                        // isMultiple
-                        if (gameState.board[position.first][position.second] % Constants.FIRST_NUMBER == 0) {
-                            addOneCoin(currentCoinCoordinate)
-                        }
-                    },
+                    onClick = onClick,
                     audioPlay = audioPlay
                 )
                 if (gameState.isGameOver) {
@@ -119,10 +111,9 @@ fun PlayScreenPreview() {
             gameState = GameState(board = listOf(listOf(-1, -1, 3), listOf(-1, -1, -1), listOf(-1, -1, -1))),
             player = PlayerEntity(bestScore = 0, achievements = emptyList()),
             coins = mutableListOf(),
-            addOneCoin = {},
             removeOneCoin = {},
             updatePlayer = { _, _ ->},
-            onClick = {},
+            onClick = {_, _ ->},
             onNavigateToAScreen = {},
             audioPlay = {}
         )
