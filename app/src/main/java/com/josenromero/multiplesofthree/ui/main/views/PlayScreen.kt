@@ -5,19 +5,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.josenromero.multiplesofthree.data.Coin
 import com.josenromero.multiplesofthree.data.GameState
 import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.ui.main.components.Board
@@ -30,22 +28,18 @@ import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 import com.josenromero.multiplesofthree.utils.Constants
 
-data class Coin(
-    val id: Int,
-    val coordinate: Offset
-)
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayScreen(
     gameState:  GameState,
     player: PlayerEntity,
+    coins: MutableList<Coin>,
+    addOneCoin: (coordinate: Offset) -> Unit,
+    removeOneCoin: (coin: Coin) -> Unit,
     updatePlayer: (bestScore: Int?, achievements: List<String>?) -> Unit,
     onClick: (position: Pair<Int, Int>) -> Unit,
     onNavigateToAScreen: (route: String) -> Unit,
     audioPlay: (name: String) -> Unit,
 ) {
-
-    val coins = remember { mutableStateListOf<Coin>() }
 
     Scaffold(
         topBar = {
@@ -83,8 +77,7 @@ fun PlayScreen(
                         onClick(position)
                         // isMultiple
                         if (gameState.board[position.first][position.second] % Constants.FIRST_NUMBER == 0) {
-                            val newCoin = Coin(id = coins.size, coordinate = currentCoinCoordinate)
-                            coins.add(newCoin)
+                            addOneCoin(currentCoinCoordinate)
                         }
                     },
                     audioPlay = audioPlay
@@ -108,7 +101,7 @@ fun PlayScreen(
                     initialPosition = coin.coordinate,
                     finalPosition = Offset.Zero,
                     onAnimationEnd = {
-                        coins.remove(coin)
+                        removeOneCoin(coin)
                     }
                 )
             }
@@ -125,6 +118,9 @@ fun PlayScreenPreview() {
         PlayScreen(
             gameState = GameState(board = listOf(listOf(-1, -1, 3), listOf(-1, -1, -1), listOf(-1, -1, -1))),
             player = PlayerEntity(bestScore = 0, achievements = emptyList()),
+            coins = mutableListOf(),
+            addOneCoin = {},
+            removeOneCoin = {},
             updatePlayer = { _, _ ->},
             onClick = {},
             onNavigateToAScreen = {},

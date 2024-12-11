@@ -1,7 +1,9 @@
 package com.josenromero.multiplesofthree.ui.main.viewmodels
 
+import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.josenromero.multiplesofthree.data.Coin
 import com.josenromero.multiplesofthree.data.GameState
 import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.domain.AddNumberToBoardGame
@@ -38,6 +40,9 @@ class GameViewModel @Inject constructor(
     private val _player: MutableStateFlow<PlayerEntity> = MutableStateFlow(PlayerEntity(bestScore = 0, achievements = arrayListOf()))
     val player = _player.asStateFlow()
 
+    private val _coins: MutableStateFlow<MutableList<Coin>> = MutableStateFlow(mutableListOf())
+    val coins = _coins.asStateFlow()
+
     private var timerJob: Job? = null
 
     init {
@@ -46,6 +51,7 @@ class GameViewModel @Inject constructor(
 
     fun initGame() {
         _gameState.value.isGameOver = false
+        removeAllCoins()
         startNewGame()
         startTimer()
     }
@@ -141,6 +147,21 @@ class GameViewModel @Inject constructor(
                 score = if (isMultiple) _gameState.value.score + 1 else null,
                 hearts = if (!isMultiple) _gameState.value.hearts - 1 else null
             )
+        }
+    }
+
+    fun addOneCoin(coordinate: Offset) {
+        val newCoin = Coin(id = _gameState.value.score, coordinate = coordinate)
+        _coins.value.add(newCoin)
+    }
+
+    fun removeOneCoin(coin: Coin) {
+        _coins.value.remove(coin)
+    }
+
+    private fun removeAllCoins() {
+        if (_coins.value.isNotEmpty()) {
+            _coins.value.removeAll(_coins.value)
         }
     }
 

@@ -33,6 +33,7 @@ fun AppNavigation() {
     val gameViewModel: GameViewModel = viewModel()
     val gameState by gameViewModel.gameState.collectAsState()
     val player by gameViewModel.player.collectAsState()
+    val coins by gameViewModel.coins.collectAsState()
     val preferences by preferencesViewModel.preferences.collectAsState()
 
     MultiplesOfThreeTheme(
@@ -120,6 +121,13 @@ fun AppNavigation() {
                 PlayScreen(
                     gameState = gameState,
                     player = player,
+                    coins = coins,
+                    addOneCoin = { coordinate ->
+                        gameViewModel.addOneCoin(coordinate)
+                    },
+                    removeOneCoin = { coin ->
+                        gameViewModel.removeOneCoin(coin)
+                    },
                     updatePlayer = { bestScore, achievements ->
                         gameViewModel.updatingPlayer(bestScore, achievements)
                     },
