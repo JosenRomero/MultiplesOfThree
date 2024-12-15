@@ -7,7 +7,9 @@ import com.josenromero.multiplesofthree.data.player.PlayerDataBase
 import com.josenromero.multiplesofthree.data.preferences.PreferencesDao
 import com.josenromero.multiplesofthree.domain.AddNumberToBoardGame
 import com.josenromero.multiplesofthree.domain.Audio
+import com.josenromero.multiplesofthree.domain.CheckAnswer
 import com.josenromero.multiplesofthree.domain.CreateBoardGame
+import com.josenromero.multiplesofthree.domain.NextStage
 import com.josenromero.multiplesofthree.domain.RemoveNumberToBoardGame
 import com.josenromero.multiplesofthree.utils.Constants
 import dagger.Module
@@ -67,6 +69,18 @@ object AppModule {
     @Singleton
     fun provideAudio(@ApplicationContext app: Context): Audio {
         return Audio(app)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCheckAnswer(): CheckAnswer {
+        return CheckAnswer()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNextStage(): NextStage {
+        return NextStage()
     }
 
 }
