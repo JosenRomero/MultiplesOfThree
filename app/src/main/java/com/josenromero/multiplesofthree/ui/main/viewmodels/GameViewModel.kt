@@ -60,7 +60,7 @@ class GameViewModel @Inject constructor(
     fun initGame() {
         _gameState.value.isGameOver = false
         removeAllCoins()
-        _stage.value = nextStage(currentStage = Stage())
+        stageUpdate(currentStage = Stage())
         startNewGame()
         startTimer()
     }
@@ -113,6 +113,10 @@ class GameViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun stageUpdate(currentStage: Stage) {
+        _stage.value = nextStage(currentStage)
     }
 
     private fun startNewGame() {
@@ -182,7 +186,7 @@ class GameViewModel @Inject constructor(
         }
     }
 
-    private fun cleanBoard() {
+    fun cleanBoard() {
         gameStateUpdate(
             board = boardGame.getEmptyMatrix(size = Constants.BOARD_SIZE)
         )

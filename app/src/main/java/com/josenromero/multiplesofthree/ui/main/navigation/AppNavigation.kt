@@ -34,6 +34,7 @@ fun AppNavigation() {
     val gameState by gameViewModel.gameState.collectAsState()
     val player by gameViewModel.player.collectAsState()
     val coins by gameViewModel.coins.collectAsState()
+    val stage by gameViewModel.stage.collectAsState()
     val preferences by preferencesViewModel.preferences.collectAsState()
 
     MultiplesOfThreeTheme(
@@ -122,6 +123,11 @@ fun AppNavigation() {
                     gameState = gameState,
                     player = player,
                     coins = coins,
+                    stage = stage,
+                    stageUpdate = {
+                        gameViewModel.cleanBoard()
+                        gameViewModel.stageUpdate(currentStage = stage)
+                    },
                     removeOneCoin = { coin ->
                         gameViewModel.removeOneCoin(coin)
                     },

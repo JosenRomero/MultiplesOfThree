@@ -10,7 +10,7 @@ class CheckAnswer {
             Step.Step1 -> currentList.contains(currentNumber) // multiple of the target number
             Step.Step2 -> currentList.contains(currentNumber) && currentNumber % 2 == 0 // multiple of the target number and even number
             Step.Step3 -> currentList.contains(currentNumber) && currentNumber % 2 != 0 // multiple of the target number and odd number
-            Step.Step4 -> false
+            Step.Step4 -> currentList.contains(currentNumber)
         }
 
         return result

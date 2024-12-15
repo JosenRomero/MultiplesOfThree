@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -17,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.data.Coin
 import com.josenromero.multiplesofthree.data.GameState
+import com.josenromero.multiplesofthree.data.Stage
 import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.ui.main.components.Board
 import com.josenromero.multiplesofthree.ui.main.components.AnimatedCoin
@@ -32,12 +34,20 @@ fun PlayScreen(
     gameState:  GameState,
     player: PlayerEntity,
     coins: MutableList<Coin>,
+    stage: Stage,
+    stageUpdate: () -> Unit,
     removeOneCoin: (coin: Coin) -> Unit,
     updatePlayer: (bestScore: Int?, achievements: List<String>?) -> Unit,
     onClick: (position: Pair<Int, Int>, coordinate: Offset) -> Unit,
     onNavigateToAScreen: (route: String) -> Unit,
     audioPlay: (name: String) -> Unit,
 ) {
+
+    LaunchedEffect(key1 = gameState.score) {
+        if (checkScoreToStageUpdate(gameState.score)) {
+            stageUpdate()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -103,6 +113,10 @@ fun PlayScreen(
 
 }
 
+fun checkScoreToStageUpdate(score: Int): Boolean {
+    return score > 0 && (score % 10) == 0
+}
+
 @Preview(uiMode = UI_MODE_NIGHT_NO, showSystemUi = true)
 @Composable
 fun PlayScreenPreview() {
@@ -111,6 +125,8 @@ fun PlayScreenPreview() {
             gameState = GameState(board = listOf(listOf(-1, -1, 3), listOf(-1, -1, -1), listOf(-1, -1, -1))),
             player = PlayerEntity(bestScore = 0, achievements = emptyList()),
             coins = mutableListOf(),
+            stage = Stage(),
+            stageUpdate = {},
             removeOneCoin = {},
             updatePlayer = { _, _ ->},
             onClick = {_, _ ->},
