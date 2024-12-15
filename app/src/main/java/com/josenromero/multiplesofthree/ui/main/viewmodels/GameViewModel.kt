@@ -5,9 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.josenromero.multiplesofthree.data.Coin
 import com.josenromero.multiplesofthree.data.GameState
+import com.josenromero.multiplesofthree.data.Stage
 import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.domain.AddNumberToBoardGame
+import com.josenromero.multiplesofthree.domain.CheckAnswer
 import com.josenromero.multiplesofthree.domain.CreateBoardGame
+import com.josenromero.multiplesofthree.domain.NextStage
 import com.josenromero.multiplesofthree.domain.RemoveNumberToBoardGame
 import com.josenromero.multiplesofthree.domain.player.AddPlayer
 import com.josenromero.multiplesofthree.domain.player.GetPlayer
@@ -31,7 +34,9 @@ class GameViewModel @Inject constructor(
     private val removeNumberToBoardGame: RemoveNumberToBoardGame,
     private val getPlayer: GetPlayer,
     private val addPlayer: AddPlayer,
-    private val updatePlayer: UpdatePlayer
+    private val updatePlayer: UpdatePlayer,
+    private val checkAnswer: CheckAnswer,
+    private val nextStage: NextStage
 ): ViewModel() {
 
     private val _gameState = MutableStateFlow(GameState())
@@ -43,6 +48,9 @@ class GameViewModel @Inject constructor(
     private val _coins: MutableStateFlow<MutableList<Coin>> = MutableStateFlow(mutableListOf())
     val coins = _coins.asStateFlow()
 
+    private val _stage: MutableStateFlow<Stage> = MutableStateFlow(Stage())
+    val stage = _stage.asStateFlow()
+
     private var timerJob: Job? = null
 
     init {
@@ -52,6 +60,7 @@ class GameViewModel @Inject constructor(
     fun initGame() {
         _gameState.value.isGameOver = false
         removeAllCoins()
+        _stage.value = nextStage(currentStage = Stage())
         startNewGame()
         startTimer()
     }
@@ -108,7 +117,7 @@ class GameViewModel @Inject constructor(
 
     private fun startNewGame() {
         gameStateUpdate(
-            board = boardGame.createBoard(size = Constants.BOARD_SIZE),
+            board = boardGame.createBoard(size = Constants.BOARD_SIZE, stage = _stage.value),
             score = 0,
             hearts = Constants.NUMBER_OF_HEARTS
         )
@@ -130,7 +139,7 @@ class GameViewModel @Inject constructor(
 
     private fun addNumber() {
         gameStateUpdate(
-            board = addNumberToBoardGame.addNumber(_gameState.value.board)
+            board = addNumberToBoardGame.addNumber(boardGame = _gameState.value.board, stage = _stage.value)
         )
     }
 
@@ -146,7 +155,7 @@ class GameViewModel @Inject constructor(
 
         val currentNumber = _gameState.value.board[position.first][position.second]
 
-        val isCorrectAnswer: Boolean = currentNumber % Constants.FIRST_NUMBER == 0
+        val isCorrectAnswer: Boolean = checkAnswer(currentNumber, _stage.value.listOfNumbers, _stage.value.step)
 
         val currentScore = _gameState.value.score
 

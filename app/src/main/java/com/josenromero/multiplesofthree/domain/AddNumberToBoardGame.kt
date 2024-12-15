@@ -1,14 +1,15 @@
 package com.josenromero.multiplesofthree.domain
 
+import com.josenromero.multiplesofthree.data.Stage
 import com.josenromero.multiplesofthree.utils.Constants
 import kotlin.random.Random
 
 class AddNumberToBoardGame {
 
-    fun addNumber(boardGame: List<List<Int>>, initialNumber: Boolean = false): List<List<Int>>  {
+    fun addNumber(boardGame: List<List<Int>>, initialNumber: Boolean = false, stage: Stage): List<List<Int>>  {
 
         val position = getAvailablePosition(boardGame)
-        val number = getNumber(initialNumber)
+        val number = getNumber(initialNumber, stage)
         val newBoard: MutableList<MutableList<Int>> = boardGame.map { it.toMutableList() }.toMutableList()
 
         if (position != null) {
@@ -59,8 +60,8 @@ class AddNumberToBoardGame {
 
     }
 
-    private fun getNumber(initialNumber: Boolean): Int {
-        return if (initialNumber) Constants.FIRST_NUMBER else Random.nextInt(Constants.START_NUMBER, Constants.END_NUMBER)
+    private fun getNumber(initialNumber: Boolean, stage: Stage): Int {
+        return if (initialNumber) Constants.TARGET_NUMBER else Random.nextInt(stage.startNumber, stage.endNumber)
     }
 
 }
