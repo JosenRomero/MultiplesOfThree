@@ -123,11 +123,13 @@ fun TableCell(
                         .alpha(alpha)
                         .clickable {
                             CoroutineScope(Dispatchers.Default).launch {
-                                audioPlay(Audios.AudioTap.name)
-                                isAnimated = true
-                                delay(700)
-                                onClick(position, coordinates)
-                                isAnimated = false
+                                if (!isAnimated) {
+                                    audioPlay(Audios.AudioTap.name)
+                                    isAnimated = true
+                                    delay(700)
+                                    onClick(position, coordinates)
+                                    isAnimated = false
+                                }
                             }
                         },
                     verticalArrangement = Arrangement.Center,
