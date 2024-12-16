@@ -74,7 +74,7 @@ fun PlayScreen(
             ) {
                 HUD(bestScore = player.bestScore, hearts = gameState.hearts)
                 Text(
-                    text = "Find and tap all multiples of 3",
+                    text = "Find and tap all ${stage.step.text}",
                     modifier = Modifier.padding(vertical = 40.dp),
                     color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 14.sp
