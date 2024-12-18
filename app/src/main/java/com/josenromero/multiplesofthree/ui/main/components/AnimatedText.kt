@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun Score(
     value: Int,
+    modifier: Modifier = Modifier
 ) {
     
     Column(
@@ -31,7 +32,9 @@ fun Score(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row {
+        Row(
+            modifier = modifier
+        ) {
             Text(
                 text = "Score ",
                 color = MaterialTheme.colorScheme.onPrimary,
