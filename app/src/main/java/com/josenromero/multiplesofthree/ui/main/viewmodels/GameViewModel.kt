@@ -135,7 +135,13 @@ class GameViewModel @Inject constructor(
             while (!_gameState.value.isGameOver) {
                 val isFewCellsAvailable = addNumberToBoardGame.fewCellsAvailable(_gameState.value.board)
                 delay(3000)
-                if (isFewCellsAvailable) cleanBoard() else addNumber()
+                if (isFewCellsAvailable) {
+                    cleanBoard()
+                    if (_coins.value.size > 5) {
+                        delay(1000)
+                        removeAllCoins()
+                    }
+                } else addNumber()
             }
         }
 
@@ -174,10 +180,6 @@ class GameViewModel @Inject constructor(
     private fun addOneCoin(id: Int, coordinate: Offset) {
         val newCoin = Coin(id = id, coordinate = coordinate)
         _coins.value.add(newCoin)
-    }
-
-    fun removeOneCoin(coin: Coin) {
-        _coins.value.remove(coin)
     }
 
     private fun removeAllCoins() {

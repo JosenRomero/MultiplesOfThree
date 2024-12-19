@@ -11,13 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.josenromero.multiplesofthree.R
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @SuppressLint("UseOfNonLambdaOffsetOverload")
@@ -25,12 +25,12 @@ import kotlinx.coroutines.launch
 fun AnimatedCoin(
     id: Int,
     initialPosition: Offset,
-    finalPosition: Offset,
-    onAnimationEnd: () -> Unit
+    finalPosition: Offset
 ) {
 
     val offsetX = remember { Animatable(initialPosition.x) }
     val offsetY = remember { Animatable(initialPosition.y) }
+    val alpha = remember { Animatable(1f) }
 
     LaunchedEffect(id) {
         launch {
@@ -46,14 +46,17 @@ fun AnimatedCoin(
             )
         }
         launch {
-            delay(1400)
-            onAnimationEnd()
+            alpha.animateTo(
+                targetValue = 0f,
+                animationSpec = tween(1400)
+            )
         }
     }
 
     Box(
         modifier = Modifier
             .offset(x = offsetX.value.pxToDp(), y = offsetY.value.pxToDp())
+            .alpha(alpha.value)
     ) {
         Image(
             painter = painterResource(id = R.drawable.coin),

@@ -42,7 +42,6 @@ fun PlayScreen(
     coins: MutableList<Coin>,
     stage: Stage,
     stageUpdate: () -> Unit,
-    removeOneCoin: (coin: Coin) -> Unit,
     updatePlayer: (bestScore: Int?, achievements: List<String>?) -> Unit,
     onClick: (position: Pair<Int, Int>, coordinate: Offset) -> Unit,
     onNavigateToAScreen: (route: String) -> Unit,
@@ -114,10 +113,7 @@ fun PlayScreen(
                 AnimatedCoin(
                     id = coin.id,
                     initialPosition = coin.coordinate,
-                    finalPosition = scoreCoordinates,
-                    onAnimationEnd = {
-                        removeOneCoin(coin)
-                    }
+                    finalPosition = scoreCoordinates
                 )
             }
 
@@ -140,7 +136,6 @@ fun PlayScreenPreview() {
             coins = mutableListOf(),
             stage = Stage(),
             stageUpdate = {},
-            removeOneCoin = {},
             updatePlayer = { _, _ ->},
             onClick = {_, _ ->},
             onNavigateToAScreen = {},

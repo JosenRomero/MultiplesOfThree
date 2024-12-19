@@ -128,9 +128,6 @@ fun AppNavigation() {
                         gameViewModel.cleanBoard()
                         gameViewModel.stageUpdate(currentStage = stage)
                     },
-                    removeOneCoin = { coin ->
-                        gameViewModel.removeOneCoin(coin)
-                    },
                     updatePlayer = { bestScore, achievements ->
                         gameViewModel.updatingPlayer(bestScore, achievements)
                     },
