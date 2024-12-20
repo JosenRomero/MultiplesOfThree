@@ -7,5 +7,17 @@
     <string name="spanish" translatable="false">Español</string>
     <string name="japanese" translatable="false">日本語</string>
 
+    <!-- screen HowToPlay -->
+    <string name="howToPlay_screen_title">How To Play</string>
+    <string name="howToPlay_screen_subtitle_game_missions">Game Missions</string>
+    <string name="howToPlay_screen_text_mission_1">Mission 1: Select numbers that are multiples of 3.</string>
+    <string name="howToPlay_screen_text_mission_2">Mission 2: Select numbers that are multiples of 3 and even.</string>
+    <string name="howToPlay_screen_text_mission_3">Mission 3: Select numbers that are multiples of 3 and odd.</string>
+    <string name="howToPlay_screen_text_mission_4">Mission 4: Select numbers that are multiples of 3 and 5.</string>
+    <string name="howToPlay_screen_subtitle_game_rules">Game Rules</string>
+    <string name="howToPlay_screen_text_game_rules_1">Select only the numbers that meet the mission\'s condition.</string>
+    <string name="howToPlay_screen_text_game_rules_2">Avoid selecting incorrect numbers to prevent losing a heart.</string>
+    <string name="howToPlay_screen_text_game_rules_3">Complete each mission to progress to the next level of the game.</string>
+
     <string name="language">Language</string>
 </resources>

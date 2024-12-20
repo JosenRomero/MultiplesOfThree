@@ -1,3 +1,4 @@
+
 <resources>
     <string name="app_name">multiples of three</string>
     <string name="select_language">言語の選択</string>
@@ -5,6 +6,18 @@
     <string name="english" translatable="false">English</string>
     <string name="spanish" translatable="false">Español</string>
     <string name="japanese" translatable="false">日本語</string>
+
+    <!-- screen HowToPlay -->
+    <string name="howToPlay_screen_title">遊び方</string>
+    <string name="howToPlay_screen_subtitle_game_missions">ゲームのミッション</string>
+    <string name="howToPlay_screen_text_mission_1">ミッション 1: 3の倍数の数字を選んでください。</string>
+    <string name="howToPlay_screen_text_mission_2">ミッション 2: 3の倍数かつ偶数の数字を選んでください。</string>
+    <string name="howToPlay_screen_text_mission_3">ミッション 3: 3の倍数かつ奇数の数字を選んでください。</string>
+    <string name="howToPlay_screen_text_mission_4">ミッション 4: 3と5の倍数の数字を選んでください。</string>
+    <string name="howToPlay_screen_subtitle_game_rules">ゲームのルール</string>
+    <string name="howToPlay_screen_text_game_rules_1">ミッションの条件を満たす数字だけを選んでください。</string>
+    <string name="howToPlay_screen_text_game_rules_2">間違った数字を選ばないようにして、ハートを失わないようにしましょう。</string>
+    <string name="howToPlay_screen_text_game_rules_3">各ミッションをクリアして、次のレベルに進みましょう。</string>
 
     <string name="language">言語</string>
 </resources>
