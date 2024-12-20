@@ -1,8 +1,11 @@
 package com.josenromero.multiplesofthree.data
 
-enum class Step(val text: String) {
-    Step1("multiples of 3"),
-    Step2("multiples of 3 and even number"),
-    Step3("multiples of 3 and odd number"),
-    Step4("multiples of 3 and multiples of 5")
+import androidx.annotation.StringRes
+import com.josenromero.multiplesofthree.R
+
+enum class Step(@StringRes val textId: Int) {
+    Step1(textId = R.string.howToPlay_screen_text_mission_1),
+    Step2(textId = R.string.howToPlay_screen_text_mission_2),
+    Step3(textId = R.string.howToPlay_screen_text_mission_3),
+    Step4(textId = R.string.howToPlay_screen_text_mission_4)
 }

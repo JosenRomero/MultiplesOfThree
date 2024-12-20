@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -85,8 +86,9 @@ fun PlayScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 HUD(bestScore = player.bestScore, hearts = gameState.hearts)
+                // the step.textId is like R.string.howToPlay_screen_text_mission_1
                 Text(
-                    text = "Find and tap all ${stage.step.text}",
+                    text = stringResource(id = stage.step.textId),
                     modifier = Modifier.padding(vertical = 40.dp),
                     color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 14.sp
