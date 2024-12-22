@@ -31,6 +31,7 @@ import com.josenromero.multiplesofthree.ui.main.components.Board
 import com.josenromero.multiplesofthree.ui.main.components.AnimatedCoin
 import com.josenromero.multiplesofthree.ui.main.components.GameOver
 import com.josenromero.multiplesofthree.ui.main.components.HUD
+import com.josenromero.multiplesofthree.ui.main.components.MissionAnimated
 import com.josenromero.multiplesofthree.ui.main.components.Score
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
@@ -49,11 +50,13 @@ fun PlayScreen(
     audioPlay: (name: String) -> Unit,
 ) {
 
+    var isShowMission by remember { mutableStateOf(true) }
     var scoreCoordinates by remember { mutableStateOf(Offset.Zero) }
 
     LaunchedEffect(key1 = gameState.score) {
         if (checkScoreToStageUpdate(gameState.score)) {
             stageUpdate()
+            isShowMission = true
         }
     }
 
@@ -86,18 +89,22 @@ fun PlayScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 HUD(bestScore = player.bestScore, hearts = gameState.hearts)
-                // the step.textId is like R.string.howToPlay_screen_text_mission_1
-                Text(
-                    text = stringResource(id = stage.step.textId),
-                    modifier = Modifier.padding(vertical = 40.dp),
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    fontSize = 14.sp
-                )
-                Board(
-                    board = gameState.board,
-                    onClick = onClick,
-                    audioPlay = audioPlay
-                )
+
+                if (!isShowMission) {
+                    // the step.textId is like R.string.howToPlay_screen_text_mission_1
+                    Text(
+                        text = stringResource(id = stage.step.textId),
+                        modifier = Modifier.padding(vertical = 40.dp),
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        fontSize = 14.sp
+                    )
+                    Board(
+                        board = gameState.board,
+                        onClick = onClick,
+                        audioPlay = audioPlay
+                    )
+                }
+
                 if (gameState.isGameOver) {
 
                     if (gameState.score > player.bestScore) {
@@ -118,7 +125,14 @@ fun PlayScreen(
                     finalPosition = scoreCoordinates
                 )
             }
-
+            if (isShowMission) {
+                MissionAnimated(
+                    step = stage.step,
+                    btnClose = {
+                        isShowMission = false
+                    }
+                )
+            }
         }
     }
 
