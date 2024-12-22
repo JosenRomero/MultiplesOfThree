@@ -58,11 +58,15 @@ class GameViewModel @Inject constructor(
     }
 
     fun initGame() {
-        _gameState.value.isGameOver = false
-        removeAllCoins()
-        stageUpdate(currentStage = Stage())
-        startNewGame()
-        startTimer()
+        viewModelScope.launch(Dispatchers.Main) {
+            cleanTimer()
+            _gameState.value.isGameOver = false
+            removeAllCoins()
+            stageUpdate(currentStage = Stage())
+            startNewGame()
+            delay(7000)
+            startTimer()
+        }
     }
 
     private fun checkPlayer() {
@@ -115,7 +119,17 @@ class GameViewModel @Inject constructor(
         }
     }
 
-    fun stageUpdate(currentStage: Stage) {
+    fun beforeStageUpdate(currentStage: Stage) {
+        viewModelScope.launch(Dispatchers.IO) {
+            cleanTimer()
+            cleanBoard()
+            stageUpdate(currentStage)
+            delay(7000)
+            startTimer()
+        }
+    }
+
+    private fun stageUpdate(currentStage: Stage) {
         _stage.value = nextStage(currentStage)
     }
 
@@ -128,8 +142,6 @@ class GameViewModel @Inject constructor(
     }
 
     private fun startTimer() {
-
-        timerJob?.cancel()
 
         timerJob = viewModelScope.launch {
             while (!_gameState.value.isGameOver) {
@@ -188,7 +200,11 @@ class GameViewModel @Inject constructor(
         }
     }
 
-    fun cleanBoard() {
+    private fun cleanTimer() {
+        timerJob?.cancel()
+    }
+
+    private fun cleanBoard() {
         gameStateUpdate(
             board = boardGame.getEmptyMatrix(size = Constants.BOARD_SIZE)
         )

@@ -125,8 +125,7 @@ fun AppNavigation() {
                     coins = coins,
                     stage = stage,
                     stageUpdate = {
-                        gameViewModel.cleanBoard()
-                        gameViewModel.stageUpdate(currentStage = stage)
+                        gameViewModel.beforeStageUpdate(currentStage = stage)
                     },
                     updatePlayer = { bestScore, achievements ->
                         gameViewModel.updatingPlayer(bestScore, achievements)
