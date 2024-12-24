@@ -98,11 +98,6 @@ fun PlayScreen(
                         color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 14.sp
                     )
-                    Board(
-                        board = gameState.board,
-                        onClick = onClick,
-                        audioPlay = audioPlay
-                    )
                 }
 
                 if (gameState.isGameOver) {
@@ -131,6 +126,12 @@ fun PlayScreen(
                     btnClose = {
                         isShowMission = false
                     }
+                )
+            } else {
+                Board(
+                    board = gameState.board,
+                    onClick = onClick,
+                    audioPlay = audioPlay
                 )
             }
         }

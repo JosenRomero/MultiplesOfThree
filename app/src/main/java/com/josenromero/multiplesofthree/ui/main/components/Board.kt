@@ -50,20 +50,27 @@ fun Board(
 ) {
 
     AnimatedFadeIn {
-        LazyColumn(
+        Column(
             modifier = Modifier
-                .background(color = MaterialTheme.colorScheme.background),
-            contentPadding = PaddingValues(5.dp)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            itemsIndexed(items = board) {i, rowItems ->
-                LazyRow {
-                    itemsIndexed(rowItems) { j, item ->
-                        TableCell(
-                            item = item,
-                            position = Pair(i, j),
-                            onClick = onClick,
-                            audioPlay = audioPlay
-                        )
+            LazyColumn(
+                modifier = Modifier
+                    .background(color = MaterialTheme.colorScheme.background),
+                contentPadding = PaddingValues(5.dp)
+            ) {
+                itemsIndexed(items = board) {i, rowItems ->
+                    LazyRow {
+                        itemsIndexed(rowItems) { j, item ->
+                            TableCell(
+                                item = item,
+                                position = Pair(i, j),
+                                onClick = onClick,
+                                audioPlay = audioPlay
+                            )
+                        }
                     }
                 }
             }
@@ -119,7 +126,6 @@ fun TableCell(
                             color = MaterialTheme.colorScheme.tertiary,
                             shape = RoundedCornerShape(25.dp)
                         )
-                        .rotate(rotationAngle)
                         .alpha(alpha)
                         .clickable {
                             CoroutineScope(Dispatchers.Default).launch {
@@ -137,6 +143,9 @@ fun TableCell(
                 ) {
                     Text(
                         text = item.toString(),
+                        modifier = Modifier
+                            .rotate(rotationAngle)
+                            .alpha(alpha),
                         color = MaterialTheme.colorScheme.onSecondary,
                         fontSize = 33.sp
                     )
