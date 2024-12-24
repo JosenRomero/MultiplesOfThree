@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -22,7 +21,6 @@ import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.data.Coin
 import com.josenromero.multiplesofthree.data.GameState
 import com.josenromero.multiplesofthree.data.Stage
@@ -32,6 +30,7 @@ import com.josenromero.multiplesofthree.ui.main.components.AnimatedCoin
 import com.josenromero.multiplesofthree.ui.main.components.GameOver
 import com.josenromero.multiplesofthree.ui.main.components.HUD
 import com.josenromero.multiplesofthree.ui.main.components.MissionAnimated
+import com.josenromero.multiplesofthree.ui.main.components.MissionText
 import com.josenromero.multiplesofthree.ui.main.components.Score
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
@@ -89,24 +88,11 @@ fun PlayScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 HUD(bestScore = player.bestScore, hearts = gameState.hearts)
-
                 if (!isShowMission) {
-                    // the step.textId is like R.string.howToPlay_screen_text_mission_1
-                    Text(
-                        text = stringResource(id = stage.step.textId),
-                        modifier = Modifier.padding(vertical = 40.dp),
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        fontSize = 14.sp
+                    MissionText(
+                        text = stringResource(id = stage.step.textId) // the step.textId is like R.string.howToPlay_screen_text_mission_1
                     )
                 }
-
-            }
-            coins.toList().forEach { coin ->
-                AnimatedCoin(
-                    id = coin.id,
-                    initialPosition = coin.coordinate,
-                    finalPosition = scoreCoordinates
-                )
             }
             if (isShowMission) {
                 MissionAnimated(
@@ -130,6 +116,13 @@ fun PlayScreen(
                     updatePlayer = {
                         updatePlayer(gameState.score, null)
                     }
+                )
+            }
+            coins.toList().forEach { coin ->
+                AnimatedCoin(
+                    id = coin.id,
+                    initialPosition = coin.coordinate,
+                    finalPosition = scoreCoordinates
                 )
             }
         }
