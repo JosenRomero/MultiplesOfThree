@@ -100,18 +100,6 @@ fun PlayScreen(
                     )
                 }
 
-                if (gameState.isGameOver) {
-
-                    if (gameState.score > player.bestScore) {
-                        updatePlayer(gameState.score, null)
-                    }
-
-                    GameOver(
-                        score = gameState.score,
-                        bestScore = player.bestScore,
-                        onNavigateToAScreen = onNavigateToAScreen
-                    )
-                }
             }
             coins.toList().forEach { coin ->
                 AnimatedCoin(
@@ -132,6 +120,16 @@ fun PlayScreen(
                     board = gameState.board,
                     onClick = onClick,
                     audioPlay = audioPlay
+                )
+            }
+            if (gameState.isGameOver) {
+                GameOver(
+                    score = gameState.score,
+                    bestScore = player.bestScore,
+                    onNavigateToAScreen = onNavigateToAScreen,
+                    updatePlayer = {
+                        updatePlayer(gameState.score, null)
+                    }
                 )
             }
         }

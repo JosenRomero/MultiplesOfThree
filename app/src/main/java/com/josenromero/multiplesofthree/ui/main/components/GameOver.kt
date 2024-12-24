@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,10 +33,17 @@ import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 fun GameOver(
     score: Int,
     bestScore: Int,
-    onNavigateToAScreen: (route: String) -> Unit
+    onNavigateToAScreen: (route: String) -> Unit,
+    updatePlayer: () -> Unit
 ) {
 
     var isShowContent by remember { mutableStateOf(true) }
+
+    LaunchedEffect(Unit) {
+        if (score > bestScore) {
+            updatePlayer()
+        }
+    }
 
     if (isShowContent) {
         AnimatedTransitionDialog(onDismissRequest = { }) {
