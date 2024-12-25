@@ -5,6 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.josenromero.multiplesofthree.data.GameMode
 import com.josenromero.multiplesofthree.data.preferences.PreferencesEntity
 import com.josenromero.multiplesofthree.domain.preferences.AddPreferences
 import com.josenromero.multiplesofthree.domain.preferences.GetPreferences
@@ -60,7 +61,7 @@ class PreferencesViewModel @Inject constructor(
         }
     }
 
-    fun update(sound: Boolean? = null, music: Boolean? = null, darkMode: Boolean? = null, firstTime: Boolean? = null) {
+    fun update(sound: Boolean? = null, music: Boolean? = null, darkMode: Boolean? = null, firstTime: Boolean? = null, gameMode: GameMode? = null) {
         viewModelScope.launch(Dispatchers.IO) {
             updatePreferences(
                 PreferencesEntity(
@@ -68,7 +69,8 @@ class PreferencesViewModel @Inject constructor(
                     sound = sound ?: _preferences.value.sound,
                     music = music ?: _preferences.value.music,
                     darkMode = darkMode ?: _preferences.value.darkMode,
-                    firstTime = firstTime ?: _preferences.value.firstTime
+                    firstTime = firstTime ?: _preferences.value.firstTime,
+                    gameMode = gameMode ?: _preferences.value.gameMode
                 )
             )
             checkPreferences()
