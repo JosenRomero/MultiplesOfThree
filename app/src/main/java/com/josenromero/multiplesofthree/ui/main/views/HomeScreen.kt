@@ -20,8 +20,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.R
+import com.josenromero.multiplesofthree.data.GameMode
 import com.josenromero.multiplesofthree.ui.main.components.CustomBottomAppBar
 import com.josenromero.multiplesofthree.ui.main.components.CustomIconButton
+import com.josenromero.multiplesofthree.ui.main.components.Menu
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 
@@ -29,6 +31,8 @@ import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 fun HomeScreen(
     preferencesLoading: Boolean,
     firstTime: Boolean,
+    gameMode: GameMode,
+    changeGameMode: (gameMode: GameMode) -> Unit,
     backgroundMusicPlay: () -> Unit,
     onNavigateToAScreen: (route: String) -> Unit
 ) {
@@ -104,6 +108,10 @@ fun HomeScreen(
                         fontSize = 16.sp
                     )
                 }
+                Menu(
+                    selected = gameMode,
+                    changeGameMode = changeGameMode
+                )
             }
         }
     }
@@ -117,6 +125,8 @@ fun HomeScreenPreview() {
         HomeScreen(
             preferencesLoading = false,
             firstTime = false,
+            gameMode = GameMode.EASY,
+            changeGameMode = {},
             backgroundMusicPlay = {},
             onNavigateToAScreen = {}
         )

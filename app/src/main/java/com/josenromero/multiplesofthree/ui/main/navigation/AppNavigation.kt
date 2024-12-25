@@ -83,6 +83,10 @@ fun AppNavigation() {
                 HomeScreen(
                     preferencesLoading = preferencesViewModel.preferencesLoading.value,
                     firstTime = preferences.firstTime,
+                    gameMode = preferences.gameMode,
+                    changeGameMode = { gameMode ->
+                        preferencesViewModel.update(gameMode = gameMode)
+                    },
                     backgroundMusicPlay = {
                         audioViewModel.backgroundMusicPlay(isMusic = preferences.music)
                     },
