@@ -22,5 +22,11 @@
     <!-- PlayScreen -->
     <string name="playScreen_text_mission">Mission</string>
 
+    <!-- HomeScreen -->
+    <string name="home_screen_menu_title">Game Mode</string>
+    <string name="home_screen_menu_easy_mode">Easy Mode</string>
+    <string name="home_screen_menu_normal_mode">Normal Mode</string>
+    <string name="home_screen_menu_hard_mode">Hard Mode</string>
+
     <string name="language">Language</string>
 </resources>
