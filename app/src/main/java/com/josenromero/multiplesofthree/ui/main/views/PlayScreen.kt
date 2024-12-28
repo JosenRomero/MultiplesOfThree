@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.josenromero.multiplesofthree.data.Coin
 import com.josenromero.multiplesofthree.data.GameState
 import com.josenromero.multiplesofthree.data.Stage
+import com.josenromero.multiplesofthree.data.Step
 import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.ui.main.components.Board
 import com.josenromero.multiplesofthree.ui.main.components.AnimatedCoin
@@ -54,8 +55,13 @@ fun PlayScreen(
 
     LaunchedEffect(key1 = gameState.score) {
         if (checkScoreToStageUpdate(gameState.score)) {
-            stageUpdate()
-            isShowMission = true
+            if (!checkWin(gameState.score, stage.step)) {
+                stageUpdate()
+                isShowMission = true
+            } else {
+                updatePlayer(gameState.score, null)
+                onNavigateToAScreen(AppScreens.EndScreen.route)
+            }
         }
     }
 
@@ -132,6 +138,10 @@ fun PlayScreen(
 
 fun checkScoreToStageUpdate(score: Int): Boolean {
     return score > 0 && (score % 10) == 0
+}
+
+fun checkWin(score: Int, step: Step): Boolean {
+    return score >= 160 && step == Step.Step4
 }
 
 @Preview(uiMode = UI_MODE_NIGHT_NO, showSystemUi = true)

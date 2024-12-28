@@ -16,6 +16,7 @@ import com.josenromero.multiplesofthree.ui.main.viewmodels.GameViewModel
 import com.josenromero.multiplesofthree.ui.main.viewmodels.PreferencesViewModel
 import com.josenromero.multiplesofthree.ui.main.views.AboutScreen
 import com.josenromero.multiplesofthree.ui.main.views.AchievementsScreen
+import com.josenromero.multiplesofthree.ui.main.views.EndScreen
 import com.josenromero.multiplesofthree.ui.main.views.HomeScreen
 import com.josenromero.multiplesofthree.ui.main.views.HowToPlayScreen
 import com.josenromero.multiplesofthree.ui.main.views.LanguageScreen
@@ -48,6 +49,11 @@ fun AppNavigation() {
                         AppScreens.PlayScreen.route ->
                             slideIntoContainer(
                                 towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                                animationSpec = tween(700)
+                            )
+                        AppScreens.EndScreen.route ->
+                            slideIntoContainer(
+                                towards = AnimatedContentTransitionScope.SlideDirection.Left,
                                 animationSpec = tween(700)
                             )
                         AppScreens.AboutScreen.route,
@@ -109,7 +115,8 @@ fun AppNavigation() {
                 },
                 exitTransition = {
                     when (targetState.destination.route) {
-                        AppScreens.PlayScreen.route ->
+                        AppScreens.PlayScreen.route,
+                        AppScreens.EndScreen.route ->
                             slideOutOfContainer(
                                 towards = AnimatedContentTransitionScope.SlideDirection.Left,
                                 animationSpec = tween(700)
@@ -290,6 +297,29 @@ fun AppNavigation() {
                     onNavigateToBack = {
                         audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         navController.popBackStack()
+                    }
+                )
+            }
+            composable(
+                route = AppScreens.EndScreen.route,
+                enterTransition = {
+                    slideIntoContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                        animationSpec = tween(700)
+                    )
+                },
+                exitTransition = {
+                    slideOutOfContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                        animationSpec = tween(700)
+                    )
+                }
+            ) {
+                EndScreen(
+                    textIdForGameMode = preferences.gameMode.textId,
+                    onNavigateToAScreen = { route ->
+                        audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
+                        navController.navigate(route)
                     }
                 )
             }
