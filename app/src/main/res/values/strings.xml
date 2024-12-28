@@ -28,5 +28,10 @@
     <string name="home_screen_menu_normal_mode">Normal Mode</string>
     <string name="home_screen_menu_hard_mode">Hard Mode</string>
 
+    <!-- EndScreen -->
+    <string name="end_screen_congratulations_text_1">Congratulations!</string>
+    <string name="end_screen_congratulations_text_2">\u0020Completed</string>
+    <string name="end_screen_congratulations_btn_menu">Menu</string>
+
     <string name="language">Language</string>
 </resources>
