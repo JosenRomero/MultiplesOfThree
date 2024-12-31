@@ -194,6 +194,7 @@ fun AppNavigation() {
                 }
             ) {
                 AchievementsScreen(
+                    achievements = player.achievements,
                     onNavigateToBack = {
                         audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         navController.popBackStack()
