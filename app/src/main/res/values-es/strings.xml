@@ -28,6 +28,14 @@
     <string name="home_screen_menu_normal_mode">Modo normal</string>
     <string name="home_screen_menu_hard_mode">Modo difícil</string>
 
+    <!-- AchievementsScreen -->
+    <string name="achievements_screen_title">Logros</string>
+    <string name="achievements_screen_achievements_list_1">Obtener una puntuación de 10</string>
+    <string name="achievements_screen_achievements_list_2">Obtener una puntuación de 40</string>
+    <string name="achievements_screen_achievements_list_3">Obtener una puntuación de 80</string>
+    <string name="achievements_screen_achievements_list_4">Obtener una puntuación de 120</string>
+    <string name="achievements_screen_achievements_list_5">Obtener una puntuación de 160</string>
+
     <!-- EndScreen -->
     <string name="end_screen_congratulations_text_1">Felicidades!</string>
     <string name="end_screen_congratulations_text_2">\u0020Completado</string>
