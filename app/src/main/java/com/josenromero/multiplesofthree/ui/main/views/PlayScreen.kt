@@ -36,6 +36,7 @@ import com.josenromero.multiplesofthree.ui.main.components.Score
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
+import com.josenromero.multiplesofthree.utils.checkAchievement
 
 @Composable
 fun PlayScreen(
@@ -55,11 +56,15 @@ fun PlayScreen(
 
     LaunchedEffect(key1 = gameState.score) {
         if (checkScoreToStageUpdate(gameState.score)) {
+            val achievements = checkAchievement(achievements = player.achievements, score = gameState.score)
+            val bestScore: Int? = if (gameState.score > player.bestScore) gameState.score else null
+
             if (!checkWin(gameState.score, stage.step)) {
                 stageUpdate()
                 isShowMission = true
+                updatePlayer(bestScore, achievements)
             } else {
-                updatePlayer(gameState.score, null)
+                updatePlayer(gameState.score, achievements)
                 onNavigateToAScreen(AppScreens.EndScreen.route)
             }
         }
