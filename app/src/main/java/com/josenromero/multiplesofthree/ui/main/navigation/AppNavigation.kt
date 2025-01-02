@@ -97,7 +97,11 @@ fun AppNavigation() {
                         audioViewModel.backgroundMusicPlay(isMusic = preferences.music)
                     },
                     onNavigateToAScreen = { route ->
-                        audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
+                        val doNotPlayAudio = route == AppScreens.HowToPlayScreen.route && preferences.firstTime
+
+                        if (!doNotPlayAudio) {
+                            audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
+                        }
                         if (route == AppScreens.PlayScreen.route) {
                             gameViewModel.initGame()
                         }

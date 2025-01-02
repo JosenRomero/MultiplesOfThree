@@ -90,7 +90,7 @@ fun AchievementItem(
                     text = text,
                     modifier = Modifier.padding(bottom = 20.dp)
                 )
-                if (completed) {
+                if (!completed) {
                     Icon(
                         imageVector = Icons.Filled.Lock,
                         contentDescription = "Achievement Lock Icon",
