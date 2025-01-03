@@ -136,6 +136,7 @@ fun AppNavigation() {
             ) {
                 PlayScreen(
                     gameState = gameState,
+                    gameMode = preferences.gameMode,
                     player = player,
                     coins = coins,
                     stage = stage,

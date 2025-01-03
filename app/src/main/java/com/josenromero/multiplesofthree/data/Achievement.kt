@@ -7,5 +7,6 @@ data class Achievement(
     val imageId: Int,
     @StringRes val titleId: Int,
     @StringRes val textId: Int,
-    val scoreTarget: Int
+    val scoreTarget: Int,
+    val gameMode: GameMode
 )

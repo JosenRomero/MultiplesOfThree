@@ -3,6 +3,7 @@ package com.josenromero.multiplesofthree.utils
 import androidx.compose.ui.unit.dp
 import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.data.Achievement
+import com.josenromero.multiplesofthree.data.GameMode
 
 object Constants {
 
@@ -17,17 +18,17 @@ object Constants {
     const val PLAYER_DATABASE = "player_database"
 
     val achievementsList: List<Achievement> = listOf(
-        Achievement(id = 1, imageId = R.drawable.first_medal, titleId = R.string.achievements_screen_achievements_first_medal, textId = R.string.achievements_screen_achievements_list_1, scoreTarget = 10),
-        Achievement(id = 2, imageId = R.drawable.bronze_medal_1, titleId = R.string.home_screen_menu_easy_mode, textId = R.string.achievements_screen_achievements_list_2, scoreTarget = 40),
-        Achievement(id = 3, imageId = R.drawable.silver_medal_1, titleId = R.string.home_screen_menu_easy_mode, textId = R.string.achievements_screen_achievements_list_3, scoreTarget = 80),
-        Achievement(id = 4, imageId = R.drawable.gold_medal_1, titleId = R.string.home_screen_menu_easy_mode, textId = R.string.achievements_screen_achievements_list_4, scoreTarget = 120),
-        Achievement(id = 5, imageId = R.drawable.bronze_medal_2, titleId = R.string.home_screen_menu_normal_mode, textId = R.string.achievements_screen_achievements_list_2, scoreTarget = 40),
-        Achievement(id = 6, imageId = R.drawable.silver_medal_2, titleId = R.string.home_screen_menu_normal_mode, textId = R.string.achievements_screen_achievements_list_3, scoreTarget = 80),
-        Achievement(id = 7, imageId = R.drawable.gold_medal_2, titleId = R.string.home_screen_menu_normal_mode, textId = R.string.achievements_screen_achievements_list_4, scoreTarget = 120),
-        Achievement(id = 8, imageId = R.drawable.bronze_medal_3, titleId = R.string.home_screen_menu_hard_mode, textId = R.string.achievements_screen_achievements_list_3, scoreTarget = 80),
-        Achievement(id = 9, imageId = R.drawable.silver_medal_3, titleId = R.string.home_screen_menu_hard_mode, textId = R.string.achievements_screen_achievements_list_4, scoreTarget = 120),
-        Achievement(id = 10, imageId = R.drawable.gold_medal_3, titleId = R.string.home_screen_menu_hard_mode, textId = R.string.achievements_screen_achievements_list_5, scoreTarget = 160),
-        Achievement(id = 11, imageId = R.drawable.last_medal, titleId = R.string.achievements_screen_achievements_last_medal, textId = R.string.achievements_screen_achievements_last_medal_subtitle, scoreTarget = 160)
+        Achievement(id = 1, imageId = R.drawable.first_medal, titleId = R.string.achievements_screen_achievements_first_medal, textId = R.string.achievements_screen_achievements_list_1, scoreTarget = 10, gameMode = GameMode.EASY),
+        Achievement(id = 2, imageId = R.drawable.bronze_medal_1, titleId = R.string.home_screen_menu_easy_mode, textId = R.string.achievements_screen_achievements_list_2, scoreTarget = 40, gameMode = GameMode.EASY),
+        Achievement(id = 3, imageId = R.drawable.silver_medal_1, titleId = R.string.home_screen_menu_easy_mode, textId = R.string.achievements_screen_achievements_list_3, scoreTarget = 80, gameMode = GameMode.EASY),
+        Achievement(id = 4, imageId = R.drawable.gold_medal_1, titleId = R.string.home_screen_menu_easy_mode, textId = R.string.achievements_screen_achievements_list_4, scoreTarget = 120, gameMode = GameMode.EASY),
+        Achievement(id = 5, imageId = R.drawable.bronze_medal_2, titleId = R.string.home_screen_menu_normal_mode, textId = R.string.achievements_screen_achievements_list_2, scoreTarget = 40, gameMode = GameMode.NORMAL),
+        Achievement(id = 6, imageId = R.drawable.silver_medal_2, titleId = R.string.home_screen_menu_normal_mode, textId = R.string.achievements_screen_achievements_list_3, scoreTarget = 80, gameMode = GameMode.NORMAL),
+        Achievement(id = 7, imageId = R.drawable.gold_medal_2, titleId = R.string.home_screen_menu_normal_mode, textId = R.string.achievements_screen_achievements_list_4, scoreTarget = 120, gameMode = GameMode.NORMAL),
+        Achievement(id = 8, imageId = R.drawable.bronze_medal_3, titleId = R.string.home_screen_menu_hard_mode, textId = R.string.achievements_screen_achievements_list_3, scoreTarget = 80, gameMode = GameMode.HARD),
+        Achievement(id = 9, imageId = R.drawable.silver_medal_3, titleId = R.string.home_screen_menu_hard_mode, textId = R.string.achievements_screen_achievements_list_4, scoreTarget = 120, gameMode = GameMode.HARD),
+        Achievement(id = 10, imageId = R.drawable.gold_medal_3, titleId = R.string.home_screen_menu_hard_mode, textId = R.string.achievements_screen_achievements_list_5, scoreTarget = 160, gameMode = GameMode.HARD),
+        Achievement(id = 11, imageId = R.drawable.last_medal, titleId = R.string.achievements_screen_achievements_last_medal, textId = R.string.achievements_screen_achievements_last_medal_subtitle, scoreTarget = 200, gameMode = GameMode.HARD)
     )
 
     // language

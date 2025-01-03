@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.josenromero.multiplesofthree.data.Coin
+import com.josenromero.multiplesofthree.data.GameMode
 import com.josenromero.multiplesofthree.data.GameState
 import com.josenromero.multiplesofthree.data.Stage
 import com.josenromero.multiplesofthree.data.Step
@@ -41,6 +42,7 @@ import com.josenromero.multiplesofthree.utils.checkAchievement
 @Composable
 fun PlayScreen(
     gameState:  GameState,
+    gameMode: GameMode,
     player: PlayerEntity,
     coins: MutableList<Coin>,
     stage: Stage,
@@ -56,7 +58,7 @@ fun PlayScreen(
 
     LaunchedEffect(key1 = gameState.score) {
         if (checkScoreToStageUpdate(gameState.score)) {
-            val achievements = checkAchievement(achievements = player.achievements, score = gameState.score)
+            val achievements = checkAchievement(achievements = player.achievements, score = gameState.score, gameMode = gameMode)
             val bestScore: Int? = if (gameState.score > player.bestScore) gameState.score else null
 
             if (!checkWin(gameState.score, stage.step)) {
@@ -155,6 +157,7 @@ fun PlayScreenPreview() {
     MultiplesOfThreeTheme {
         PlayScreen(
             gameState = GameState(board = listOf(listOf(-1, -1, 3), listOf(-1, -1, -1), listOf(-1, -1, -1))),
+            gameMode = GameMode.EASY,
             player = PlayerEntity(bestScore = 0, achievements = emptyList()),
             coins = mutableListOf(),
             stage = Stage(),
