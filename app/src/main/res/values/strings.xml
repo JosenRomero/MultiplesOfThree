@@ -23,18 +23,21 @@
     <string name="playScreen_text_mission">Mission</string>
 
     <!-- HomeScreen -->
-    <string name="home_screen_menu_title">Game Mode</string>
-    <string name="home_screen_menu_easy_mode">Easy Mode</string>
-    <string name="home_screen_menu_normal_mode">Normal Mode</string>
-    <string name="home_screen_menu_hard_mode">Hard Mode</string>
+    <string name="home_screen_menu_title">Game mode</string>
+    <string name="home_screen_menu_easy_mode">Easy mode</string>
+    <string name="home_screen_menu_normal_mode">Normal mode</string>
+    <string name="home_screen_menu_hard_mode">Hard mode</string>
 
     <!-- AchievementsScreen -->
     <string name="achievements_screen_title">Achievements</string>
+    <string name="achievements_screen_achievements_first_medal">First medal</string>
     <string name="achievements_screen_achievements_list_1">Get a score of 10</string>
     <string name="achievements_screen_achievements_list_2">Get a score of 40</string>
     <string name="achievements_screen_achievements_list_3">Get a score of 80</string>
     <string name="achievements_screen_achievements_list_4">Get a score of 120</string>
     <string name="achievements_screen_achievements_list_5">Get a score of 160</string>
+    <string name="achievements_screen_achievements_last_medal">Last medal</string>
+    <string name="achievements_screen_achievements_last_medal_subtitle">Complete all game modes</string>
 
     <!-- EndScreen -->
     <string name="end_screen_congratulations_text_1">Congratulations!</string>

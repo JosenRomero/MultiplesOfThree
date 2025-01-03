@@ -30,11 +30,14 @@
 
     <!-- AchievementsScreen -->
     <string name="achievements_screen_title">実績</string> <!-- Jisseki -->
+    <string name="achievements_screen_achievements_first_medal">最初のメダル</string> <!-- Saisho no medaru -->
     <string name="achievements_screen_achievements_list_1">スコア10を達成する</string> <!-- Sukoa 10 o Tassei Suru -->
     <string name="achievements_screen_achievements_list_2">スコア40を達成する</string>
     <string name="achievements_screen_achievements_list_3">スコア80を達成する</string>
     <string name="achievements_screen_achievements_list_4">スコア120を達成する</string>
     <string name="achievements_screen_achievements_list_5">スコア160を達成する</string>
+    <string name="achievements_screen_achievements_last_medal">最後のメダル</string> <!-- Saigo no medaru -->
+    <string name="achievements_screen_achievements_last_medal_subtitle">すべてのゲームモードをクリアする</string>
 
     <!-- EndScreen -->
     <string name="end_screen_congratulations_text_1">おめでとうございます！</string>

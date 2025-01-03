@@ -30,11 +30,14 @@
 
     <!-- AchievementsScreen -->
     <string name="achievements_screen_title">Logros</string>
+    <string name="achievements_screen_achievements_first_medal">Primera medalla</string>
     <string name="achievements_screen_achievements_list_1">Obtener una puntuación de 10</string>
     <string name="achievements_screen_achievements_list_2">Obtener una puntuación de 40</string>
     <string name="achievements_screen_achievements_list_3">Obtener una puntuación de 80</string>
     <string name="achievements_screen_achievements_list_4">Obtener una puntuación de 120</string>
     <string name="achievements_screen_achievements_list_5">Obtener una puntuación de 160</string>
+    <string name="achievements_screen_achievements_last_medal">Ultima medalla</string>
+    <string name="achievements_screen_achievements_last_medal_subtitle">Completa todos los modos de juego</string>
 
     <!-- EndScreen -->
     <string name="end_screen_congratulations_text_1">Felicidades!</string>
