@@ -37,12 +37,16 @@ fun AchievementItem(
     completed: Boolean
 ) {
 
-    val bg1 = MaterialTheme.colorScheme.tertiary
+    val bg1: Color = when (id) {
+        in 1..4 -> Color(0xFF8BAA8C)
+        in 5..7 -> Color(0xFFA898C5)
+        else -> Color(0xFF9CC5DB)
+    }
 
     val bg2: Color = when (id) {
         in 1..4 -> Color(0xFF43A047)
-        in 5..7 -> Color(0xFFFBC02D)
-        else -> Color(0xFFD32F2F)
+        in 5..7 -> Color(0xFF7E57C2)
+        else -> Color(0xFF2F9AD3)
     }
 
     Card(
@@ -55,7 +59,7 @@ fun AchievementItem(
     ) {
         Box(
             modifier = Modifier
-                .background(color = bg1)
+                .background(color = MaterialTheme.colorScheme.tertiary)
         ){
             BgGradient(
                 modifier = Modifier.height(100.dp),
@@ -96,7 +100,7 @@ fun AchievementItem(
                         contentDescription = "Achievement Lock Icon",
                         modifier = Modifier
                             .size(44.dp),
-                        tint = MaterialTheme.colorScheme.error
+                        tint = Color(0xFFD32F2F)
                     )
                 }
             }
