@@ -1,5 +1,22 @@
-<vector android:height="50dp" android:tint="#FF76ABAE"
-    android:viewportHeight="24" android:viewportWidth="24"
-    android:width="50dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="@android:color/white" android:pathData="M9.68,13.69L12,11.93l2.31,1.76l-0.88,-2.85L15.75,9h-2.84L12,6.19L11.09,9H8.25l2.31,1.84L9.68,13.69zM20,10c0,-4.42 -3.58,-8 -8,-8s-8,3.58 -8,8c0,2.03 0.76,3.87 2,5.28V23l6,-2l6,2v-7.72C19.24,13.87 20,12.03 20,10zM12,4c3.31,0 6,2.69 6,6s-2.69,6 -6,6s-6,-2.69 -6,-6S8.69,4 12,4z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="50dp"
+    android:height="50dp"
+    android:viewportWidth="50"
+    android:viewportHeight="50">
+  <path
+      android:pathData="M9.637,9.136L40.246,9.136A0.501,0.501 0,0 1,40.748 9.637L40.748,40.246A0.501,0.501 0,0 1,40.246 40.748L9.637,40.748A0.501,0.501 0,0 1,9.136 40.246L9.136,9.637A0.501,0.501 0,0 1,9.637 9.136z"
+      android:strokeWidth="0.388167"
+      android:fillColor="#0083a1"
+      android:strokeColor="#0083a1"/>
+  <path
+      android:pathData="M44.175,34.196C43.173,35.946 28.076,44.696 25.914,44.779 23.753,44.862 7.901,37.305 6.741,35.638 5.581,33.972 4.827,17.664 5.828,15.914 6.83,14.165 21.928,5.414 24.089,5.331 26.25,5.248 42.103,12.805 43.262,14.472 44.422,16.138 45.177,32.446 44.175,34.196Z"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="2"
+      android:fillColor="#1f5562"
+      android:strokeColor="#0083a1"/>
+  <path
+      android:pathData="m31.585,32.525c-0.47,0.418 -5.204,-2.423 -5.83,-2.361 -0.626,0.062 -4.707,3.782 -5.25,3.465 -0.543,-0.317 0.696,-5.698 0.444,-6.274 -0.253,-0.576 -5.051,-3.308 -4.917,-3.922 0.134,-0.615 5.635,-1.099 6.104,-1.517 0.47,-0.418 1.585,-5.826 2.211,-5.889 0.626,-0.062 2.786,5.019 3.329,5.337 0.543,0.317 6.031,-0.293 6.284,0.283 0.253,0.576 -3.913,4.201 -4.047,4.815 -0.134,0.615 2.142,5.645 1.673,6.064z"
+      android:strokeWidth="2.05029"
+      android:fillColor="#ec9922"
+      android:strokeColor="#ec9922"/>
 </vector>
