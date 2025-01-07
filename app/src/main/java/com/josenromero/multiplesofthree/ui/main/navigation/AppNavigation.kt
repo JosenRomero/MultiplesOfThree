@@ -90,6 +90,7 @@ fun AppNavigation() {
                     preferencesLoading = preferencesViewModel.preferencesLoading.value,
                     firstTime = preferences.firstTime,
                     gameMode = preferences.gameMode,
+                    player = player,
                     changeGameMode = { gameMode ->
                         preferencesViewModel.update(gameMode = gameMode)
                     },

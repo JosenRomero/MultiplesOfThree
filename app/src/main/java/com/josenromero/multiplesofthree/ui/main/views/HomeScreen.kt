@@ -3,7 +3,9 @@ package com.josenromero.multiplesofthree.ui.main.views
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -21,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.data.GameMode
+import com.josenromero.multiplesofthree.data.player.PlayerEntity
+import com.josenromero.multiplesofthree.ui.main.components.Counter
 import com.josenromero.multiplesofthree.ui.main.components.CustomBottomAppBar
 import com.josenromero.multiplesofthree.ui.main.components.CustomIconButton
 import com.josenromero.multiplesofthree.ui.main.components.Menu
@@ -32,6 +36,7 @@ fun HomeScreen(
     preferencesLoading: Boolean,
     firstTime: Boolean,
     gameMode: GameMode,
+    player: PlayerEntity,
     changeGameMode: (gameMode: GameMode) -> Unit,
     backgroundMusicPlay: () -> Unit,
     onNavigateToAScreen: (route: String) -> Unit
@@ -112,6 +117,27 @@ fun HomeScreen(
                     selected = gameMode,
                     changeGameMode = changeGameMode
                 )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 40.dp, horizontal = 8.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Counter(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(end = 8.dp),
+                        number = player.achievements.size,
+                        text = "Achievements"
+                    )
+                    Counter(
+                        modifier = Modifier
+                            .weight(1f),
+                        number = player.bestScore,
+                        text = "Best Score"
+                    )
+                }
             }
         }
     }
@@ -126,6 +152,7 @@ fun HomeScreenPreview() {
             preferencesLoading = false,
             firstTime = false,
             gameMode = GameMode.EASY,
+            player = PlayerEntity(bestScore = 21),
             changeGameMode = {},
             backgroundMusicPlay = {},
             onNavigateToAScreen = {}
