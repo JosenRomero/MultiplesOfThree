@@ -53,6 +53,8 @@ class GameViewModel @Inject constructor(
 
     private var timerJob: Job? = null
 
+    private var isPlaying: Boolean = false
+
     init {
         checkPlayer()
     }
@@ -66,6 +68,7 @@ class GameViewModel @Inject constructor(
             startNewGame()
             delay(7000)
             startTimer()
+            isPlaying = true
         }
     }
 
@@ -121,11 +124,11 @@ class GameViewModel @Inject constructor(
 
     fun beforeStageUpdate(currentStage: Stage) {
         viewModelScope.launch(Dispatchers.IO) {
-            cleanTimer()
+            isPlaying = false
             cleanBoard()
             stageUpdate(currentStage)
             delay(7000)
-            startTimer()
+            isPlaying = true
         }
     }
 
@@ -160,9 +163,14 @@ class GameViewModel @Inject constructor(
     }
 
     private fun addNumber() {
-        gameStateUpdate(
-            board = addNumberToBoardGame.addNumber(boardGame = _gameState.value.board, stage = _stage.value)
-        )
+        if (!_gameState.value.isGameOver && isPlaying) {
+            gameStateUpdate(
+                board = addNumberToBoardGame.addNumber(
+                    boardGame = _gameState.value.board,
+                    stage = _stage.value
+                )
+            )
+        }
     }
 
     private fun removeNumber(position: Pair<Int, Int>, isMultiple: Boolean) {
@@ -198,6 +206,10 @@ class GameViewModel @Inject constructor(
         if (_coins.value.isNotEmpty()) {
             _coins.value.removeAll(_coins.value)
         }
+    }
+
+    fun exitTheGame() {
+        isPlaying = false
     }
 
     private fun cleanTimer() {

@@ -151,6 +151,7 @@ fun AppNavigation() {
                         gameViewModel.selectedNumber(position, coordinate)
                     },
                     onNavigateToAScreen = { route ->
+                        gameViewModel.exitTheGame()
                         if (route != AppScreens.EndScreen.route) {
                             audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         }
