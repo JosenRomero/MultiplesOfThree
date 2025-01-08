@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -94,15 +95,13 @@ fun AchievementItem(
                     text = text,
                     modifier = Modifier.padding(bottom = 20.dp)
                 )
-                if (!completed) {
-                    Icon(
-                        imageVector = Icons.Filled.Lock,
-                        contentDescription = "Achievement Lock Icon",
-                        modifier = Modifier
-                            .size(44.dp),
-                        tint = Color(0xFFD32F2F)
-                    )
-                }
+                Icon(
+                    imageVector = if (completed) Icons.Filled.CheckCircle else Icons.Filled.Lock,
+                    contentDescription = "Achievement Lock Icon",
+                    modifier = Modifier
+                        .size(44.dp),
+                    tint = if (completed) Color(0xFF43A047) else Color(0xFFD32F2F)
+                )
             }
         }
     }
