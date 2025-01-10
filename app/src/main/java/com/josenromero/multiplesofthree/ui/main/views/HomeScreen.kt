@@ -1,6 +1,7 @@
 package com.josenromero.multiplesofthree.ui.main.views
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,8 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -89,12 +90,13 @@ fun HomeScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Multiples of three",
-                modifier = Modifier.padding(bottom = 40.dp),
-                color = MaterialTheme.colorScheme.onPrimary,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
+            Image(
+                painter = painterResource(id = R.drawable.title_img),
+                contentDescription = "title image",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                contentScale = ContentScale.FillWidth
             )
             if (!firstTime && !preferencesLoading) {
                 Button(
