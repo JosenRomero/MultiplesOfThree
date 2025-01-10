@@ -14,13 +14,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Counter(
+fun CounterAnimation(
     modifier: Modifier = Modifier,
     number: Int,
-    text: String
+    animLabel: String,
+    fontSize: TextUnit = 40.sp,
+    fontWeight: FontWeight = FontWeight.Bold,
+    textAlign: TextAlign = TextAlign.Start
 ) {
 
     var value by remember { mutableStateOf(0) }
@@ -31,21 +35,37 @@ fun Counter(
             durationMillis = 1000,
             easing = FastOutSlowInEasing
         ),
-        label = "counter: $text animation"
+        label = animLabel
     )
 
     LaunchedEffect(Unit) {
         value = number
     }
 
+    CustomText(
+        text = "$counter",
+        modifier = modifier,
+        fontSize = fontSize,
+        fontWeight = fontWeight,
+        textAlign = textAlign
+    )
+
+}
+
+@Composable
+fun Counter(
+    modifier: Modifier = Modifier,
+    number: Int,
+    text: String
+) {
+
     Column(
         modifier = modifier
     ) {
-        CustomText(
-            text = "$counter",
+        CounterAnimation(
             modifier = Modifier.fillMaxWidth(),
-            fontSize = 40.sp,
-            fontWeight = FontWeight.Bold,
+            number = number,
+            animLabel = "counter animation",
             textAlign = TextAlign.Center
         )
         CustomText(
