@@ -1,17 +1,22 @@
 package com.josenromero.multiplesofthree.ui.main.views
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.ui.main.components.AchievementItem
+import com.josenromero.multiplesofthree.ui.main.components.AchievementStatistics
 import com.josenromero.multiplesofthree.ui.main.components.CustomTitle
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.utils.Constants
@@ -38,7 +43,18 @@ fun AchievementsScreen(
                 .fillMaxSize()
                 .padding(it)
         ) {
-            LazyColumn {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(16.dp)
+            ) {
+                item(
+                    span = { GridItemSpan(currentLineSpan = 2) }
+                ) {
+                    AchievementStatistics(
+                        totalAchievements = Constants.achievementsList.size,
+                        currentAchievements = achievements.size
+                    )
+                }
                 items(Constants.achievementsList) {achievement ->
                     AchievementItem(
                         id = achievement.id,
