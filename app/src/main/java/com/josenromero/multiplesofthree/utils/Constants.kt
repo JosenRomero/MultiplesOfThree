@@ -31,6 +31,12 @@ object Constants {
         Achievement(id = 11, imageId = R.drawable.last_medal, titleId = R.string.achievements_screen_achievements_last_medal, textId = R.string.achievements_screen_achievements_last_medal_subtitle, scoreTarget = 200, gameMode = GameMode.HARD)
     )
 
+    val particlesList = listOf(
+        R.drawable.particle_01,
+        R.drawable.particle_02,
+        R.drawable.particle_03
+    )
+
     // language
     const val englishTag = "en"
     const val spanishTag = "es"
