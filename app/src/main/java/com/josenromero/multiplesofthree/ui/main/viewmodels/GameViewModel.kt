@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.josenromero.multiplesofthree.data.Coin
 import com.josenromero.multiplesofthree.data.GameState
+import com.josenromero.multiplesofthree.data.Particle
 import com.josenromero.multiplesofthree.data.Stage
 import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.domain.AddNumberToBoardGame
@@ -48,6 +49,9 @@ class GameViewModel @Inject constructor(
     private val _coins: MutableStateFlow<MutableList<Coin>> = MutableStateFlow(mutableListOf())
     val coins = _coins.asStateFlow()
 
+    private val _particles: MutableStateFlow<MutableList<Particle>> = MutableStateFlow(mutableListOf())
+    val particles = _particles.asStateFlow()
+
     private val _stage: MutableStateFlow<Stage> = MutableStateFlow(Stage())
     val stage = _stage.asStateFlow()
 
@@ -64,6 +68,7 @@ class GameViewModel @Inject constructor(
             cleanTimer()
             _gameState.value.isGameOver = false
             removeAllCoins()
+            removeAllParticles()
             stageUpdate(currentStage = Stage())
             startNewGame()
             delay(7000)
@@ -156,6 +161,10 @@ class GameViewModel @Inject constructor(
                         delay(1000)
                         removeAllCoins()
                     }
+                    if (_particles.value.size >= 15) {
+                        delay(1000)
+                        removeAllParticles()
+                    }
                 } else addNumber()
             }
         }
@@ -193,6 +202,8 @@ class GameViewModel @Inject constructor(
 
         if (isCorrectAnswer) {
             addOneCoin(id = currentScore + 1, coordinate = coordinate)
+        } else {
+            addParticles(coordinate = coordinate)
         }
 
     }
@@ -205,6 +216,21 @@ class GameViewModel @Inject constructor(
     private fun removeAllCoins() {
         if (_coins.value.isNotEmpty()) {
             _coins.value.removeAll(_coins.value)
+        }
+    }
+
+    private fun addParticles(coordinate: Offset) {
+        repeat(times = 15) { i ->
+            val id = "${_gameState.value.hearts}${i}".toInt()
+            _particles.value.add(
+                Particle(id = id, coordinate = coordinate)
+            )
+        }
+    }
+
+    private fun removeAllParticles() {
+        if (_particles.value.isNotEmpty()) {
+            _particles.value.removeAll(_particles.value)
         }
     }
 

@@ -24,11 +24,13 @@ import androidx.compose.ui.unit.dp
 import com.josenromero.multiplesofthree.data.Coin
 import com.josenromero.multiplesofthree.data.GameMode
 import com.josenromero.multiplesofthree.data.GameState
+import com.josenromero.multiplesofthree.data.Particle
 import com.josenromero.multiplesofthree.data.Stage
 import com.josenromero.multiplesofthree.data.Step
 import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.ui.main.components.Board
 import com.josenromero.multiplesofthree.ui.main.components.AnimatedCoin
+import com.josenromero.multiplesofthree.ui.main.components.AnimatedExplosion
 import com.josenromero.multiplesofthree.ui.main.components.GameOver
 import com.josenromero.multiplesofthree.ui.main.components.HUD
 import com.josenromero.multiplesofthree.ui.main.components.MissionAnimated
@@ -45,6 +47,7 @@ fun PlayScreen(
     gameMode: GameMode,
     player: PlayerEntity,
     coins: MutableList<Coin>,
+    particles: MutableList<Particle>,
     stage: Stage,
     stageUpdate: () -> Unit,
     updatePlayer: (bestScore: Int?, achievements: List<String>?) -> Unit,
@@ -138,6 +141,12 @@ fun PlayScreen(
                     finalPosition = scoreCoordinates
                 )
             }
+            particles.toList().forEach { particle ->
+                AnimatedExplosion(
+                    id = particle.id,
+                    initialPosition = particle.coordinate
+                )
+            }
         }
     }
 
@@ -160,6 +169,7 @@ fun PlayScreenPreview() {
             gameMode = GameMode.EASY,
             player = PlayerEntity(bestScore = 0, achievements = emptyList()),
             coins = mutableListOf(),
+            particles = mutableListOf(),
             stage = Stage(),
             stageUpdate = {},
             updatePlayer = { _, _ ->},

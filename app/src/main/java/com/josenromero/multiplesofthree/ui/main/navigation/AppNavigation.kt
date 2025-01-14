@@ -35,6 +35,7 @@ fun AppNavigation() {
     val gameState by gameViewModel.gameState.collectAsState()
     val player by gameViewModel.player.collectAsState()
     val coins by gameViewModel.coins.collectAsState()
+    val particles by gameViewModel.particles.collectAsState()
     val stage by gameViewModel.stage.collectAsState()
     val preferences by preferencesViewModel.preferences.collectAsState()
 
@@ -140,6 +141,7 @@ fun AppNavigation() {
                     gameMode = preferences.gameMode,
                     player = player,
                     coins = coins,
+                    particles = particles,
                     stage = stage,
                     stageUpdate = {
                         gameViewModel.beforeStageUpdate(currentStage = stage)
