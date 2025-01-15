@@ -7,13 +7,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,8 +27,9 @@ fun AnimatedExplosion(
     initialPosition: Offset
 ) {
 
-    val offsetX = remember { Animatable(initialPosition.x) }
-    val offsetY = remember { Animatable(initialPosition.y) }
+    val particleSize = 10.dp
+    val offsetX = remember { Animatable(initialPosition.x - (Constants.CELL_SIZE.value / 2) + (particleSize.value)) }
+    val offsetY = remember { Animatable(initialPosition.y + (Constants.CELL_SIZE.value / 2) + (particleSize.value)) }
     val alpha = remember { Animatable(1f) }
 
     LaunchedEffect(id) {
@@ -60,8 +61,8 @@ fun AnimatedExplosion(
         Icon(
             painter = painterResource(id = getRandomParticle()),
             contentDescription = "explosion img",
-            modifier = Modifier.size(10.dp),
-            tint = Color.White
+            modifier = Modifier.size(particleSize),
+            tint = MaterialTheme.colorScheme.onSecondary
         )
     }
 

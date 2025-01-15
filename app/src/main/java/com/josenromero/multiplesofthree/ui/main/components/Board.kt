@@ -113,7 +113,9 @@ fun TableCell(
                 color = MaterialTheme.colorScheme.background
             )
             .onGloballyPositioned { layoutCoordinates ->
-                coordinates = layoutCoordinates.positionInRoot()
+                val pos = layoutCoordinates.positionInRoot()
+                val middle = layoutCoordinates.size.width / 2
+                coordinates = Offset(x = pos.x + middle, y = pos.y - middle)
             },
         contentAlignment = Alignment.Center
     ) {

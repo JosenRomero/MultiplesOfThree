@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.josenromero.multiplesofthree.R
+import com.josenromero.multiplesofthree.utils.Constants
 import kotlinx.coroutines.launch
 
 @SuppressLint("UseOfNonLambdaOffsetOverload")
@@ -28,8 +29,9 @@ fun AnimatedCoin(
     finalPosition: Offset
 ) {
 
-    val offsetX = remember { Animatable(initialPosition.x) }
-    val offsetY = remember { Animatable(initialPosition.y) }
+    val coinSize = 22.dp
+    val offsetX = remember { Animatable(initialPosition.x - (Constants.CELL_SIZE.value / 2) + (coinSize.value)) }
+    val offsetY = remember { Animatable(initialPosition.y + (Constants.CELL_SIZE.value / 2) + (coinSize.value)) }
     val alpha = remember { Animatable(1f) }
 
     LaunchedEffect(id) {
@@ -61,7 +63,7 @@ fun AnimatedCoin(
         Image(
             painter = painterResource(id = R.drawable.coin),
             contentDescription = "coin icon",
-            modifier = Modifier.size(22.dp)
+            modifier = Modifier.size(coinSize)
         )
     }
 
