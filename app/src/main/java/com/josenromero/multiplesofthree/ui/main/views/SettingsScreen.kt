@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.ui.main.components.CustomSwitch
@@ -33,7 +34,7 @@ fun SettingsScreen(
         topBar = {
             SimpleTopAppBar(
                 title = {
-                    CustomTitle(text = "Settings")
+                    CustomTitle(text = stringResource(id = R.string.settings_screen_title))
                 },
                 onNavigateToAScreen = { onNavigateToBack() }
             )
@@ -50,7 +51,7 @@ fun SettingsScreen(
                     .padding(16.dp)
             ) {
                 SettingItem(
-                    text = "Music",
+                    text = stringResource(id = R.string.settings_screen_text_music),
                     onClick = {
                         val currentValue = preferencesVM.preferences.value.music
                         backgroundMusic(!currentValue)
@@ -69,7 +70,7 @@ fun SettingsScreen(
                     )
                 }
                 SettingItem(
-                    text = "Sound",
+                    text = stringResource(id = R.string.settings_screen_text_sound),
                     onClick = {
                         val currentValue = preferencesVM.preferences.value.sound
                         preferencesVM.update(sound = !currentValue)
@@ -86,7 +87,7 @@ fun SettingsScreen(
                     )
                 }
                 SettingItem(
-                    text = "Dark Mode",
+                    text = stringResource(id = R.string.settings_screen_text_dark_mode),
                     onClick = {
                         val currentValue = preferencesVM.preferences.value.darkMode
                         preferencesVM.update(darkMode = !currentValue)
@@ -103,7 +104,7 @@ fun SettingsScreen(
                     )
                 }
                 SettingItem(
-                    text = "Language",
+                    text = stringResource(id = R.string.settings_screen_text_language),
                     onClick = { onNavigateToAScreen(AppScreens.LanguageScreen.route) }
                 ) {
                     Icon(

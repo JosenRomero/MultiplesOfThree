@@ -39,6 +39,13 @@
     <string name="achievements_screen_achievements_last_medal">Last medal</string>
     <string name="achievements_screen_achievements_last_medal_subtitle">Complete all game modes</string>
 
+    <!-- SettingsScreen -->
+    <string name="settings_screen_title">Settings</string>
+    <string name="settings_screen_text_music">Music</string>
+    <string name="settings_screen_text_sound">Sound</string>
+    <string name="settings_screen_text_dark_mode">Dark mode</string>
+    <string name="settings_screen_text_language">Language</string>
+
     <!-- EndScreen -->
     <string name="end_screen_congratulations_text_1">Congratulations!</string>
     <string name="end_screen_congratulations_text_2">\u0020Completed</string>

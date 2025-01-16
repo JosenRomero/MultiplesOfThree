@@ -39,6 +39,13 @@
     <string name="achievements_screen_achievements_last_medal">最後のメダル</string> <!-- Saigo no medaru -->
     <string name="achievements_screen_achievements_last_medal_subtitle">すべてのゲームモードをクリアする</string>
 
+    <!-- SettingsScreen -->
+    <string name="settings_screen_title">設定</string> <!-- Settei -->
+    <string name="settings_screen_text_music">音楽</string> <!-- Ongaku -->
+    <string name="settings_screen_text_sound">サウンド</string>
+    <string name="settings_screen_text_dark_mode">ダークモード</string>
+    <string name="settings_screen_text_language">言語</string> <!-- Gengo -->
+
     <!-- EndScreen -->
     <string name="end_screen_congratulations_text_1">おめでとうございます！</string>
     <string name="end_screen_congratulations_text_2">をクリアしました</string>
