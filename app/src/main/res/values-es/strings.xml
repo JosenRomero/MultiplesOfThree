@@ -28,6 +28,10 @@
     <string name="home_screen_menu_normal_mode">Modo normal</string>
     <string name="home_screen_menu_hard_mode">Modo difícil</string>
 
+    <!-- AboutScreen -->
+    <string name="about_screen_title">Acerca de</string>
+    <string name="about_screen_text_1">Diseñado y construido por José Romero</string>
+
     <!-- AchievementsScreen -->
     <string name="achievements_screen_title">Logros</string>
     <string name="achievements_screen_achievements_first_medal">Primera medalla</string>

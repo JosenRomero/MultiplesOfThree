@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,7 +31,7 @@ fun AboutScreen(
         topBar = {
             SimpleTopAppBar(
                 title = {
-                    CustomTitle(text = "About")
+                    CustomTitle(text = stringResource(id = R.string.about_screen_title))
                 },
                 onNavigateToAScreen = { onNavigateToBack() }
             )
@@ -56,7 +57,7 @@ fun AboutScreen(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Designed & Built by José Romero",
+                text = stringResource(id = R.string.about_screen_text_1),
                 color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = 16.sp
             )

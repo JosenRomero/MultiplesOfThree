@@ -28,6 +28,10 @@
     <string name="home_screen_menu_normal_mode">ノーマルモード</string>
     <string name="home_screen_menu_hard_mode">ハードモード</string>
 
+    <!-- AboutScreen -->
+    <string name="about_screen_title">情報</string> <!-- じょうほう -->
+    <string name="about_screen_text_1">Jose Romero によって設計・構築</string> <!-- せっけい・こうちく -->
+
     <!-- AchievementsScreen -->
     <string name="achievements_screen_title">実績</string> <!-- Jisseki -->
     <string name="achievements_screen_achievements_first_medal">最初のメダル</string> <!-- Saisho no medaru -->

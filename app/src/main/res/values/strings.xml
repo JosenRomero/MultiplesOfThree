@@ -28,6 +28,10 @@
     <string name="home_screen_menu_normal_mode">Normal mode</string>
     <string name="home_screen_menu_hard_mode">Hard mode</string>
 
+    <!-- AboutScreen -->
+    <string name="about_screen_title">About</string>
+    <string name="about_screen_text_1">Designed &amp; Built by Jose Romero</string>
+
     <!-- AchievementsScreen -->
     <string name="achievements_screen_title">Achievements</string>
     <string name="achievements_screen_achievements_first_medal">First medal</string>
