@@ -33,6 +33,8 @@
     <string name="playScreen_text_mission">ミッション</string>
 
     <!-- HomeScreen -->
+    <string name="home_screen_text_play">プレイ</string>
+    <string name="home_screen_text_1">実績</string> <!-- Jisseki -->
     <string name="home_screen_menu_title">ゲームモード</string>
     <string name="home_screen_menu_easy_mode">イージーモード</string>
     <string name="home_screen_menu_normal_mode">ノーマルモード</string>

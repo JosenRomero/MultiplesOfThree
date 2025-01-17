@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -109,7 +110,7 @@ fun HomeScreen(
                         tint = MaterialTheme.colorScheme.surface
                     )
                     Text(
-                        text = "Play",
+                        text = stringResource(id = R.string.home_screen_text_play),
                         modifier = Modifier.padding(start = 8.dp),
                         color = MaterialTheme.colorScheme.surface,
                         fontSize = 16.sp
@@ -131,13 +132,13 @@ fun HomeScreen(
                             .weight(1f)
                             .padding(end = 8.dp),
                         number = player.achievements.size,
-                        text = "Achievements"
+                        text = stringResource(id = R.string.home_screen_text_1)
                     )
                     Counter(
                         modifier = Modifier
                             .weight(1f),
                         number = player.bestScore,
-                        text = "Best Score"
+                        text = stringResource(id = R.string.text_best_score)
                     )
                 }
             }

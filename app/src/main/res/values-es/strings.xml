@@ -33,6 +33,8 @@
     <string name="playScreen_text_mission">Misión</string>
 
     <!-- HomeScreen -->
+    <string name="home_screen_text_play">Jugar</string>
+    <string name="home_screen_text_1">Logros</string>
     <string name="home_screen_menu_title">Modo de juego</string>
     <string name="home_screen_menu_easy_mode">Modo fácil</string>
     <string name="home_screen_menu_normal_mode">Modo normal</string>
