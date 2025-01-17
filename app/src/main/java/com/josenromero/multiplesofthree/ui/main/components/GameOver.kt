@@ -21,11 +21,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 
@@ -82,7 +84,7 @@ fun GameOverContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Game Over!",
+                text = stringResource(id = R.string.text_game_over),
                 color = MaterialTheme.colorScheme.surface
             )
         }
@@ -96,7 +98,7 @@ fun GameOverContent(
                 .padding(16.dp),
         ) {
             Text(
-                text = "Your score is $score points",
+                text = "${stringResource(id = R.string.text_score)} $score",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp, bottom = 10.dp),
@@ -105,7 +107,7 @@ fun GameOverContent(
                 textAlign = TextAlign.Center
             )
             Text(
-                text = if (score > bestScore) "New Best Score: $score" else "Best Score: $bestScore",
+                text = if (score > bestScore) "${stringResource(id = R.string.text_new_best_score)} $score" else "${stringResource(id = R.string.text_best_score)} $bestScore",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp, bottom = 20.dp),
@@ -122,14 +124,14 @@ fun GameOverContent(
                     onNavigateToAScreen(AppScreens.HomeScreen.route)
                     closeContent()
                 }) {
-                    Text(text = "Menu")
+                    Text(text = stringResource(id = R.string.btn_menu))
                 }
                 Button(onClick = {
                     onNavigateToAScreen(AppScreens.PlayScreen.route)
                     closeContent()
                 }) {
                     Text(
-                        text = "Try Again",
+                        text = stringResource(id = R.string.btn_try_again),
                         color = MaterialTheme.colorScheme.surface
                     )
                 }

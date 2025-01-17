@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,7 +46,7 @@ fun HUD(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Best Score: $bestScore",
+                text = "${stringResource(id = R.string.text_best_score)} $bestScore",
                 color = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.weight(1f),
                 fontSize = 20.sp,
@@ -53,7 +54,6 @@ fun HUD(
                 textAlign = TextAlign.Start
             )
             LazyRow(
-                modifier = Modifier.weight(1f),
                 horizontalArrangement = Arrangement.End,
                 reverseLayout = true
             ) {
