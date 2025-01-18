@@ -40,9 +40,11 @@ fun GameOver(
 ) {
 
     var isShowContent by remember { mutableStateOf(true) }
+    var newBestScore by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         if (score > bestScore) {
+            newBestScore = true
             updatePlayer()
         }
     }
@@ -52,6 +54,7 @@ fun GameOver(
             GameOverContent(
                 score = score,
                 bestScore = bestScore,
+                newBestScore = newBestScore,
                 closeContent = { isShowContent = false },
                 onNavigateToAScreen = onNavigateToAScreen
             )
@@ -64,6 +67,7 @@ fun GameOver(
 fun GameOverContent(
     score: Int,
     bestScore: Int,
+    newBestScore: Boolean,
     closeContent: () -> Unit,
     onNavigateToAScreen: (route: String) -> Unit
 ) {
@@ -107,7 +111,7 @@ fun GameOverContent(
                 textAlign = TextAlign.Center
             )
             Text(
-                text = if (score > bestScore) "${stringResource(id = R.string.text_new_best_score)} $score" else "${stringResource(id = R.string.text_best_score)} $bestScore",
+                text = if (newBestScore) "${stringResource(id = R.string.text_new_best_score)} $score" else "${stringResource(id = R.string.text_best_score)} $bestScore",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp, bottom = 20.dp),
@@ -148,6 +152,7 @@ fun GameOverPreview() {
         GameOverContent(
             score = 301,
             bestScore = 300,
+            newBestScore = false,
             closeContent = {},
             onNavigateToAScreen = {}
         )
