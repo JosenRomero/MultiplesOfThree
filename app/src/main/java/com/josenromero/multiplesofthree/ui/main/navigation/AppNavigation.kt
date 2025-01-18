@@ -95,6 +95,9 @@ fun AppNavigation() {
                     changeGameMode = { gameMode ->
                         preferencesViewModel.update(gameMode = gameMode)
                     },
+                    audioPlay = { name ->
+                        audioViewModel.play(audio = name, isSound = preferences.sound)
+                    },
                     backgroundMusicPlay = {
                         audioViewModel.backgroundMusicPlay(isMusic = preferences.music)
                     },

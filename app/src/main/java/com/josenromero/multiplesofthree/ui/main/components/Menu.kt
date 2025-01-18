@@ -21,11 +21,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.data.GameMode
+import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
 
 @Composable
 fun Menu(
     selected: GameMode,
-    changeGameMode: (gameMode: GameMode) -> Unit
+    changeGameMode: (gameMode: GameMode) -> Unit,
+    audioPlay: (name: String) -> Unit
 ) {
 
     var expanded by remember { mutableStateOf(false) }
@@ -35,7 +37,10 @@ fun Menu(
             .padding(top = 30.dp)
     ) {
         OutlinedButton(
-            onClick = { expanded = !expanded }
+            onClick = {
+                audioPlay(Audios.AudioTap.name)
+                expanded = !expanded
+            }
         ) {
             Text(text = stringResource(id = R.string.home_screen_menu_title))
         }
@@ -48,6 +53,7 @@ fun Menu(
                     text = { Text(text = stringResource(id = gameMode.textId)) },
                     onClick = {
                         changeGameMode(gameMode)
+                        audioPlay(Audios.AudioTap.name)
                         expanded = false
                     },
                     leadingIcon = {

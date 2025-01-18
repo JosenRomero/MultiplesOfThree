@@ -40,6 +40,7 @@ fun HomeScreen(
     gameMode: GameMode,
     player: PlayerEntity,
     changeGameMode: (gameMode: GameMode) -> Unit,
+    audioPlay: (name: String) -> Unit,
     backgroundMusicPlay: () -> Unit,
     onNavigateToAScreen: (route: String) -> Unit
 ) {
@@ -118,7 +119,8 @@ fun HomeScreen(
                 }
                 Menu(
                     selected = gameMode,
-                    changeGameMode = changeGameMode
+                    changeGameMode = changeGameMode,
+                    audioPlay = audioPlay
                 )
                 Row(
                     modifier = Modifier
@@ -157,6 +159,7 @@ fun HomeScreenPreview() {
             gameMode = GameMode.EASY,
             player = PlayerEntity(bestScore = 21),
             changeGameMode = {},
+            audioPlay = {},
             backgroundMusicPlay = {},
             onNavigateToAScreen = {}
         )
