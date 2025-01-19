@@ -1,11 +1,12 @@
 package com.josenromero.multiplesofthree.ui.main.views
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -21,7 +22,6 @@ import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.ui.main.components.CustomTitle
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutScreen(
     onNavigateToBack: () -> Unit
@@ -45,11 +45,14 @@ fun AboutScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            /*
             Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "logo icon"
-            )*/
+                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                contentDescription = "logo icon",
+                modifier = Modifier.background(
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = CutCornerShape(50.dp)
+                )
+            )
             Text(
                 text = "Multiples of three",
                 modifier = Modifier.padding(vertical = 30.dp),
