@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -31,7 +33,6 @@ import com.josenromero.multiplesofthree.ui.main.components.CustomBottomAppBar
 import com.josenromero.multiplesofthree.ui.main.components.CustomIconButton
 import com.josenromero.multiplesofthree.ui.main.components.Menu
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
-import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 
 @Composable
 fun HomeScreen(
@@ -103,7 +104,12 @@ fun HomeScreen(
             if (!firstTime && !preferencesLoading) {
                 Button(
                     onClick = { onNavigateToAScreen(AppScreens.PlayScreen.route) },
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp),
+                    shape = CutCornerShape(10.dp),
+                    elevation = ButtonDefaults.buttonElevation(
+                        defaultElevation = 10.dp,
+                        pressedElevation = 6.dp
+                    )
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.play),
@@ -152,16 +158,14 @@ fun HomeScreen(
 @Preview(uiMode = UI_MODE_NIGHT_NO, showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
-    MultiplesOfThreeTheme {
-        HomeScreen(
-            preferencesLoading = false,
-            firstTime = false,
-            gameMode = GameMode.EASY,
-            player = PlayerEntity(bestScore = 21),
-            changeGameMode = {},
-            audioPlay = {},
-            backgroundMusicPlay = {},
-            onNavigateToAScreen = {}
-        )
-    }
+    HomeScreen(
+        preferencesLoading = false,
+        firstTime = false,
+        gameMode = GameMode.EASY,
+        player = PlayerEntity(bestScore = 21),
+        changeGameMode = {},
+        audioPlay = {},
+        backgroundMusicPlay = {},
+        onNavigateToAScreen = {}
+    )
 }

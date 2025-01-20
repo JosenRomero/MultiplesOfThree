@@ -3,8 +3,10 @@ package com.josenromero.multiplesofthree.ui.main.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -40,7 +42,16 @@ fun Menu(
             onClick = {
                 audioPlay(Audios.AudioTap.name)
                 expanded = !expanded
-            }
+            },
+            shape = CutCornerShape(10.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.background,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            ),
+            elevation = ButtonDefaults.buttonElevation(
+                defaultElevation = 10.dp,
+                pressedElevation = 6.dp
+            )
         ) {
             Text(text = stringResource(id = R.string.home_screen_menu_title))
         }
