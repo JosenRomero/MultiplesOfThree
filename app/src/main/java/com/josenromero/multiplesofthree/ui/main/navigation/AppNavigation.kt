@@ -231,6 +231,9 @@ fun AppNavigation() {
                 }
             ) {
                 LanguageScreen(
+                    audioPlay = { name ->
+                        audioViewModel.play(audio = name, isSound = preferences.sound)
+                    },
                     onNavigateToBack = {
                         audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         navController.popBackStack()

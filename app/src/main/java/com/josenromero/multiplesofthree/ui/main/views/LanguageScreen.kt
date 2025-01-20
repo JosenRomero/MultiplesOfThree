@@ -22,10 +22,12 @@ import androidx.core.os.LocaleListCompat
 import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.ui.main.components.CustomTitle
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
+import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
 import com.josenromero.multiplesofthree.utils.Constants
 
 @Composable
 fun LanguageScreen(
+    audioPlay: (name: String) -> Unit,
     onNavigateToBack: () -> Unit
 ) {
 
@@ -53,17 +55,20 @@ fun LanguageScreen(
                 LanguageItem(
                     textId = R.string.english,
                     currentLanguage = language,
-                    targetLanguage = Constants.englishTag
+                    targetLanguage = Constants.englishTag,
+                    audioPlay = audioPlay
                 )
                 LanguageItem(
                     textId = R.string.spanish,
                     currentLanguage = language,
-                    targetLanguage = Constants.spanishTag
+                    targetLanguage = Constants.spanishTag,
+                    audioPlay = audioPlay
                 )
                 LanguageItem(
                     textId = R.string.japanese,
                     currentLanguage = language,
-                    targetLanguage = Constants.japaneseTag
+                    targetLanguage = Constants.japaneseTag,
+                    audioPlay = audioPlay
                 )
             }
         }
@@ -76,12 +81,14 @@ fun LanguageItem(
     @StringRes textId: Int,
     selected: Boolean = false,
     currentLanguage: String,
-    targetLanguage: String
+    targetLanguage: String,
+    audioPlay: (name: String) -> Unit,
 ) {
     NavigationDrawerItem(
         label = { Text(text = stringResource(id = textId)) },
         selected = selected,
         onClick = {
+            audioPlay(Audios.AudioTap.name)
             changeLanguage(targetLanguage)
         },
         badge = {
