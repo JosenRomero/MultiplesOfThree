@@ -10,7 +10,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -20,11 +19,13 @@ import com.josenromero.multiplesofthree.ui.main.components.CustomTitle
 import com.josenromero.multiplesofthree.ui.main.components.SettingItem
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
+import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
 import com.josenromero.multiplesofthree.ui.main.viewmodels.PreferencesViewModel
 
 @Composable
 fun SettingsScreen(
     preferencesVM: PreferencesViewModel,
+    audioPlay: (name: String) -> Unit ,
     backgroundMusic: (value: Boolean) -> Unit,
     onNavigateToBack: () -> Unit,
     onNavigateToAScreen: (route: String) -> Unit
@@ -53,6 +54,7 @@ fun SettingsScreen(
                 SettingItem(
                     text = stringResource(id = R.string.settings_screen_text_music),
                     onClick = {
+                        audioPlay(Audios.AudioTap.name)
                         val currentValue = preferencesVM.preferences.value.music
                         backgroundMusic(!currentValue)
                         preferencesVM.update(music = !currentValue)
@@ -61,6 +63,7 @@ fun SettingsScreen(
                     CustomSwitch(
                         checked = preferencesVM.preferences.value.music,
                         onCheckedChange = { value ->
+                            audioPlay(Audios.AudioTap.name)
                             backgroundMusic(value)
                             preferencesVM.update(music = value)
                         },
@@ -72,6 +75,7 @@ fun SettingsScreen(
                 SettingItem(
                     text = stringResource(id = R.string.settings_screen_text_sound),
                     onClick = {
+                        audioPlay(Audios.AudioTap.name)
                         val currentValue = preferencesVM.preferences.value.sound
                         preferencesVM.update(sound = !currentValue)
                     }
@@ -79,6 +83,7 @@ fun SettingsScreen(
                     CustomSwitch(
                         checked = preferencesVM.preferences.value.sound,
                         onCheckedChange = { value ->
+                            audioPlay(Audios.AudioTap.name)
                             preferencesVM.update(sound = value)
                         },
                         activeIcon = R.drawable.sound_up,
@@ -89,6 +94,7 @@ fun SettingsScreen(
                 SettingItem(
                     text = stringResource(id = R.string.settings_screen_text_dark_mode),
                     onClick = {
+                        audioPlay(Audios.AudioTap.name)
                         val currentValue = preferencesVM.preferences.value.darkMode
                         preferencesVM.update(darkMode = !currentValue)
                     }
@@ -96,6 +102,7 @@ fun SettingsScreen(
                     CustomSwitch(
                         checked = preferencesVM.preferences.value.darkMode,
                         onCheckedChange = { value ->
+                            audioPlay(Audios.AudioTap.name)
                             preferencesVM.update(darkMode = value)
                         },
                         activeIcon = R.drawable.sun,
@@ -111,7 +118,7 @@ fun SettingsScreen(
                         painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "arrow forward icon",
                         modifier = Modifier.size(32.dp),
-                        tint = Color.White
+                        tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
             }

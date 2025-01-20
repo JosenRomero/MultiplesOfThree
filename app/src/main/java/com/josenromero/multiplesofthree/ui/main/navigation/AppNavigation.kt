@@ -272,6 +272,10 @@ fun AppNavigation() {
             ) {
                 SettingsScreen(
                     preferencesVM = preferencesViewModel,
+                    audioPlay = { name ->
+                        audioViewModel.play(audio = name, isSound = preferences.sound)
+
+                    },
                     backgroundMusic = { value ->
                         if (value) {
                             audioViewModel.backgroundMusicPlay(isMusic = true)
