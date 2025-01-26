@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -33,6 +34,7 @@ import com.josenromero.multiplesofthree.ui.main.components.AnimatedCoin
 import com.josenromero.multiplesofthree.ui.main.components.AnimatedExplosion
 import com.josenromero.multiplesofthree.ui.main.components.GameOver
 import com.josenromero.multiplesofthree.ui.main.components.HUD
+import com.josenromero.multiplesofthree.ui.main.components.MedalCard
 import com.josenromero.multiplesofthree.ui.main.components.MissionAnimated
 import com.josenromero.multiplesofthree.ui.main.components.MissionText
 import com.josenromero.multiplesofthree.ui.main.components.Score
@@ -40,6 +42,7 @@ import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 import com.josenromero.multiplesofthree.utils.checkAchievement
+import kotlinx.coroutines.delay
 
 @Composable
 fun PlayScreen(
@@ -57,18 +60,30 @@ fun PlayScreen(
 ) {
 
     var isShowMission by remember { mutableStateOf(true) }
+    var isShowMedals by remember { mutableStateOf(false) }
     var scoreCoordinates by remember { mutableStateOf(Offset.Zero) }
+    val medals = remember { mutableStateListOf<String>() }
 
     LaunchedEffect(key1 = gameState.score) {
         if (checkScoreToStageUpdate(gameState.score)) {
-            val achievements = checkAchievement(achievements = player.achievements, score = gameState.score, gameMode = gameMode)
+            medals.removeAll(medals)
+            val newAchievements = checkAchievement(achievements = player.achievements, score = gameState.score, gameMode = gameMode)
+            medals.addAll(newAchievements)
+            val achievements = player.achievements.plus(newAchievements)
             val bestScore: Int? = if (gameState.score > player.bestScore) gameState.score else null
 
             if (!checkWin(gameState.score, stage.step)) {
                 stageUpdate()
+                if (newAchievements.isNotEmpty()) {
+                    isShowMedals = true
+                    delay(7000) // waiting for the medalCard animation
+                    isShowMedals = false
+                }
                 isShowMission = true
                 updatePlayer(bestScore, achievements)
             } else {
+                isShowMedals = true
+                delay(7000) // waiting for the medalCard animation
                 updatePlayer(gameState.score, achievements)
                 onNavigateToAScreen(AppScreens.EndScreen.route)
             }
@@ -104,7 +119,7 @@ fun PlayScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 HUD(bestScore = player.bestScore, hearts = gameState.hearts)
-                if (!isShowMission) {
+                if (!isShowMission && !isShowMedals) {
                     MissionText(
                         text = stringResource(id = stage.step.textId) // the step.textId is like R.string.howToPlay_screen_text_mission_1
                     )
@@ -117,12 +132,16 @@ fun PlayScreen(
                         isShowMission = false
                     }
                 )
-            } else {
+            }
+            if (!isShowMission && !isShowMedals) {
                 Board(
                     board = gameState.board,
                     onClick = onClick,
                     audioPlay = audioPlay
                 )
+            }
+            if (isShowMedals) {
+                MedalCard(medals = medals)
             }
             if (gameState.isGameOver) {
                 GameOver(

@@ -31,6 +31,7 @@
 
     <!-- PlayScreen -->
     <string name="playScreen_text_mission">Mission</string>
+    <string name="playScreen_text_new_achievements_unlocked">New achievements unlocked</string>
 
     <!-- HomeScreen -->
     <string name="home_screen_text_play">Play</string>

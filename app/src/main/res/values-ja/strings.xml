@@ -31,6 +31,7 @@
 
     <!-- PlayScreen -->
     <string name="playScreen_text_mission">ミッション</string>
+    <string name="playScreen_text_new_achievements_unlocked">新しい実績を獲得しました</string> <!-- Atarashii Jisseki o kakutoku shimashita -->
 
     <!-- HomeScreen -->
     <string name="home_screen_text_play">プレイ</string>

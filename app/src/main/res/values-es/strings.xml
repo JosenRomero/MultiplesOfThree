@@ -31,6 +31,7 @@
 
     <!-- PlayScreen -->
     <string name="playScreen_text_mission">Misión</string>
+    <string name="playScreen_text_new_achievements_unlocked">Nuevos logros desbloqueados</string>
 
     <!-- HomeScreen -->
     <string name="home_screen_text_play">Jugar</string>
