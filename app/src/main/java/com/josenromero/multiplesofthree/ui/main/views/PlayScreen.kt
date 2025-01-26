@@ -53,6 +53,7 @@ fun PlayScreen(
     particles: MutableList<Particle>,
     stage: Stage,
     stageUpdate: () -> Unit,
+    activeBoard: (value: Boolean) -> Unit,
     updatePlayer: (bestScore: Int?, achievements: List<String>?) -> Unit,
     onClick: (position: Pair<Int, Int>, coordinate: Offset) -> Unit,
     onNavigateToAScreen: (route: String) -> Unit,
@@ -80,6 +81,8 @@ fun PlayScreen(
                     isShowMedals = false
                 }
                 isShowMission = true
+                delay(7000) // waiting for the mission animation
+                activeBoard(true)
                 updatePlayer(bestScore, achievements)
             } else {
                 isShowMedals = true
@@ -191,6 +194,7 @@ fun PlayScreenPreview() {
             particles = mutableListOf(),
             stage = Stage(),
             stageUpdate = {},
+            activeBoard = {},
             updatePlayer = { _, _ ->},
             onClick = {_, _ ->},
             onNavigateToAScreen = {},

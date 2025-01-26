@@ -149,6 +149,9 @@ fun AppNavigation() {
                     stageUpdate = {
                         gameViewModel.beforeStageUpdate(currentStage = stage)
                     },
+                    activeBoard = { value ->
+                        gameViewModel.activeBoard(value = value)
+                    },
                     updatePlayer = { bestScore, achievements ->
                         gameViewModel.updatingPlayer(bestScore, achievements)
                     },

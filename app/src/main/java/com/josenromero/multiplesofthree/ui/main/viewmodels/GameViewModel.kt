@@ -132,8 +132,6 @@ class GameViewModel @Inject constructor(
             activeBoard(value = false)
             cleanBoard()
             stageUpdate(currentStage)
-            delay(7000)
-            activeBoard(value = true)
         }
     }
 
