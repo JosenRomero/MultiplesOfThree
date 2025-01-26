@@ -57,7 +57,7 @@ class GameViewModel @Inject constructor(
 
     private var timerJob: Job? = null
 
-    private var isPlaying: Boolean = false
+    private var isActiveBoard: Boolean = false // If true, it allows adding numbers to the board.
 
     init {
         checkPlayer()
@@ -71,9 +71,9 @@ class GameViewModel @Inject constructor(
             removeAllParticles()
             stageUpdate(currentStage = Stage())
             startNewGame()
-            delay(7000)
+            delay(7000) // waiting for the mission animation
             startTimer()
-            isPlaying = true
+            activeBoard(value = true)
         }
     }
 
@@ -129,11 +129,11 @@ class GameViewModel @Inject constructor(
 
     fun beforeStageUpdate(currentStage: Stage) {
         viewModelScope.launch(Dispatchers.IO) {
-            isPlaying = false
+            activeBoard(value = false)
             cleanBoard()
             stageUpdate(currentStage)
             delay(7000)
-            isPlaying = true
+            activeBoard(value = true)
         }
     }
 
@@ -171,8 +171,12 @@ class GameViewModel @Inject constructor(
 
     }
 
+    fun activeBoard(value: Boolean) {
+        isActiveBoard = value
+    }
+
     private fun addNumber() {
-        if (!_gameState.value.isGameOver && isPlaying) {
+        if (!_gameState.value.isGameOver && isActiveBoard) {
             gameStateUpdate(
                 board = addNumberToBoardGame.addNumber(
                     boardGame = _gameState.value.board,
@@ -235,7 +239,7 @@ class GameViewModel @Inject constructor(
     }
 
     fun exitTheGame() {
-        isPlaying = false
+        activeBoard(value = false)
     }
 
     private fun cleanTimer() {
