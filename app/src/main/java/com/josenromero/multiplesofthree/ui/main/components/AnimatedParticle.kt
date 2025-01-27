@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UseOfNonLambdaOffsetOverload")
 @Composable
-fun AnimatedExplosion(
+fun AnimatedParticle(
     id: Int,
     initialPosition: Offset
 ) {
@@ -79,5 +79,5 @@ fun getRandomParticle(): Int {
 @Preview(showSystemUi = true)
 @Composable
 fun ExplosionPreview() {
-    AnimatedExplosion(id = 1, initialPosition = Offset(25f, 5f))
+    AnimatedParticle(id = 1, initialPosition = Offset(25f, 5f))
 }

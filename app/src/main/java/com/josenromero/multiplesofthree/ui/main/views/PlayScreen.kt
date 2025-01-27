@@ -31,7 +31,7 @@ import com.josenromero.multiplesofthree.data.Step
 import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.ui.main.components.Board
 import com.josenromero.multiplesofthree.ui.main.components.AnimatedCoin
-import com.josenromero.multiplesofthree.ui.main.components.AnimatedExplosion
+import com.josenromero.multiplesofthree.ui.main.components.AnimatedParticle
 import com.josenromero.multiplesofthree.ui.main.components.GameOver
 import com.josenromero.multiplesofthree.ui.main.components.HUD
 import com.josenromero.multiplesofthree.ui.main.components.MedalCard
@@ -164,7 +164,7 @@ fun PlayScreen(
                 )
             }
             particles.toList().forEach { particle ->
-                AnimatedExplosion(
+                AnimatedParticle(
                     id = particle.id,
                     initialPosition = particle.coordinate
                 )
