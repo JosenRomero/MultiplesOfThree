@@ -41,6 +41,7 @@ import com.josenromero.multiplesofthree.ui.main.components.Score
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
+import com.josenromero.multiplesofthree.utils.Constants
 import com.josenromero.multiplesofthree.utils.checkAchievement
 import kotlinx.coroutines.delay
 
@@ -166,7 +167,11 @@ fun PlayScreen(
             particles.toList().forEach { particle ->
                 AnimatedParticle(
                     id = particle.id,
-                    initialPosition = particle.coordinate
+                    initialPosition = Offset(
+                        x = particle.coordinate.x - Constants.EXPLOSION_PARTICLE_OFFSET,
+                        y = particle.coordinate.y + Constants.EXPLOSION_PARTICLE_OFFSET
+                    ),
+                    particleDescription = "explosion particle ${particle.id}"
                 )
             }
         }

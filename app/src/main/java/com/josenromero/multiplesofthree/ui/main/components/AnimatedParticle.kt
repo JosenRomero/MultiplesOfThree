@@ -15,33 +15,36 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import com.josenromero.multiplesofthree.utils.Constants
+import com.josenromero.multiplesofthree.utils.getRandomParticle
+import com.josenromero.multiplesofthree.utils.getRandomPosition
 import kotlinx.coroutines.launch
 
 @SuppressLint("UseOfNonLambdaOffsetOverload")
 @Composable
 fun AnimatedParticle(
     id: Int,
-    initialPosition: Offset
+    initialPosition: Offset,
+    particleSize: Dp = Constants.DEFAULT_PARTICLE_SIZE,
+    posRange: IntRange = -75..75,
+    particleDescription: String
 ) {
 
-    val particleSize = 10.dp
-    val offsetX = remember { Animatable(initialPosition.x - (Constants.CELL_SIZE.value / 2) + (particleSize.value)) }
-    val offsetY = remember { Animatable(initialPosition.y + (Constants.CELL_SIZE.value / 2) + (particleSize.value)) }
+    val offsetX = remember { Animatable(initialPosition.x) }
+    val offsetY = remember { Animatable(initialPosition.y) }
     val alpha = remember { Animatable(1f) }
 
     LaunchedEffect(id) {
         launch {
             offsetX.animateTo(
-                targetValue = initialPosition.x + getRandomPosition(range = -75..75),
+                targetValue = initialPosition.x + getRandomPosition(range = posRange),
                 animationSpec = tween(500)
             )
         }
         launch {
             offsetY.animateTo(
-                targetValue = initialPosition.y + getRandomPosition(range = -75..75),
+                targetValue = initialPosition.y + getRandomPosition(range = posRange),
                 animationSpec = tween(500)
             )
         }
@@ -60,24 +63,10 @@ fun AnimatedParticle(
     ) {
         Icon(
             painter = painterResource(id = getRandomParticle()),
-            contentDescription = "explosion img",
+            contentDescription = particleDescription,
             modifier = Modifier.size(particleSize),
             tint = MaterialTheme.colorScheme.onSecondary
         )
     }
 
-}
-
-fun getRandomPosition(range: IntRange): Float {
-    return (range).random().toFloat()
-}
-
-fun getRandomParticle(): Int {
-    return Constants.particlesList.random()
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun ExplosionPreview() {
-    AnimatedParticle(id = 1, initialPosition = Offset(25f, 5f))
 }

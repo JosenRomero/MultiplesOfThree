@@ -17,6 +17,9 @@ object Constants {
     const val PREFERENCES_TABLE = "preferences_table"
     const val PLAYER_DATABASE = "player_database"
 
+    val DEFAULT_PARTICLE_SIZE = 10.dp
+    val EXPLOSION_PARTICLE_OFFSET = (CELL_SIZE.value / 2) + (DEFAULT_PARTICLE_SIZE.value)
+
     val achievementsList: List<Achievement> = listOf(
         Achievement(id = 1, imageId = R.drawable.first_medal, titleId = R.string.achievements_screen_achievements_first_medal, textId = R.string.achievements_screen_achievements_list_1, scoreTarget = 10, gameMode = GameMode.EASY),
         Achievement(id = 2, imageId = R.drawable.bronze_medal_1, titleId = R.string.home_screen_menu_easy_mode, textId = R.string.achievements_screen_achievements_list_2, scoreTarget = 40, gameMode = GameMode.EASY),
