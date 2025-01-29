@@ -21,10 +21,15 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,13 +46,18 @@ fun MedalCard(
     medals: List<String>
 ) {
 
+    var coordinates by remember { mutableStateOf(Offset.Zero) }
     val visible = remember { mutableStateOf(false) }
+    val isConfetti = remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         launch {
             delay(1000)
             visible.value = true
-            delay(5000)
+            delay(1000) // waiting for the medalCard animation
+            isConfetti.value = true
+            delay(4000)
+            isConfetti.value = false
             visible.value = false
         }
     }
@@ -63,7 +73,7 @@ fun MedalCard(
             initialAlpha = 0.3f
         ),
         exit = slideOutVertically(
-            targetOffsetY = { -it },
+            targetOffsetY = { it },
             animationSpec = tween(1000)
         ) + shrinkVertically() + fadeOut()
     ) {
@@ -87,7 +97,14 @@ fun MedalCard(
                     fontWeight = FontWeight.Bold
                 )
             }
-            LazyRow {
+            LazyRow(
+                modifier = Modifier.onGloballyPositioned { layoutCoordinates ->
+                    val pos = layoutCoordinates.positionInRoot()
+                    val middleX = layoutCoordinates.size.width / 2
+                    val middleY = layoutCoordinates.size.height / 2
+                    coordinates = Offset(x = pos.x + middleX, y = pos.y - middleY)
+                }
+            ) {
                 items(medals) { item ->
                     val id = item.toInt()
                     val achievement: Achievement? = Constants.achievementsList.firstOrNull { achievement ->  achievement.id == id}
@@ -101,6 +118,9 @@ fun MedalCard(
                 }
             }
         }
+    }
+    if (isConfetti.value) {
+        Confetti(initialPosition = coordinates)
     }
 
 }
