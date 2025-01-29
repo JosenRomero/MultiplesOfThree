@@ -1,5 +1,6 @@
 package com.josenromero.multiplesofthree.utils
 
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.data.Achievement
@@ -44,5 +45,16 @@ object Constants {
     const val englishTag = "en"
     const val spanishTag = "es"
     const val japaneseTag = "ja"
+
+    val colorsList = listOf(
+        Color(0xFFB28DFF),
+        Color(0xFFD5AAFF),
+        Color(0xFFAFCBFF),
+        Color(0xFF6EB5FF),
+        Color(0xFFFCC2FF),
+        Color(0xFFAFF8D8),
+        Color(0xFFFFFFD1),
+        Color(0xFFFFABAB)
+    )
 
 }

@@ -17,6 +17,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import com.josenromero.multiplesofthree.utils.Constants
+import com.josenromero.multiplesofthree.utils.getRandomColor
 import com.josenromero.multiplesofthree.utils.getRandomParticle
 import com.josenromero.multiplesofthree.utils.getRandomPosition
 import kotlinx.coroutines.launch
@@ -28,7 +29,8 @@ fun AnimatedParticle(
     initialPosition: Offset,
     particleSize: Dp = Constants.DEFAULT_PARTICLE_SIZE,
     posRange: IntRange = -75..75,
-    particleDescription: String
+    particleDescription: String,
+    isRandomColor: Boolean = false
 ) {
 
     val offsetX = remember { Animatable(initialPosition.x) }
@@ -65,7 +67,7 @@ fun AnimatedParticle(
             painter = painterResource(id = getRandomParticle()),
             contentDescription = particleDescription,
             modifier = Modifier.size(particleSize),
-            tint = MaterialTheme.colorScheme.onSecondary
+            tint = if (isRandomColor) getRandomColor() else MaterialTheme.colorScheme.onSecondary
         )
     }
 

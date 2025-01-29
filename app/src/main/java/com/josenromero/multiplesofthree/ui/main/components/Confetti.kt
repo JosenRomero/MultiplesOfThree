@@ -24,7 +24,8 @@ fun Confetti(
             id = particle.id,
             initialPosition = particle.coordinate,
             posRange = range,
-            particleDescription = "confetti particle ${particle.id}"
+            particleDescription = "confetti particle ${particle.id}",
+            isRandomColor = true
         )
     }
 
