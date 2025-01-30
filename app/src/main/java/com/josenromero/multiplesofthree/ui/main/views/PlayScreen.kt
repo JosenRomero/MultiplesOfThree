@@ -168,8 +168,8 @@ fun PlayScreen(
                 AnimatedParticle(
                     id = particle.id,
                     initialPosition = Offset(
-                        x = particle.coordinate.x - Constants.EXPLOSION_PARTICLE_OFFSET,
-                        y = particle.coordinate.y + Constants.EXPLOSION_PARTICLE_OFFSET
+                        x = particle.coordinate.x,
+                        y = particle.coordinate.y + (Constants.CELL_SIZE.value / 2) + (Constants.DEFAULT_PARTICLE_SIZE.value)
                     ),
                     particleDescription = "explosion particle ${particle.id}"
                 )
