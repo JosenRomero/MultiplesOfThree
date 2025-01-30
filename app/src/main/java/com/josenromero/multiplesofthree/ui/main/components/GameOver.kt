@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
+import kotlinx.coroutines.delay
 
 @Composable
 fun GameOver(
@@ -39,10 +40,12 @@ fun GameOver(
     updatePlayer: () -> Unit
 ) {
 
-    var isShowContent by remember { mutableStateOf(true) }
+    var isShowContent by remember { mutableStateOf(false) }
     var newBestScore by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
+        delay(1000) // waiting for the explosion animation
+        isShowContent = true
         if (score > bestScore) {
             newBestScore = true
             updatePlayer()
