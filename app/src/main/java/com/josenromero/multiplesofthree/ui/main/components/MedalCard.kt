@@ -2,10 +2,6 @@ package com.josenromero.multiplesofthree.ui.main.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
@@ -65,17 +61,13 @@ fun MedalCard(
     AnimatedVisibility(
         visible = visible.value,
         enter = slideInVertically(
-            initialOffsetY = { it },
+            initialOffsetY = { fullHeight ->  fullHeight },
             animationSpec = tween(1000)
-        ) + expandVertically(
-            expandFrom = Alignment.Bottom
-        ) + fadeIn(
-            initialAlpha = 0.3f
         ),
         exit = slideOutVertically(
-            targetOffsetY = { it },
+            targetOffsetY = { fullHeight ->  fullHeight },
             animationSpec = tween(1000)
-        ) + shrinkVertically() + fadeOut()
+        )
     ) {
         Column(
             modifier = Modifier
