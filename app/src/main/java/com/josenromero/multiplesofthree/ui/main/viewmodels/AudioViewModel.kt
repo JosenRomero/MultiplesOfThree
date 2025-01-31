@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AudioViewModel @Inject constructor(
-    private val audio: Audio
+    audio: Audio
 ): ViewModel() {
 
     private var audioBackground: MediaPlayer? = null
@@ -39,6 +39,12 @@ class AudioViewModel @Inject constructor(
         if (audioBackground?.isPlaying == true) {
            audioBackground?.pause()
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        audioBackground?.release()
+        audioBackground = null
     }
 
 }

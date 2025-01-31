@@ -4,8 +4,12 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -29,6 +33,8 @@ fun AppNavigation() {
 
     val navController = rememberNavController()
 
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     val preferencesViewModel: PreferencesViewModel = viewModel()
     val audioViewModel: AudioViewModel = viewModel()
     val gameViewModel: GameViewModel = viewModel()
@@ -38,6 +44,20 @@ fun AppNavigation() {
     val particles by gameViewModel.particles.collectAsState()
     val stage by gameViewModel.stage.collectAsState()
     val preferences by preferencesViewModel.preferences.collectAsState()
+
+    LaunchedEffect(lifecycleOwner) {
+        lifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onPause(owner: LifecycleOwner) {
+                super.onPause(owner)
+                audioViewModel.backgroundMusicStop()
+            }
+
+            override fun onResume(owner: LifecycleOwner) {
+                super.onResume(owner)
+                audioViewModel.backgroundMusicPlay(isMusic = preferences.music)
+            }
+        })
+    }
 
     MultiplesOfThreeTheme(
         darkTheme = preferences.darkMode
