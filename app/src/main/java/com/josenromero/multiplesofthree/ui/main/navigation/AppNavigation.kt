@@ -44,6 +44,7 @@ fun AppNavigation() {
     val particles by gameViewModel.particles.collectAsState()
     val stage by gameViewModel.stage.collectAsState()
     val preferences by preferencesViewModel.preferences.collectAsState()
+    val isCleanBoard by gameViewModel.isCleanBoard.collectAsState()
 
     LaunchedEffect(lifecycleOwner) {
         lifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
@@ -165,6 +166,7 @@ fun AppNavigation() {
                     player = player,
                     coins = coins,
                     particles = particles,
+                    isCleanBoard = isCleanBoard,
                     stage = stage,
                     stageUpdate = {
                         gameViewModel.beforeStageUpdate(currentStage = stage)

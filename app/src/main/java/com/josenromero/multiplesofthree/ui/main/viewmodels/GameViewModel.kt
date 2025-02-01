@@ -59,6 +59,9 @@ class GameViewModel @Inject constructor(
 
     private var isActiveBoard: Boolean = false // If true, it allows adding numbers to the board.
 
+    private val _isCleanBoard: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isCleanBoard = _isCleanBoard.asStateFlow()
+
     init {
         checkPlayer()
     }
@@ -154,7 +157,10 @@ class GameViewModel @Inject constructor(
                 val isFewCellsAvailable = addNumberToBoardGame.fewCellsAvailable(_gameState.value.board)
                 delay(3000)
                 if (isFewCellsAvailable) {
+                    _isCleanBoard.value = true
+                    delay(1000) // waiting for the cleanBoard animation
                     cleanBoard()
+                    _isCleanBoard.value = false
                     if (_coins.value.size > 5) {
                         delay(1000)
                         removeAllCoins()

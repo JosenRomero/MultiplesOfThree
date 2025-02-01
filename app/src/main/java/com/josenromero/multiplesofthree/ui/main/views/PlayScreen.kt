@@ -52,6 +52,7 @@ fun PlayScreen(
     player: PlayerEntity,
     coins: MutableList<Coin>,
     particles: MutableList<Particle>,
+    isCleanBoard: Boolean,
     stage: Stage,
     stageUpdate: () -> Unit,
     activeBoard: (value: Boolean) -> Unit,
@@ -140,6 +141,7 @@ fun PlayScreen(
             if (!isShowMission && !isShowMedals) {
                 Board(
                     board = gameState.board,
+                    isCleanBoard = isCleanBoard,
                     onClick = onClick,
                     audioPlay = audioPlay
                 )
@@ -197,6 +199,7 @@ fun PlayScreenPreview() {
             player = PlayerEntity(bestScore = 0, achievements = emptyList()),
             coins = mutableListOf(),
             particles = mutableListOf(),
+            isCleanBoard = false,
             stage = Stage(),
             stageUpdate = {},
             activeBoard = {},

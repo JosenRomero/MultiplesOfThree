@@ -45,6 +45,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun Board(
     board: List<List<Int>>,
+    isCleanBoard: Boolean,
     onClick: (position: Pair<Int, Int>, coordinates: Offset) -> Unit,
     audioPlay: (name: String) -> Unit
 ) {
@@ -67,6 +68,7 @@ fun Board(
                             TableCell(
                                 item = item,
                                 position = Pair(i, j),
+                                isCleanBoard = isCleanBoard,
                                 onClick = onClick,
                                 audioPlay = audioPlay
                             )
@@ -82,6 +84,7 @@ fun Board(
 fun TableCell(
     item: Int,
     position: Pair<Int, Int>,
+    isCleanBoard: Boolean,
     onClick: (position: Pair<Int, Int>, coordinates: Offset) -> Unit,
     audioPlay: (name: String) -> Unit
 ) {
@@ -94,9 +97,10 @@ fun TableCell(
         animationSpec = tween(500),
         label = "rotate animation"
     )
+    val alphaDuration = if (isCleanBoard) 1000 else 500
     val alpha by animateFloatAsState(
-        targetValue = if (isAnimated) 0f else 1f,
-        animationSpec = tween(500),
+        targetValue = if (isAnimated || isCleanBoard) 0f else 1f,
+        animationSpec = tween(alphaDuration),
         label = "alpha animation"
     )
 
@@ -164,6 +168,7 @@ fun BoardPreview() {
     MultiplesOfThreeTheme {
         Board(
             board = listOf(listOf(-1, -1, 3), listOf(-1, -1, -1), listOf(-1, -1, -1)),
+            isCleanBoard = false,
             onClick = { _, _ -> },
             audioPlay = {}
         )
