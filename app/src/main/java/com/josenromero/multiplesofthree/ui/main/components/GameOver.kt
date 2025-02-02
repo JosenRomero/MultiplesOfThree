@@ -12,7 +12,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -90,9 +89,11 @@ fun GameOverContent(
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
+            CustomText(
                 text = stringResource(id = R.string.text_game_over),
-                color = MaterialTheme.colorScheme.surface
+                color = MaterialTheme.colorScheme.surface,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.SemiBold
             )
         }
         Column(
@@ -104,7 +105,7 @@ fun GameOverContent(
                 )
                 .padding(16.dp),
         ) {
-            Text(
+            CustomText(
                 text = "${stringResource(id = R.string.text_score)} $score",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -113,12 +114,12 @@ fun GameOverContent(
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center
             )
-            Text(
+            CustomText(
                 text = if (newBestScore) "${stringResource(id = R.string.text_new_best_score)} $score" else "${stringResource(id = R.string.text_best_score)} $bestScore",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp, bottom = 20.dp),
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
@@ -131,13 +132,13 @@ fun GameOverContent(
                     onNavigateToAScreen(AppScreens.HomeScreen.route)
                     closeContent()
                 }) {
-                    Text(text = stringResource(id = R.string.btn_menu))
+                    CustomText(text = stringResource(id = R.string.btn_menu))
                 }
                 Button(onClick = {
                     onNavigateToAScreen(AppScreens.PlayScreen.route)
                     closeContent()
                 }) {
-                    Text(
+                    CustomText(
                         text = stringResource(id = R.string.btn_try_again),
                         color = MaterialTheme.colorScheme.surface
                     )
