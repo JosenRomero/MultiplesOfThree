@@ -14,7 +14,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -31,6 +30,7 @@ import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.ui.main.components.Counter
 import com.josenromero.multiplesofthree.ui.main.components.CustomBottomAppBar
 import com.josenromero.multiplesofthree.ui.main.components.CustomIconButton
+import com.josenromero.multiplesofthree.ui.main.components.CustomText
 import com.josenromero.multiplesofthree.ui.main.components.Menu
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 
@@ -116,7 +116,7 @@ fun HomeScreen(
                         contentDescription = "play icon",
                         tint = MaterialTheme.colorScheme.surface
                     )
-                    Text(
+                    CustomText(
                         text = stringResource(id = R.string.home_screen_text_play),
                         modifier = Modifier.padding(start = 8.dp),
                         color = MaterialTheme.colorScheme.surface,

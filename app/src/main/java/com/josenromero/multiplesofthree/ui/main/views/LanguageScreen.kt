@@ -12,7 +12,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -20,6 +19,7 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import com.josenromero.multiplesofthree.R
+import com.josenromero.multiplesofthree.ui.main.components.CustomText
 import com.josenromero.multiplesofthree.ui.main.components.CustomTitle
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
@@ -85,7 +85,7 @@ fun LanguageItem(
     audioPlay: (name: String) -> Unit,
 ) {
     NavigationDrawerItem(
-        label = { Text(text = stringResource(id = textId)) },
+        label = { CustomText(text = stringResource(id = textId)) },
         selected = selected,
         onClick = {
             audioPlay(Audios.AudioTap.name)

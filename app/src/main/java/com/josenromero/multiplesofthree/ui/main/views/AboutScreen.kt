@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.R
+import com.josenromero.multiplesofthree.ui.main.components.CustomText
 import com.josenromero.multiplesofthree.ui.main.components.CustomTitle
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 
@@ -53,15 +53,13 @@ fun AboutScreen(
                     shape = CutCornerShape(50.dp)
                 )
             )
-            Text(
+            CustomText(
                 text = "Multiples of three",
                 modifier = Modifier.padding(vertical = 30.dp),
-                color = MaterialTheme.colorScheme.onPrimary,
                 fontWeight = FontWeight.Bold
             )
-            Text(
+            CustomText(
                 text = stringResource(id = R.string.about_screen_text_1),
-                color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = 16.sp
             )
         }
