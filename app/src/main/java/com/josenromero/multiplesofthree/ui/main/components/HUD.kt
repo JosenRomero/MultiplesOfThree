@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,9 +43,8 @@ fun HUD(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
+            CustomText(
                 text = "${stringResource(id = R.string.text_best_score)} $bestScore",
-                color = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.weight(1f),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,

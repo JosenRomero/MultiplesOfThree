@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -39,10 +37,9 @@ fun Score(
         Row(
             modifier = modifier
         ) {
-            Text(
+            CustomText(
                 text = stringResource(id = R.string.text_score),
                 modifier = Modifier.padding(end = 8.dp),
-                color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold
             )
@@ -91,9 +88,8 @@ fun AnimatedScore(
                 },
                 label = ""
             ) { char ->
-                Text(
+                CustomText(
                     text = char.toString(),
-                    color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
                     softWrap = false

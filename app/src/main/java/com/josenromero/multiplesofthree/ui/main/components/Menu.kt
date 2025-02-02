@@ -12,7 +12,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -53,7 +52,7 @@ fun Menu(
                 pressedElevation = 6.dp
             )
         ) {
-            Text(text = stringResource(id = R.string.home_screen_menu_title))
+            CustomText(text = stringResource(id = R.string.home_screen_menu_title))
         }
         DropdownMenu(
             expanded = expanded,
@@ -61,7 +60,7 @@ fun Menu(
         ) {
             GameMode.values().forEach { gameMode ->
                 DropdownMenuItem(
-                    text = { Text(text = stringResource(id = gameMode.textId)) },
+                    text = { CustomText(text = stringResource(id = gameMode.textId)) },
                     onClick = {
                         changeGameMode(gameMode)
                         audioPlay(Audios.AudioTap.name)

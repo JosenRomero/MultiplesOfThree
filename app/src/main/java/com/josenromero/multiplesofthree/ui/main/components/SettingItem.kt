@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -29,12 +27,10 @@ fun SettingItem(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        CustomTitle(
+        CustomText(
             text = text,
             modifier = Modifier.weight(1f),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Normal,
-            textAlign = TextAlign.Start
+            fontSize = 16.sp
         )
         content()
     }
