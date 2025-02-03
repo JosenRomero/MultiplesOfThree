@@ -22,7 +22,7 @@ fun CustomIconButton(
     IconButton(
         onClick = { onClick() },
         modifier = modifier
-            .size(50.dp)
+            .size(44.dp)
             .background(
                 color = MaterialTheme.colorScheme.primary,
                 shape = RoundedCornerShape(50.dp)
