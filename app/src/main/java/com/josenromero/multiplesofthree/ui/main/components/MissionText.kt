@@ -17,24 +17,22 @@ fun MissionText(
     text: String
 ) {
 
-    AnimatedFadeIn {
-        Column(
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 30.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CustomText(
+            text = text,
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 30.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CustomText(
-                text = text,
-                modifier = Modifier
-                    .background(
-                        color = MaterialTheme.colorScheme.secondary,
-                        shape = RoundedCornerShape(50.dp)
-                    )
-                    .padding(vertical = 8.dp, horizontal = 16.dp),
-                textAlign = TextAlign.Center
-            )
-        }
+                .background(
+                    color = MaterialTheme.colorScheme.secondary,
+                    shape = RoundedCornerShape(50.dp)
+                )
+                .padding(vertical = 8.dp, horizontal = 16.dp),
+            textAlign = TextAlign.Center
+        )
     }
 
 }

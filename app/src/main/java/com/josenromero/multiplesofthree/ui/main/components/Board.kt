@@ -50,34 +50,26 @@ fun Board(
     audioPlay: (name: String) -> Unit
 ) {
 
-    AnimatedFadeIn {
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            LazyColumn(
-                modifier = Modifier
-                    .background(color = MaterialTheme.colorScheme.background),
-                contentPadding = PaddingValues(5.dp)
-            ) {
-                itemsIndexed(items = board) {i, rowItems ->
-                    LazyRow {
-                        itemsIndexed(rowItems) { j, item ->
-                            TableCell(
-                                item = item,
-                                position = Pair(i, j),
-                                isCleanBoard = isCleanBoard,
-                                onClick = onClick,
-                                audioPlay = audioPlay
-                            )
-                        }
-                    }
+    LazyColumn(
+        modifier = Modifier
+            .background(color = MaterialTheme.colorScheme.background),
+        contentPadding = PaddingValues(5.dp)
+    ) {
+        itemsIndexed(items = board) { i, rowItems ->
+            LazyRow {
+                itemsIndexed(rowItems) { j, item ->
+                    TableCell(
+                        item = item,
+                        position = Pair(i, j),
+                        isCleanBoard = isCleanBoard,
+                        onClick = onClick,
+                        audioPlay = audioPlay
+                    )
                 }
             }
         }
     }
+
 }
 
 @Composable

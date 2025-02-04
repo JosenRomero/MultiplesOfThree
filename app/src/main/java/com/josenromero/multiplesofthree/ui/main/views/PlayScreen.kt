@@ -1,6 +1,7 @@
 package com.josenromero.multiplesofthree.ui.main.views
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,6 +32,7 @@ import com.josenromero.multiplesofthree.data.Step
 import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.ui.main.components.Board
 import com.josenromero.multiplesofthree.ui.main.components.AnimatedCoin
+import com.josenromero.multiplesofthree.ui.main.components.AnimatedFadeIn
 import com.josenromero.multiplesofthree.ui.main.components.AnimatedParticle
 import com.josenromero.multiplesofthree.ui.main.components.GameOver
 import com.josenromero.multiplesofthree.ui.main.components.HUD
@@ -41,7 +43,6 @@ import com.josenromero.multiplesofthree.ui.main.components.Score
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
-import com.josenromero.multiplesofthree.utils.Constants
 import com.josenromero.multiplesofthree.utils.checkAchievement
 import kotlinx.coroutines.delay
 
@@ -124,11 +125,6 @@ fun PlayScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 HUD(bestScore = player.bestScore, hearts = gameState.hearts)
-                if (!isShowMission && !isShowMedals) {
-                    MissionText(
-                        text = stringResource(id = stage.step.textId) // the step.textId is like R.string.howToPlay_screen_text_mission_1
-                    )
-                }
             }
             if (isShowMission) {
                 MissionAnimated(
@@ -138,13 +134,26 @@ fun PlayScreen(
                     }
                 )
             }
+            // center Column
             if (!isShowMission && !isShowMedals) {
-                Board(
-                    board = gameState.board,
-                    isCleanBoard = isCleanBoard,
-                    onClick = onClick,
-                    audioPlay = audioPlay
-                )
+                AnimatedFadeIn {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Board(
+                            board = gameState.board,
+                            isCleanBoard = isCleanBoard,
+                            onClick = onClick,
+                            audioPlay = audioPlay
+                        )
+                        MissionText(
+                            text = stringResource(id = stage.step.textId) // the step.textId is like R.string.howToPlay_screen_text_mission_1
+                        )
+                    }
+                }
             }
             if (isShowMedals) {
                 MedalCard(medals = medals)
@@ -171,7 +180,7 @@ fun PlayScreen(
                     id = particle.id,
                     initialPosition = Offset(
                         x = particle.coordinate.x,
-                        y = particle.coordinate.y + (Constants.CELL_SIZE.value / 2) + (Constants.DEFAULT_PARTICLE_SIZE.value)
+                        y = particle.coordinate.y
                     ),
                     particleDescription = "explosion particle ${particle.id}"
                 )
