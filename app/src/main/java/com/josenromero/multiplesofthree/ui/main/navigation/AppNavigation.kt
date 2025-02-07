@@ -129,7 +129,7 @@ fun AppNavigation() {
                             audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         }
                         if (route == AppScreens.PlayScreen.route) {
-                            gameViewModel.initGame()
+                            gameViewModel.initGame(gameMode = preferences.gameMode)
                         }
                         navController.navigate(route)
                     }
@@ -186,7 +186,7 @@ fun AppNavigation() {
                             audioViewModel.play(audio = Audios.AudioTap.name, isSound = preferences.sound)
                         }
                         if (route == AppScreens.PlayScreen.route) {
-                            gameViewModel.initGame()
+                            gameViewModel.initGame(gameMode = preferences.gameMode)
                         }
                         navController.navigate(route)
                     },

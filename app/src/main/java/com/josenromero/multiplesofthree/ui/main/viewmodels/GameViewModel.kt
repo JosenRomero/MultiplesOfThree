@@ -4,6 +4,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.josenromero.multiplesofthree.data.Coin
+import com.josenromero.multiplesofthree.data.GameMode
 import com.josenromero.multiplesofthree.data.GameState
 import com.josenromero.multiplesofthree.data.Particle
 import com.josenromero.multiplesofthree.data.Stage
@@ -17,6 +18,7 @@ import com.josenromero.multiplesofthree.domain.player.AddPlayer
 import com.josenromero.multiplesofthree.domain.player.GetPlayer
 import com.josenromero.multiplesofthree.domain.player.UpdatePlayer
 import com.josenromero.multiplesofthree.utils.Constants
+import com.josenromero.multiplesofthree.utils.getNumbersOfHearts
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -66,14 +68,14 @@ class GameViewModel @Inject constructor(
         checkPlayer()
     }
 
-    fun initGame() {
+    fun initGame(gameMode: GameMode) {
         viewModelScope.launch(Dispatchers.Main) {
             cleanTimer()
             _gameState.value.isGameOver = false
             removeAllCoins()
             removeAllParticles()
             stageUpdate(currentStage = Stage())
-            startNewGame()
+            startNewGame(gameMode)
             delay(7000) // waiting for the mission animation
             startTimer()
             activeBoard(value = true)
@@ -142,11 +144,11 @@ class GameViewModel @Inject constructor(
         _stage.value = nextStage(currentStage)
     }
 
-    private fun startNewGame() {
+    private fun startNewGame(gameMode: GameMode) {
         gameStateUpdate(
             board = boardGame.createBoard(size = Constants.BOARD_SIZE, stage = _stage.value),
             score = 0,
-            hearts = Constants.NUMBER_OF_HEARTS
+            hearts = getNumbersOfHearts(gameMode = gameMode)
         )
     }
 
