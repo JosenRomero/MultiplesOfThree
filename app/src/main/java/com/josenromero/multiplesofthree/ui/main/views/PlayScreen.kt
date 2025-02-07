@@ -124,7 +124,11 @@ fun PlayScreen(
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                HUD(bestScore = player.bestScore, hearts = gameState.hearts)
+                HUD(
+                    gameMode = gameMode,
+                    bestScore = player.bestScore,
+                    hearts = gameState.hearts
+                )
             }
             if (isShowMission) {
                 MissionAnimated(

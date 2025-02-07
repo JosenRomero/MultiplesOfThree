@@ -32,14 +32,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.R
+import com.josenromero.multiplesofthree.data.GameMode
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
-import com.josenromero.multiplesofthree.utils.Constants
+import com.josenromero.multiplesofthree.utils.getNumbersOfHearts
 
 @Composable
 fun HUD(
+    gameMode: GameMode,
     bestScore: Int,
     hearts: Int
 ) {
+
+    val numberOfHearts = getNumbersOfHearts(gameMode)
 
     AnimatedFadeAndExpandHorizontally {
         Row(
@@ -71,7 +75,7 @@ fun HUD(
                 horizontalArrangement = Arrangement.End,
                 reverseLayout = true
             ) {
-                items(Constants.NUMBER_OF_HEARTS) {heartId ->
+                items(numberOfHearts) {heartId ->
                     Heart(hearts, heartId)
                 }
             }
@@ -125,6 +129,7 @@ fun Heart(
 fun HUDPreview() {
     MultiplesOfThreeTheme {
         HUD(
+            gameMode = GameMode.NORMAL,
             bestScore = 100,
             hearts = 3
         )
