@@ -1,11 +1,14 @@
 package com.josenromero.multiplesofthree.ui.main.views
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -23,6 +26,7 @@ import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.data.Coin
 import com.josenromero.multiplesofthree.data.GameMode
 import com.josenromero.multiplesofthree.data.GameState
@@ -34,12 +38,12 @@ import com.josenromero.multiplesofthree.ui.main.components.Board
 import com.josenromero.multiplesofthree.ui.main.components.AnimatedCoin
 import com.josenromero.multiplesofthree.ui.main.components.AnimatedFadeIn
 import com.josenromero.multiplesofthree.ui.main.components.AnimatedParticle
+import com.josenromero.multiplesofthree.ui.main.components.CustomText
 import com.josenromero.multiplesofthree.ui.main.components.GameOver
 import com.josenromero.multiplesofthree.ui.main.components.HUD
 import com.josenromero.multiplesofthree.ui.main.components.MedalCard
 import com.josenromero.multiplesofthree.ui.main.components.MissionAnimated
 import com.josenromero.multiplesofthree.ui.main.components.MissionText
-import com.josenromero.multiplesofthree.ui.main.components.Score
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
@@ -100,12 +104,21 @@ fun PlayScreen(
         topBar = {
             SimpleTopAppBar(
                 title = {
-                    Score(
-                        value = gameState.score,
-                        modifier = Modifier.onGloballyPositioned { layoutCoordinates ->
-                            scoreCoordinates = layoutCoordinates.positionInRoot()
-                        }
-                    )
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        CustomText(
+                            text = stringResource(id = gameMode.textId), // the gameMode.textId is like R.string.home_screen_menu_easy_mode
+                            modifier = Modifier
+                                .background(
+                                    color = MaterialTheme.colorScheme.secondary,
+                                    shape = RoundedCornerShape(50.dp)
+                                )
+                                .padding(vertical = 8.dp, horizontal = 16.dp),
+                            fontSize = 16.sp
+                        )
+                    }
                 },
                 onNavigateToAScreen = {
                     onNavigateToAScreen(AppScreens.HomeScreen.route)
@@ -125,8 +138,15 @@ fun PlayScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 HUD(
+                    modifier = Modifier
+                        .onGloballyPositioned { layoutCoordinates ->
+                            val pos = layoutCoordinates.positionInRoot()
+                            val width = layoutCoordinates.size.width
+                            val height = layoutCoordinates.size.height
+                            scoreCoordinates = Offset(x = pos.x + width, y = pos.y - height)
+                        },
                     gameMode = gameMode,
-                    bestScore = player.bestScore,
+                    score = gameState.score,
                     hearts = gameState.hearts
                 )
             }
