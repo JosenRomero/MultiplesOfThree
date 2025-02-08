@@ -8,6 +8,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,12 +27,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.data.GameMode
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
+import com.josenromero.multiplesofthree.utils.Constants
 import com.josenromero.multiplesofthree.utils.getNumbersOfHearts
 
 @Composable
@@ -68,8 +72,8 @@ fun HUD(
                 horizontalArrangement = Arrangement.End,
                 reverseLayout = true
             ) {
-                items(numberOfHearts) {heartId ->
-                    Heart(hearts, heartId)
+                items(Constants.NUMBER_OF_HEARTS_TOTALS) {heartId ->
+                    Heart(hearts, heartId, numberOfHearts)
                 }
             }
         }
@@ -81,7 +85,8 @@ fun HUD(
 @Composable
 fun Heart(
     hearts: Int,
-    heartId: Int
+    heartId: Int,
+    numberOfHearts: Int
 ) {
 
     var isAnimated by remember { mutableStateOf(false) }
@@ -98,22 +103,34 @@ fun Heart(
         label = "offsetY animation for heart: $heartId"
     )
 
+    val isHeart = (heartId+1) <= numberOfHearts
+
     val removeHeart: Boolean = (heartId+1) > hearts // the first heartId is 0
 
-    if (!isAnimated && removeHeart) {
+    if (!isAnimated && removeHeart && isHeart) {
         isAnimated = true
     }
 
     val iconId: Int = if (!removeHeart) R.drawable.heart else R.drawable.heart_broken
 
-    Image(
-        painter = painterResource(id = iconId),
-        contentDescription = "heart icon",
-        modifier = Modifier
-            .offset(x = 0.dp, y = offsetY.value)
-            .size(44.dp)
-            .alpha(alpha)
-    )
+    Box {
+        Icon(
+            painter = painterResource(id = R.drawable.heart),
+            contentDescription = "dark heart icon",
+            modifier = Modifier.size(44.dp),
+            tint = Color.DarkGray
+        )
+        if (isHeart) {
+            Image(
+                painter = painterResource(id = iconId),
+                contentDescription = "heart icon",
+                modifier = Modifier
+                    .offset(x = 0.dp, y = offsetY.value)
+                    .size(44.dp)
+                    .alpha(alpha)
+            )
+        }
+    }
 
 }
 

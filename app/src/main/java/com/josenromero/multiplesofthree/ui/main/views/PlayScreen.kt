@@ -141,7 +141,7 @@ fun PlayScreen(
                     modifier = Modifier
                         .onGloballyPositioned { layoutCoordinates ->
                             val pos = layoutCoordinates.positionInRoot()
-                            val width = layoutCoordinates.size.width
+                            val width = layoutCoordinates.size.width / 2
                             val height = layoutCoordinates.size.height
                             scoreCoordinates = Offset(x = pos.x + width, y = pos.y - height)
                         },
