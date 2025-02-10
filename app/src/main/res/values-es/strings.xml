@@ -17,7 +17,8 @@
     <string name="howToPlay_screen_subtitle_game_rules">El objetivo del juego es seleccionar números para completar misiones.</string>
     <string name="howToPlay_screen_text_game_rules_1">Selecciona únicamente los números que cumplan con la condición de la misión.</string>
     <string name="howToPlay_screen_text_game_rules_2">Evita seleccionar números incorrectos para no perder un corazón.</string>
-    <string name="howToPlay_screen_text_game_rules_3">Completa cada misión para progresar al siguiente nivel del juego.</string>
+    <string name="howToPlay_screen_text_game_rules_3">Si no seleccionas un número correcto también perderás un corazón.</string>
+    <string name="howToPlay_screen_text_game_rules_4">Completa cada misión para progresar al siguiente nivel del juego.</string>
 
     <!-- global text-->
     <string name="text_score">Puntuación</string>

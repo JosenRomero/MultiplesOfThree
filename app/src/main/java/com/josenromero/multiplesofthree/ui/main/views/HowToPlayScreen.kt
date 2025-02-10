@@ -76,11 +76,16 @@ fun HowToPlayScreen(
                 )
                 GameRuleItem(
                     textId = R.string.howToPlay_screen_text_game_rules_2,
+                    iconId = R.drawable.heart,
+                    contentDescription = "heart icon"
+                )
+                GameRuleItem(
+                    textId = R.string.howToPlay_screen_text_game_rules_3,
                     iconId = R.drawable.heart_broken,
                     contentDescription = "heart broken icon"
                 )
                 GameRuleItem(
-                    textId = R.string.howToPlay_screen_text_game_rules_3,
+                    textId = R.string.howToPlay_screen_text_game_rules_4,
                     iconId = R.drawable.coin,
                     contentDescription = "coin icon"
                 )
