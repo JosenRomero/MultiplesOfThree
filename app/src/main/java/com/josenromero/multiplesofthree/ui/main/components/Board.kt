@@ -46,6 +46,7 @@ import kotlinx.coroutines.launch
 fun Board(
     board: List<List<Int>>,
     isCleanBoard: Boolean,
+    isPreCleanBoard: Boolean,
     onClick: (position: Pair<Int, Int>, coordinates: Offset) -> Unit,
     audioPlay: (name: String) -> Unit
 ) {
@@ -62,6 +63,7 @@ fun Board(
                         item = item,
                         position = Pair(i, j),
                         isCleanBoard = isCleanBoard,
+                        isPreCleanBoard = isPreCleanBoard,
                         onClick = onClick,
                         audioPlay = audioPlay
                     )
@@ -77,6 +79,7 @@ fun TableCell(
     item: Int,
     position: Pair<Int, Int>,
     isCleanBoard: Boolean,
+    isPreCleanBoard: Boolean,
     onClick: (position: Pair<Int, Int>, coordinates: Offset) -> Unit,
     audioPlay: (name: String) -> Unit
 ) {
@@ -144,7 +147,7 @@ fun TableCell(
                         modifier = Modifier
                             .rotate(rotationAngle)
                             .alpha(alpha),
-                        color = MaterialTheme.colorScheme.onSecondary,
+                        color = if (!isPreCleanBoard) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.errorContainer,
                         fontSize = 33.sp,
                         fontWeight = FontWeight.W900
                     )
@@ -162,6 +165,7 @@ fun BoardPreview() {
         Board(
             board = listOf(listOf(-1, -1, 3), listOf(-1, -1, -1), listOf(-1, -1, -1)),
             isCleanBoard = false,
+            isPreCleanBoard = false,
             onClick = { _, _ -> },
             audioPlay = {}
         )

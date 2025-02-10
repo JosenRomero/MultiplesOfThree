@@ -58,6 +58,7 @@ fun PlayScreen(
     coins: MutableList<Coin>,
     particles: MutableList<Particle>,
     isCleanBoard: Boolean,
+    isPreCleanBoard: Boolean,
     stage: Stage,
     stageUpdate: () -> Unit,
     activeBoard: (value: Boolean) -> Unit,
@@ -170,6 +171,7 @@ fun PlayScreen(
                         Board(
                             board = gameState.board,
                             isCleanBoard = isCleanBoard,
+                            isPreCleanBoard = isPreCleanBoard,
                             onClick = onClick,
                             audioPlay = audioPlay
                         )
@@ -233,6 +235,7 @@ fun PlayScreenPreview() {
             coins = mutableListOf(),
             particles = mutableListOf(),
             isCleanBoard = false,
+            isPreCleanBoard = false,
             stage = Stage(),
             stageUpdate = {},
             activeBoard = {},

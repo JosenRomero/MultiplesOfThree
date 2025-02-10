@@ -7,6 +7,7 @@ import com.josenromero.multiplesofthree.data.Coin
 import com.josenromero.multiplesofthree.data.GameMode
 import com.josenromero.multiplesofthree.data.GameState
 import com.josenromero.multiplesofthree.data.Particle
+import com.josenromero.multiplesofthree.data.PreCleanBoard
 import com.josenromero.multiplesofthree.data.Stage
 import com.josenromero.multiplesofthree.data.player.PlayerEntity
 import com.josenromero.multiplesofthree.domain.AddNumberToBoardGame
@@ -63,6 +64,9 @@ class GameViewModel @Inject constructor(
 
     private val _isCleanBoard: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isCleanBoard = _isCleanBoard.asStateFlow()
+
+    private val _isPreCleanBoard: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isPreCleanBoard = _isPreCleanBoard.asStateFlow()
 
     init {
         checkPlayer()
@@ -159,10 +163,7 @@ class GameViewModel @Inject constructor(
                 val isFewCellsAvailable = addNumberToBoardGame.fewCellsAvailable(_gameState.value.board)
                 delay(3000)
                 if (isFewCellsAvailable) {
-                    _isCleanBoard.value = true
-                    delay(1000) // waiting for the cleanBoard animation
-                    cleanBoard()
-                    _isCleanBoard.value = false
+                    checkingBoard()
                     if (_coins.value.size > 5) {
                         delay(1000)
                         removeAllCoins()
@@ -244,12 +245,39 @@ class GameViewModel @Inject constructor(
         }
     }
 
+    private fun removeHearts(board: List<List<Int>>, value: Int) {
+        gameStateUpdate(
+            board = board,
+            hearts = if (value <= 0) 0 else value
+        )
+    }
+
     fun exitTheGame() {
         activeBoard(value = false)
     }
 
     private fun cleanTimer() {
         timerJob?.cancel()
+    }
+
+    private fun checkingBoard() {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val preCleanBoard: PreCleanBoard = removeNumberToBoardGame.checkingBoard(_gameState.value.board, _stage.value.listOfNumbers, _stage.value.step)
+
+            if (preCleanBoard.correctNumbers.isNotEmpty()) { // There are correct numbers in the board and they were not selected so hearts will be subtracted
+                _isPreCleanBoard.value = true
+                removeHearts(board = preCleanBoard.board, value = _gameState.value.hearts - preCleanBoard.correctNumbers.size)
+                delay(500) // waiting for the animation about preCleanBoard
+            }
+
+            _isCleanBoard.value = true
+            delay(1000) // waiting for the cleanBoard animation
+            cleanBoard()
+            _isPreCleanBoard.value = false
+            _isCleanBoard.value = false
+
+        }
     }
 
     private fun cleanBoard() {
