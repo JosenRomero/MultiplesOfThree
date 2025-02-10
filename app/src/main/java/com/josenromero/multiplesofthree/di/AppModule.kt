@@ -61,8 +61,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRemoveNumberToBoardGame(): RemoveNumberToBoardGame {
-        return RemoveNumberToBoardGame()
+    fun provideRemoveNumberToBoardGame(checkAnswer: CheckAnswer): RemoveNumberToBoardGame {
+        return RemoveNumberToBoardGame(checkAnswer = checkAnswer)
     }
 
     @Provides
