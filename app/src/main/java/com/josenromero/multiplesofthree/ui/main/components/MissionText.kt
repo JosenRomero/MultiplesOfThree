@@ -31,6 +31,7 @@ fun MissionText(
                     shape = RoundedCornerShape(50.dp)
                 )
                 .padding(vertical = 8.dp, horizontal = 16.dp),
+            color = MaterialTheme.colorScheme.onSecondary,
             textAlign = TextAlign.Center
         )
     }

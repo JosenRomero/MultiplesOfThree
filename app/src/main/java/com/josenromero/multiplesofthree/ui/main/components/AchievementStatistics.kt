@@ -36,7 +36,7 @@ fun AchievementStatistics(
     ) {
         Column(
             modifier = Modifier
-                .background(color = MaterialTheme.colorScheme.tertiary)
+                .background(color = MaterialTheme.colorScheme.secondary)
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

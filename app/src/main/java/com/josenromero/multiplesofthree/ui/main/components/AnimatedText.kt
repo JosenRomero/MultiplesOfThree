@@ -39,6 +39,7 @@ fun Score(
         CustomText(
             text = stringResource(id = R.string.text_score),
             modifier = Modifier.padding(end = 8.dp),
+            color = MaterialTheme.colorScheme.onSecondary,
             fontSize = 20.sp,
             fontWeight = FontWeight.SemiBold
         )
@@ -88,6 +89,7 @@ fun AnimatedScore(
             ) { char ->
                 CustomText(
                     text = char.toString(),
+                    color = MaterialTheme.colorScheme.onSecondary,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
                     softWrap = false

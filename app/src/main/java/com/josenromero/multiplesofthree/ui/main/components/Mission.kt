@@ -92,7 +92,6 @@ fun MissionContent(
             CustomText(
                 text = stringResource(id = step.textId),
                 modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center
             )
@@ -101,7 +100,7 @@ fun MissionContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = MaterialTheme.colorScheme.primary,
+                    color = MaterialTheme.colorScheme.secondary,
                     shape = RoundedCornerShape(10.dp, 0.dp, 10.dp, 0.dp)
                 )
                 .padding(vertical = 8.dp)
@@ -109,7 +108,6 @@ fun MissionContent(
             CustomText(
                 text = "${stringResource(id = R.string.playScreen_text_mission)} ${step.ordinal + 1}",
                 modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.surface,
                 textAlign = TextAlign.Center
             )
         }

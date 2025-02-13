@@ -100,7 +100,7 @@ fun GameOverContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.secondary,
                     shape = RoundedCornerShape(0.dp, 0.dp, 25.dp, 10.dp)
                 )
                 .padding(16.dp),

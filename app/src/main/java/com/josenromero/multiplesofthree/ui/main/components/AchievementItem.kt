@@ -60,7 +60,7 @@ fun AchievementItem(
     ) {
         Box(
             modifier = Modifier
-                .background(color = MaterialTheme.colorScheme.tertiary)
+                .background(color = MaterialTheme.colorScheme.secondary)
         ){
             BgGradient(
                 modifier = Modifier.height(100.dp),
