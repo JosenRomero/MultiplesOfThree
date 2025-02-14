@@ -147,7 +147,7 @@ fun TableCell(
                         modifier = Modifier
                             .rotate(rotationAngle)
                             .alpha(alpha),
-                        color = if (!isPreCleanBoard) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.errorContainer,
+                        color = if (!isPreCleanBoard) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.error,
                         fontSize = 33.sp,
                         fontWeight = FontWeight.W900
                     )

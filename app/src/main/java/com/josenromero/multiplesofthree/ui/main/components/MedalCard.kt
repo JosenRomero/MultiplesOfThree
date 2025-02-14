@@ -79,12 +79,13 @@ fun MedalCard(
                 modifier = Modifier
                     .padding(bottom = 30.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.tertiary
+                    containerColor = MaterialTheme.colorScheme.secondary
                 )
             ) {
                 CustomText(
                     text = stringResource(id = R.string.playScreen_text_new_achievements_unlocked),
                     modifier = Modifier.padding(16.dp),
+                    color = MaterialTheme.colorScheme.onSecondary,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )

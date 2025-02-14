@@ -96,7 +96,7 @@ fun LanguageItem(
                 Icon(
                     imageVector = Icons.Filled.Done,
                     contentDescription = "done icon",
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
             }
         }

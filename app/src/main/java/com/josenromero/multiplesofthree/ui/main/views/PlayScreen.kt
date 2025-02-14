@@ -117,6 +117,7 @@ fun PlayScreen(
                                     shape = RoundedCornerShape(50.dp)
                                 )
                                 .padding(vertical = 8.dp, horizontal = 16.dp),
+                            color = MaterialTheme.colorScheme.onSecondary,
                             fontSize = 16.sp
                         )
                     }
