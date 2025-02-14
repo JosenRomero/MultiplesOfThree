@@ -192,7 +192,8 @@ fun PlayScreen(
                     onNavigateToAScreen = onNavigateToAScreen,
                     updatePlayer = {
                         updatePlayer(gameState.score, null)
-                    }
+                    },
+                    audioPlay = audioPlay
                 )
             }
             coins.toList().forEach { coin ->

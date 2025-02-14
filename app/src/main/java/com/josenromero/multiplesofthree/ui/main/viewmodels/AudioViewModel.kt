@@ -14,16 +14,19 @@ class AudioViewModel @Inject constructor(
 
     private var audioBackground: MediaPlayer? = null
     private var audioTap: MediaPlayer? = null
+    private var audioGameOver: MediaPlayer? = null
 
     init {
         audioBackground = audio.loadAudio(R.raw.piano_loops)
         audioTap = audio.loadAudio(R.raw.tap)
+        audioGameOver = audio.loadAudio(R.raw.game_over)
     }
 
     fun play(audio: String, isSound: Boolean) {
         if (isSound) {
             when (audio) {
                 Audios.AudioTap.name -> audioTap?.start()
+                Audios.AudioGameOver.name -> audioGameOver?.start()
             }
         }
     }

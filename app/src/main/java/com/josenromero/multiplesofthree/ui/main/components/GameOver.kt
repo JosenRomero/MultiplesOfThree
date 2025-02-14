@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
+import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 import kotlinx.coroutines.delay
 
@@ -36,7 +37,8 @@ fun GameOver(
     score: Int,
     bestScore: Int,
     onNavigateToAScreen: (route: String) -> Unit,
-    updatePlayer: () -> Unit
+    updatePlayer: () -> Unit,
+    audioPlay: (name: String) -> Unit
 ) {
 
     var isShowContent by remember { mutableStateOf(false) }
@@ -45,6 +47,7 @@ fun GameOver(
     LaunchedEffect(Unit) {
         delay(1000) // waiting for the explosion animation
         isShowContent = true
+        audioPlay(Audios.AudioGameOver.name)
         if (score > bestScore) {
             newBestScore = true
             updatePlayer()
