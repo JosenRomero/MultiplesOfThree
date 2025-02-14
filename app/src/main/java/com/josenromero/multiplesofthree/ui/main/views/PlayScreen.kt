@@ -183,7 +183,10 @@ fun PlayScreen(
                 }
             }
             if (isShowMedals) {
-                MedalCard(medals = medals)
+                MedalCard(
+                    medals = medals,
+                    audioPlay = audioPlay
+                )
             }
             if (gameState.isGameOver) {
                 GameOver(

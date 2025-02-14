@@ -33,13 +33,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.R
 import com.josenromero.multiplesofthree.data.Achievement
+import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
 import com.josenromero.multiplesofthree.utils.Constants
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
 fun MedalCard(
-    medals: List<String>
+    medals: List<String>,
+    audioPlay: (name: String) -> Unit
 ) {
 
     var coordinates by remember { mutableStateOf(Offset.Zero) }
@@ -52,6 +54,7 @@ fun MedalCard(
             visible.value = true
             delay(1000) // waiting for the medalCard animation
             isConfetti.value = true
+            audioPlay(Audios.AudioNewAchievements.name)
             delay(4000)
             isConfetti.value = false
             visible.value = false
