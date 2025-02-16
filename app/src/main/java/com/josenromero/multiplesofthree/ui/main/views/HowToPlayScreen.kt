@@ -59,7 +59,7 @@ fun HowToPlayScreen(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 50.dp)
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
