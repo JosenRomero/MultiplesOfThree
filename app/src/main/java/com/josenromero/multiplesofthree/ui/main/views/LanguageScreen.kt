@@ -2,23 +2,27 @@ package com.josenromero.multiplesofthree.ui.main.views
 
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
 import com.josenromero.multiplesofthree.R
+import com.josenromero.multiplesofthree.ui.main.components.CustomSpacer
 import com.josenromero.multiplesofthree.ui.main.components.CustomText
 import com.josenromero.multiplesofthree.ui.main.components.CustomTitle
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
@@ -79,28 +83,35 @@ fun LanguageScreen(
 @Composable
 fun LanguageItem(
     @StringRes textId: Int,
-    selected: Boolean = false,
     currentLanguage: String,
     targetLanguage: String,
     audioPlay: (name: String) -> Unit,
 ) {
-    NavigationDrawerItem(
-        label = { CustomText(text = stringResource(id = textId)) },
-        selected = selected,
-        onClick = {
-            audioPlay(Audios.AudioTap.name)
-            changeLanguage(targetLanguage)
-        },
-        badge = {
-            if (currentLanguage == targetLanguage) {
-                Icon(
-                    imageVector = Icons.Filled.Done,
-                    contentDescription = "done icon",
-                    tint = MaterialTheme.colorScheme.onPrimary
-                )
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                audioPlay(Audios.AudioTap.name)
+                changeLanguage(targetLanguage)
             }
+            .padding(vertical = 16.dp)
+    ) {
+        CustomText(
+            text = stringResource(id = textId),
+            modifier = Modifier.weight(1f),
+            fontSize = 16.sp
+        )
+        if (currentLanguage == targetLanguage) {
+            Icon(
+                imageVector = Icons.Filled.Done,
+                contentDescription = "done icon",
+                tint = MaterialTheme.colorScheme.onPrimary
+            )
         }
-    )
+    }
+    CustomSpacer()
+
 }
 
 fun changeLanguage(localeTag: String) {
