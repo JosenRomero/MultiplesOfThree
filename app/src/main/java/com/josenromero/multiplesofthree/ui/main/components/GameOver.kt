@@ -89,7 +89,7 @@ fun GameOverContent(
                     color = MaterialTheme.colorScheme.primary,
                     shape = RoundedCornerShape(25.dp, 10.dp, 0.dp, 0.dp)
                 )
-                .padding(16.dp),
+                .padding(vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             CustomText(
@@ -106,7 +106,7 @@ fun GameOverContent(
                     color = MaterialTheme.colorScheme.secondary,
                     shape = RoundedCornerShape(0.dp, 0.dp, 25.dp, 10.dp)
                 )
-                .padding(16.dp),
+                .padding(vertical = 16.dp),
         ) {
             CustomText(
                 text = "${stringResource(id = R.string.text_score)} $score",

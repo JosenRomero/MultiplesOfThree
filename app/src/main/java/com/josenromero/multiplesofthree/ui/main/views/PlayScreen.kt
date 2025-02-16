@@ -133,25 +133,20 @@ fun PlayScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
+                .padding(16.dp)
         ) {
-            Column(
+            HUD(
                 modifier = Modifier
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                HUD(
-                    modifier = Modifier
-                        .onGloballyPositioned { layoutCoordinates ->
-                            val pos = layoutCoordinates.positionInRoot()
-                            val width = layoutCoordinates.size.width / 2
-                            val height = layoutCoordinates.size.height
-                            scoreCoordinates = Offset(x = pos.x + width, y = pos.y - height)
-                        },
-                    gameMode = gameMode,
-                    score = gameState.score,
-                    hearts = gameState.hearts
-                )
-            }
+                    .onGloballyPositioned { layoutCoordinates ->
+                        val pos = layoutCoordinates.positionInRoot()
+                        val width = layoutCoordinates.size.width / 2
+                        val height = layoutCoordinates.size.height
+                        scoreCoordinates = Offset(x = pos.x + width, y = pos.y - height)
+                    },
+                gameMode = gameMode,
+                score = gameState.score,
+                hearts = gameState.hearts
+            )
             if (isShowMission) {
                 MissionAnimated(
                     step = stage.step,
