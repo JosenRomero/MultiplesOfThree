@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.expandVertically
@@ -12,6 +13,8 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.shrinkOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -109,6 +112,35 @@ fun AnimatedFadeAndExpandHorizontally(
         delayTime = delayTime,
         enter = fadeIn() + expandHorizontally(expandFrom = Alignment.End),
         exit = shrinkOut() + fadeOut(),
+        content = content
+    )
+
+}
+
+@Composable
+fun AnimatedSlideInHorizontally(
+    visible: Boolean,
+    initialOffsetX: (Int) -> Int,
+    targetOffsetX: (Int) -> Int,
+    content: @Composable AnimatedVisibilityScope.() -> Unit
+) {
+
+    AnimatedVisibility(
+        visible = visible,
+        enter = slideInHorizontally(
+            initialOffsetX = initialOffsetX,
+            animationSpec = tween(
+                durationMillis = 700,
+                easing = LinearEasing
+            )
+        ),
+        exit = slideOutHorizontally(
+            targetOffsetX = targetOffsetX,
+            animationSpec = tween(
+                durationMillis = 700,
+                easing = LinearEasing
+            )
+        ),
         content = content
     )
 
