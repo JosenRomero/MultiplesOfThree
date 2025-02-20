@@ -4,9 +4,12 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -15,8 +18,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,14 +38,16 @@ fun Score(
                 color = MaterialTheme.colorScheme.secondary,
                 shape = RoundedCornerShape(50.dp)
             )
-            .padding(vertical = 8.dp, horizontal = 16.dp)
+            .padding(vertical = 8.dp, horizontal = 16.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        CustomText(
-            text = stringResource(id = R.string.text_score),
-            modifier = Modifier.padding(end = 8.dp),
-            color = MaterialTheme.colorScheme.onSecondary,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.SemiBold
+        Image(
+            painter = painterResource(id = R.drawable.coin),
+            contentDescription = "coin icon",
+            modifier = Modifier
+                .size(33.dp)
+                .padding(end = 8.dp)
         )
         AnimatedScore(
             score = value

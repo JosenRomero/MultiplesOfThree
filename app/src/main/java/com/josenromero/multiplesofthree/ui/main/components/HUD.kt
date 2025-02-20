@@ -116,7 +116,7 @@ fun Heart(
         Icon(
             painter = painterResource(id = R.drawable.heart),
             contentDescription = "dark heart icon",
-            modifier = Modifier.size(44.dp),
+            modifier = Modifier.size(33.dp),
             tint = MaterialTheme.colorScheme.background
         )
         if (isHeart) {
@@ -125,7 +125,7 @@ fun Heart(
                 contentDescription = "heart icon",
                 modifier = Modifier
                     .offset(x = 0.dp, y = offsetY.value)
-                    .size(44.dp)
+                    .size(33.dp)
                     .alpha(alpha)
             )
         }
