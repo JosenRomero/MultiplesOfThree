@@ -15,7 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,13 +38,11 @@ class PreferencesViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val currentPreferences = getPreferences()
 
-            withContext(Dispatchers.Main) {
-                if (currentPreferences != null) {
-                    _preferences.value = currentPreferences
-                    _preferencesLoading.value = false
-                } else {
-                    initPreferences()
-                }
+            if (currentPreferences != null) {
+                _preferences.value = currentPreferences
+                _preferencesLoading.value = false
+            } else {
+                initPreferences()
             }
         }
     }
@@ -53,11 +50,7 @@ class PreferencesViewModel @Inject constructor(
     private fun initPreferences() {
         viewModelScope.launch(Dispatchers.IO) {
             addPreferences(PreferencesEntity())
-
-            withContext(Dispatchers.Main) {
-                checkPreferences()
-            }
-
+            checkPreferences()
         }
     }
 

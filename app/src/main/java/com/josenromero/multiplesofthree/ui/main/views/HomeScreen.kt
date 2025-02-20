@@ -33,6 +33,7 @@ import com.josenromero.multiplesofthree.ui.main.components.CustomIconButton
 import com.josenromero.multiplesofthree.ui.main.components.CustomText
 import com.josenromero.multiplesofthree.ui.main.components.Menu
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
+import kotlinx.coroutines.delay
 
 @Composable
 fun HomeScreen(
@@ -52,6 +53,7 @@ fun HomeScreen(
             backgroundMusicPlay()
 
             if (firstTime) {
+                delay(1000)
                 onNavigateToAScreen(AppScreens.HowToPlayScreen.route)
             }
         }
