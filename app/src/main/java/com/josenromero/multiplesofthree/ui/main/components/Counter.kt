@@ -75,7 +75,7 @@ fun Counter(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            fontSize = 20.sp,
+            fontSize = 16.sp,
             textAlign = TextAlign.Center
         )
     }
