@@ -130,9 +130,9 @@ fun TableCell(
                         .alpha(alpha)
                         .clickable {
                             CoroutineScope(Dispatchers.Default).launch {
-                                if (!isAnimated) {
-                                    audioPlay(Audios.AudioTap.name)
+                                if (!isAnimated && !isPreCleanBoard) {
                                     isAnimated = true
+                                    audioPlay(Audios.AudioTap.name)
                                     delay(700)
                                     onClick(position, coordinates)
                                     isAnimated = false
