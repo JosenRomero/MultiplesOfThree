@@ -20,9 +20,16 @@ class MainActivity : AppCompatActivity() {
             preferencesViewModel.preferencesLoading.value
         }
 
+        window.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
         setContent {
             AppNavigation()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 }
 
