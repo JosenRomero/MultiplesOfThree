@@ -1,10 +1,12 @@
 package com.josenromero.multiplesofthree.ui.main.views
 
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
@@ -42,24 +44,32 @@ fun AchievementsScreen(
                 .fillMaxSize()
                 .padding(it)
         ) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(1),
-                contentPadding = PaddingValues(16.dp)
-            ) {
-                item {
-                    AchievementStatistics(
-                        totalAchievements = Constants.achievementsList.size,
-                        currentAchievements = achievements.size
-                    )
-                }
-                items(Constants.achievementsList) {achievement ->
-                    AchievementItem(
-                        id = achievement.id,
-                        imageId = achievement.imageId,
-                        title = stringResource(id = achievement.titleId),
-                        text = stringResource(id = achievement.textId),
-                        completed = achievements.contains(achievement.id.toString())
-                    )
+            BoxWithConstraints {
+
+                val isSmallScreen = maxWidth < 400.dp
+                val columnsCount = if (isSmallScreen) 1 else 2
+
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(columnsCount),
+                    contentPadding = PaddingValues(16.dp)
+                ) {
+                    item(
+                        span = { GridItemSpan(currentLineSpan = columnsCount) }
+                    ) {
+                        AchievementStatistics(
+                            totalAchievements = Constants.achievementsList.size,
+                            currentAchievements = achievements.size
+                        )
+                    }
+                    items(Constants.achievementsList) { achievement ->
+                        AchievementItem(
+                            id = achievement.id,
+                            imageId = achievement.imageId,
+                            title = stringResource(id = achievement.titleId),
+                            text = stringResource(id = achievement.textId),
+                            completed = achievements.contains(achievement.id.toString())
+                        )
+                    }
                 }
             }
         }
