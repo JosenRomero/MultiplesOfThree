@@ -11,8 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -32,6 +31,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
@@ -45,6 +45,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun Board(
     board: List<List<Int>>,
+    cellSize: Dp,
     isCleanBoard: Boolean,
     isPreCleanBoard: Boolean,
     onClick: (position: Pair<Int, Int>, coordinates: Offset) -> Unit,
@@ -62,6 +63,7 @@ fun Board(
                     TableCell(
                         item = item,
                         position = Pair(i, j),
+                        cellSize = cellSize,
                         isCleanBoard = isCleanBoard,
                         isPreCleanBoard = isPreCleanBoard,
                         onClick = onClick,
@@ -78,6 +80,7 @@ fun Board(
 fun TableCell(
     item: Int,
     position: Pair<Int, Int>,
+    cellSize: Dp,
     isCleanBoard: Boolean,
     isPreCleanBoard: Boolean,
     onClick: (position: Pair<Int, Int>, coordinates: Offset) -> Unit,
@@ -101,8 +104,7 @@ fun TableCell(
 
     Box(
         modifier = Modifier
-            .width(Constants.CELL_SIZE)
-            .height(Constants.CELL_SIZE)
+            .size(cellSize)
             .background(
                 color = MaterialTheme.colorScheme.secondary,
                 shape = RoundedCornerShape(25.dp)
@@ -164,6 +166,7 @@ fun BoardPreview() {
     MultiplesOfThreeTheme {
         Board(
             board = listOf(listOf(-1, -1, 3), listOf(-1, -1, -1), listOf(-1, -1, -1)),
+            cellSize = Constants.CELL_SIZE,
             isCleanBoard = false,
             isPreCleanBoard = false,
             onClick = { _, _ -> },

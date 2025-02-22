@@ -4,6 +4,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -47,6 +48,7 @@ import com.josenromero.multiplesofthree.ui.main.components.MissionText
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
+import com.josenromero.multiplesofthree.utils.Constants
 import com.josenromero.multiplesofthree.utils.checkAchievement
 import kotlinx.coroutines.delay
 
@@ -133,83 +135,95 @@ fun PlayScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
-                .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            HUD(
-                modifier = Modifier
-                    .onGloballyPositioned { layoutCoordinates ->
-                        val pos = layoutCoordinates.positionInRoot()
-                        val width = layoutCoordinates.size.width / 2
-                        val height = layoutCoordinates.size.height
-                        scoreCoordinates = Offset(x = pos.x + width, y = pos.y - height)
-                    },
-                gameMode = gameMode,
-                score = gameState.score,
-                hearts = gameState.hearts
-            )
-            if (isShowMission) {
-                MissionAnimated(
-                    step = stage.step,
-                    btnClose = {
-                        isShowMission = false
-                    }
-                )
-            }
-            // center Column
-            if (!isShowMission && !isShowMedals) {
-                AnimatedFadeIn {
-                    Column(
+            BoxWithConstraints {
+
+                val isSmallScreen = maxWidth < 400.dp
+                val cellSize = if (isSmallScreen) Constants.CELL_SIZE_SMALL else Constants.CELL_SIZE
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                ) {
+                    HUD(
                         modifier = Modifier
-                            .fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Board(
-                            board = gameState.board,
-                            isCleanBoard = isCleanBoard,
-                            isPreCleanBoard = isPreCleanBoard,
-                            onClick = onClick,
+                            .onGloballyPositioned { layoutCoordinates ->
+                                val pos = layoutCoordinates.positionInRoot()
+                                val width = layoutCoordinates.size.width / 2
+                                val height = layoutCoordinates.size.height
+                                scoreCoordinates = Offset(x = pos.x + width, y = pos.y - height)
+                            },
+                        gameMode = gameMode,
+                        score = gameState.score,
+                        hearts = gameState.hearts
+                    )
+                    if (isShowMission) {
+                        MissionAnimated(
+                            step = stage.step,
+                            btnClose = {
+                                isShowMission = false
+                            }
+                        )
+                    }
+                    // center Column
+                    if (!isShowMission && !isShowMedals) {
+                        AnimatedFadeIn {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize(),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Board(
+                                    board = gameState.board,
+                                    cellSize = cellSize,
+                                    isCleanBoard = isCleanBoard,
+                                    isPreCleanBoard = isPreCleanBoard,
+                                    onClick = onClick,
+                                    audioPlay = audioPlay
+                                )
+                                MissionText(
+                                    text = stringResource(id = stage.step.textId) // the step.textId is like R.string.howToPlay_screen_text_mission_1
+                                )
+                            }
+                        }
+                    }
+                    if (isShowMedals) {
+                        MedalCard(
+                            medals = medals,
                             audioPlay = audioPlay
                         )
-                        MissionText(
-                            text = stringResource(id = stage.step.textId) // the step.textId is like R.string.howToPlay_screen_text_mission_1
+                    }
+                    if (gameState.isGameOver) {
+                        GameOver(
+                            score = gameState.score,
+                            bestScore = player.bestScore,
+                            onNavigateToAScreen = onNavigateToAScreen,
+                            updatePlayer = {
+                                updatePlayer(gameState.score, null)
+                            },
+                            audioPlay = audioPlay
+                        )
+                    }
+                    coins.toList().forEach { coin ->
+                        AnimatedCoin(
+                            id = coin.id,
+                            initialPosition = coin.coordinate,
+                            finalPosition = scoreCoordinates
+                        )
+                    }
+                    particles.toList().forEach { particle ->
+                        AnimatedParticle(
+                            id = particle.id,
+                            initialPosition = Offset(
+                                x = particle.coordinate.x,
+                                y = particle.coordinate.y
+                            ),
+                            particleDescription = "explosion particle ${particle.id}"
                         )
                     }
                 }
-            }
-            if (isShowMedals) {
-                MedalCard(
-                    medals = medals,
-                    audioPlay = audioPlay
-                )
-            }
-            if (gameState.isGameOver) {
-                GameOver(
-                    score = gameState.score,
-                    bestScore = player.bestScore,
-                    onNavigateToAScreen = onNavigateToAScreen,
-                    updatePlayer = {
-                        updatePlayer(gameState.score, null)
-                    },
-                    audioPlay = audioPlay
-                )
-            }
-            coins.toList().forEach { coin ->
-                AnimatedCoin(
-                    id = coin.id,
-                    initialPosition = coin.coordinate,
-                    finalPosition = scoreCoordinates
-                )
-            }
-            particles.toList().forEach { particle ->
-                AnimatedParticle(
-                    id = particle.id,
-                    initialPosition = Offset(
-                        x = particle.coordinate.x,
-                        y = particle.coordinate.y
-                    ),
-                    particleDescription = "explosion particle ${particle.id}"
-                )
             }
         }
     }
