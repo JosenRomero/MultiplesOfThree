@@ -87,13 +87,14 @@ fun AchievementItem(
                     text = title,
                     modifier = Modifier
                         .padding(bottom = 20.dp),
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center
                 )
                 CustomText(
                     text = text,
-                    modifier = Modifier.padding(bottom = 20.dp)
+                    modifier = Modifier.padding(bottom = 20.dp),
+                    textAlign = TextAlign.Center
                 )
                 Icon(
                     imageVector = if (completed) Icons.Filled.CheckCircle else Icons.Filled.Lock,
