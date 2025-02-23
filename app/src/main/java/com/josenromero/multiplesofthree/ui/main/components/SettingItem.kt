@@ -22,8 +22,8 @@ fun SettingItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp)
-            .clickable { onClick() },
+            .clickable { onClick() }
+            .padding(vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {

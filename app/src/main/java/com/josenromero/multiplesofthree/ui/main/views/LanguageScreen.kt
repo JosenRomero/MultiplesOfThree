@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
@@ -88,6 +89,8 @@ fun LanguageItem(
     audioPlay: (name: String) -> Unit,
 ) {
 
+    val iconAlpha = if (currentLanguage == targetLanguage) 1f else 0f
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -102,13 +105,13 @@ fun LanguageItem(
             modifier = Modifier.weight(1f),
             fontSize = 16.sp
         )
-        if (currentLanguage == targetLanguage) {
-            Icon(
-                imageVector = Icons.Filled.Done,
-                contentDescription = "done icon",
-                tint = MaterialTheme.colorScheme.onPrimary
-            )
-        }
+        Icon(
+            imageVector = Icons.Filled.Done,
+            contentDescription = "done icon",
+            modifier = Modifier
+                .alpha(iconAlpha),
+            tint = MaterialTheme.colorScheme.onPrimary
+        )
     }
     CustomSpacer()
 
