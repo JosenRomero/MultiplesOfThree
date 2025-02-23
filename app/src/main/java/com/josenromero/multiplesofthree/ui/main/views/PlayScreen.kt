@@ -210,7 +210,8 @@ fun PlayScreen(
                         AnimatedCoin(
                             id = coin.id,
                             initialPosition = coin.coordinate,
-                            finalPosition = scoreCoordinates
+                            finalPosition = scoreCoordinates,
+                            audioPlay = audioPlay
                         )
                     }
                     particles.toList().forEach { particle ->
@@ -220,7 +221,8 @@ fun PlayScreen(
                                 x = particle.coordinate.x,
                                 y = particle.coordinate.y
                             ),
-                            particleDescription = "explosion particle ${particle.id}"
+                            particleDescription = "explosion particle ${particle.id}",
+                            audioPlay = audioPlay
                         )
                     }
                 }

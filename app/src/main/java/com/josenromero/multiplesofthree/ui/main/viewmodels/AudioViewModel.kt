@@ -16,12 +16,16 @@ class AudioViewModel @Inject constructor(
     private var audioTap: MediaPlayer? = null
     private var audioGameOver: MediaPlayer? = null
     private var audioNewAchievements: MediaPlayer? = null
+    private var audioBadNumber: MediaPlayer? = null
+    private var audioCorrectNumber: MediaPlayer? = null
 
     init {
         audioBackground = audio.loadAudio(R.raw.piano_loops)
         audioTap = audio.loadAudio(R.raw.tap)
         audioGameOver = audio.loadAudio(R.raw.game_over)
         audioNewAchievements = audio.loadAudio(R.raw.new_achievements)
+        audioBadNumber = audio.loadAudio(R.raw.bad_number)
+        audioCorrectNumber = audio.loadAudio(R.raw.correct_number)
     }
 
     fun play(audio: String, isSound: Boolean) {
@@ -30,6 +34,8 @@ class AudioViewModel @Inject constructor(
                 Audios.AudioTap.name -> audioTap?.start()
                 Audios.AudioGameOver.name -> audioGameOver?.start()
                 Audios.AudioNewAchievements.name -> audioNewAchievements?.start()
+                Audios.AudioBadNumber.name -> audioBadNumber?.start()
+                Audios.AudioCorrectNumber.name -> audioCorrectNumber?.start()
             }
         }
     }

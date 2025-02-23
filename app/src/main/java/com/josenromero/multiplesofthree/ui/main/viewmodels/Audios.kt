@@ -4,4 +4,6 @@ sealed class Audios(val name: String) {
     object AudioTap: Audios("AudioTap")
     object AudioGameOver: Audios("AudioGameOver")
     object AudioNewAchievements: Audios("AudioNewAchievements")
+    object AudioBadNumber: Audios("AudioBadNumber")
+    object AudioCorrectNumber: Audios("AudioCorrectNumber")
 }

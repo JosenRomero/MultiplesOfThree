@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.josenromero.multiplesofthree.R
+import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
 import com.josenromero.multiplesofthree.utils.Constants
 import kotlinx.coroutines.launch
 
@@ -26,7 +27,8 @@ import kotlinx.coroutines.launch
 fun AnimatedCoin(
     id: Int,
     initialPosition: Offset,
-    finalPosition: Offset
+    finalPosition: Offset,
+    audioPlay: (name: String) -> Unit
 ) {
 
     val coinSize = 22.dp
@@ -35,6 +37,9 @@ fun AnimatedCoin(
     val alpha = remember { Animatable(1f) }
 
     LaunchedEffect(id) {
+
+        audioPlay(Audios.AudioCorrectNumber.name)
+
         launch {
             offsetX.animateTo(
                 targetValue = finalPosition.x,

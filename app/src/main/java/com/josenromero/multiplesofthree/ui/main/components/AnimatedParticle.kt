@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
+import com.josenromero.multiplesofthree.ui.main.viewmodels.Audios
 import com.josenromero.multiplesofthree.utils.Constants
 import com.josenromero.multiplesofthree.utils.getRandomColor
 import com.josenromero.multiplesofthree.utils.getRandomParticle
@@ -30,7 +31,8 @@ fun AnimatedParticle(
     particleSize: Dp = Constants.DEFAULT_PARTICLE_SIZE,
     posRange: IntRange = -75..75,
     particleDescription: String,
-    isRandomColor: Boolean = false
+    isRandomColor: Boolean = false,
+    audioPlay: ((name: String) -> Unit)? = null
 ) {
 
     val offsetX = remember { Animatable(initialPosition.x) }
@@ -38,6 +40,9 @@ fun AnimatedParticle(
     val alpha = remember { Animatable(1f) }
 
     LaunchedEffect(id) {
+
+        audioPlay?.invoke(Audios.AudioBadNumber.name)
+
         launch {
             offsetX.animateTo(
                 targetValue = initialPosition.x + getRandomPosition(range = posRange),
