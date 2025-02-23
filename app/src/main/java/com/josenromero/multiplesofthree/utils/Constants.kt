@@ -12,6 +12,7 @@ object Constants {
     const val TARGET_NUMBER = 3
     const val AVAILABLE_CELLS = 4
     const val BOARD_SIZE = 3
+    val SMALL_SCREEN = 400.dp
     val CELL_SIZE = 100.dp
     val CELL_SIZE_SMALL = 75.dp
     const val NUMBER_OF_HEARTS_TOTALS = 4

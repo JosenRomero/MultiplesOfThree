@@ -138,7 +138,7 @@ fun PlayScreen(
         ) {
             BoxWithConstraints {
 
-                val isSmallScreen = maxWidth < 400.dp
+                val isSmallScreen = maxWidth < Constants.SMALL_SCREEN
                 val cellSize = if (isSmallScreen) Constants.CELL_SIZE_SMALL else Constants.CELL_SIZE
 
                 Box(

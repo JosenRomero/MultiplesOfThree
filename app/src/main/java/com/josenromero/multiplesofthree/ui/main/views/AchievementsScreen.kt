@@ -46,7 +46,7 @@ fun AchievementsScreen(
         ) {
             BoxWithConstraints {
 
-                val isSmallScreen = maxWidth < 400.dp
+                val isSmallScreen = maxWidth < Constants.SMALL_SCREEN
                 val columnsCount = if (isSmallScreen) 1 else 2
 
                 LazyVerticalGrid(
