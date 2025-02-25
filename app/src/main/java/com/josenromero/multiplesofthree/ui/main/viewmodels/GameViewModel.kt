@@ -74,7 +74,6 @@ class GameViewModel @Inject constructor(
 
     fun initGame(gameMode: GameMode) {
         viewModelScope.launch(Dispatchers.Main) {
-            cleanTimer()
             _gameState.value.isGameOver = false
             removeAllCoins()
             removeAllParticles()
@@ -157,6 +156,8 @@ class GameViewModel @Inject constructor(
     }
 
     private fun startTimer() {
+
+        cleanTimer()
 
         timerJob = viewModelScope.launch {
             while (!_gameState.value.isGameOver) {
@@ -258,6 +259,7 @@ class GameViewModel @Inject constructor(
 
     private fun cleanTimer() {
         timerJob?.cancel()
+        timerJob = null
     }
 
     private fun checkingBoard() {
@@ -288,7 +290,7 @@ class GameViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        timerJob?.cancel()
+        cleanTimer()
     }
 
 }
