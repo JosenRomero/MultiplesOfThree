@@ -267,7 +267,7 @@ class GameViewModel @Inject constructor(
 
             val preCleanBoard: PreCleanBoard = removeNumberToBoardGame.checkingBoard(_gameState.value.board, _stage.value.listOfNumbers, _stage.value.step)
 
-            if (preCleanBoard.correctNumbers.isNotEmpty()) { // There are correct numbers in the board and they were not selected so hearts will be subtracted
+            if (preCleanBoard.correctNumbers.isNotEmpty() && !_gameState.value.isGameOver) { // There are correct numbers in the board and they were not selected so hearts will be subtracted
                 _isPreCleanBoard.value = true
                 removeHearts(board = preCleanBoard.board, value = _gameState.value.hearts - preCleanBoard.correctNumbers.size)
                 delay(500) // waiting for the animation about preCleanBoard

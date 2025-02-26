@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -51,6 +52,12 @@ fun Board(
     onClick: (position: Pair<Int, Int>, coordinates: Offset) -> Unit,
     audioPlay: (name: String) -> Unit
 ) {
+
+    LaunchedEffect(key1 = isPreCleanBoard) {
+        if (isPreCleanBoard) {
+            audioPlay(Audios.AudioBadNumber.name)
+        }
+    }
 
     LazyColumn(
         modifier = Modifier
