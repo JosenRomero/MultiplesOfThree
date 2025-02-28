@@ -108,6 +108,7 @@ fun TableCell(
         animationSpec = tween(alphaDuration),
         label = "alpha animation"
     )
+    val isCorrectNumbersToRemove = isPreCleanBoard && isCleanBoard
 
     Box(
         modifier = Modifier
@@ -136,10 +137,10 @@ fun TableCell(
                             color = MaterialTheme.colorScheme.tertiary,
                             shape = RoundedCornerShape(25.dp)
                         )
-                        .alpha(alpha)
+                        .alpha(if (!isCorrectNumbersToRemove) alpha else 1f)
                         .clickable {
                             CoroutineScope(Dispatchers.Default).launch {
-                                if (!isAnimated && !isPreCleanBoard) {
+                                if (!isAnimated && !isCleanBoard) {
                                     isAnimated = true
                                     audioPlay(Audios.AudioTap.name)
                                     delay(700)
@@ -154,9 +155,9 @@ fun TableCell(
                     CustomText(
                         text = item.toString(),
                         modifier = Modifier
-                            .rotate(rotationAngle)
-                            .alpha(alpha),
-                        color = if (!isPreCleanBoard) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.error,
+                            .rotate(if (!isCorrectNumbersToRemove) rotationAngle else 0f)
+                            .alpha(if (!isCorrectNumbersToRemove) alpha else 1f),
+                        color = if (!isCorrectNumbersToRemove) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.error,
                         fontSize = 33.sp,
                         fontWeight = FontWeight.W900
                     )

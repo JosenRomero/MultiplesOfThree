@@ -255,6 +255,8 @@ class GameViewModel @Inject constructor(
 
     fun exitTheGame() {
         activeBoard(value = false)
+        _isPreCleanBoard.value = false
+        _isCleanBoard.value = false
     }
 
     private fun cleanTimer() {
@@ -265,6 +267,10 @@ class GameViewModel @Inject constructor(
     private fun checkingBoard() {
         viewModelScope.launch(Dispatchers.IO) {
 
+            _isCleanBoard.value = true
+            delay(1000) // waiting for the cleanBoard animation
+
+            // checking board
             val preCleanBoard: PreCleanBoard = removeNumberToBoardGame.checkingBoard(_gameState.value.board, _stage.value.listOfNumbers, _stage.value.step)
 
             if (preCleanBoard.correctNumbers.isNotEmpty() && !_gameState.value.isGameOver) { // There are correct numbers in the board and they were not selected so hearts will be subtracted
@@ -273,11 +279,12 @@ class GameViewModel @Inject constructor(
                 delay(500) // waiting for the animation about preCleanBoard
             }
 
-            _isCleanBoard.value = true
-            delay(1000) // waiting for the cleanBoard animation
             cleanBoard()
-            _isPreCleanBoard.value = false
-            _isCleanBoard.value = false
+
+            if (!_gameState.value.isGameOver) {
+                _isPreCleanBoard.value = false
+                _isCleanBoard.value = false
+            }
 
         }
     }
