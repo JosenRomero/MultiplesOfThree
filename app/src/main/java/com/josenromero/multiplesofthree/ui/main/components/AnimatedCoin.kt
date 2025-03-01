@@ -28,12 +28,13 @@ fun AnimatedCoin(
     id: Int,
     initialPosition: Offset,
     finalPosition: Offset,
+    coinSize: Dp = Constants.DEFAULT_COIN_SIZE,
+    containerSize: Dp,
     audioPlay: (name: String) -> Unit
 ) {
 
-    val coinSize = 22.dp
-    val offsetX = remember { Animatable(initialPosition.x - (Constants.CELL_SIZE.value / 2) + (coinSize.value)) }
-    val offsetY = remember { Animatable(initialPosition.y) }
+    val offsetX = remember { Animatable(initialPosition.x - (containerSize.value / 2) - (coinSize.value / 2)) }
+    val offsetY = remember { Animatable(initialPosition.y - (containerSize.value / 2) + (coinSize.value / 2)) }
     val alpha = remember { Animatable(1f) }
 
     LaunchedEffect(id) {

@@ -211,6 +211,7 @@ fun PlayScreen(
                             id = coin.id,
                             initialPosition = coin.coordinate,
                             finalPosition = scoreCoordinates,
+                            containerSize = cellSize,
                             audioPlay = audioPlay
                         )
                     }

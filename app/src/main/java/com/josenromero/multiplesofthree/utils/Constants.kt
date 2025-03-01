@@ -21,6 +21,7 @@ object Constants {
     const val PLAYER_DATABASE = "player_database"
 
     val DEFAULT_PARTICLE_SIZE = 10.dp
+    val DEFAULT_COIN_SIZE = 22.dp
 
     val achievementsList: List<Achievement> = listOf(
         Achievement(id = 1, imageId = R.drawable.first_medal, titleId = R.string.achievements_screen_achievements_first_medal, textId = R.string.achievements_screen_achievements_list_1, scoreTarget = 10, gameMode = GameMode.EASY),
