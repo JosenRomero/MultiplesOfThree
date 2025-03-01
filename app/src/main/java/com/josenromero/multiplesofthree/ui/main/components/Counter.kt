@@ -40,7 +40,7 @@ fun CounterAnimation(
         label = animLabel
     )
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(number) {
         value = number
     }
 
