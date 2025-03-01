@@ -218,8 +218,8 @@ fun PlayScreen(
                         AnimatedParticle(
                             id = particle.id,
                             initialPosition = Offset(
-                                x = particle.coordinate.x,
-                                y = particle.coordinate.y
+                                x = particle.coordinate.x - (cellSize.value / 2),
+                                y = particle.coordinate.y - (cellSize.value / 2)
                             ),
                             particleDescription = "explosion particle ${particle.id}",
                             audioPlay = audioPlay
