@@ -59,6 +59,8 @@ class GameViewModel @Inject constructor(
     val stage = _stage.asStateFlow()
 
     private var timerJob: Job? = null
+    private var initGameJob: Job? = null
+    private var checkingBoardJob: Job? = null
 
     private var isActiveBoard: Boolean = false // If true, it allows adding numbers to the board.
 
@@ -73,7 +75,7 @@ class GameViewModel @Inject constructor(
     }
 
     fun initGame(gameMode: GameMode) {
-        viewModelScope.launch(Dispatchers.Main) {
+        initGameJob = viewModelScope.launch {
             _gameState.value.isGameOver = false
             removeAllCoins()
             removeAllParticles()
@@ -136,11 +138,9 @@ class GameViewModel @Inject constructor(
     }
 
     fun beforeStageUpdate(currentStage: Stage) {
-        viewModelScope.launch(Dispatchers.IO) {
-            activeBoard(value = false)
-            cleanBoard()
-            stageUpdate(currentStage)
-        }
+        activeBoard(value = false)
+        cleanBoard()
+        stageUpdate(currentStage)
     }
 
     private fun stageUpdate(currentStage: Stage) {
@@ -255,6 +255,7 @@ class GameViewModel @Inject constructor(
 
     fun exitTheGame() {
         activeBoard(value = false)
+        cancelJobs()
         _isPreCleanBoard.value = false
         _isCleanBoard.value = false
     }
@@ -264,8 +265,16 @@ class GameViewModel @Inject constructor(
         timerJob = null
     }
 
+    private fun cancelJobs() {
+        initGameJob?.cancel()
+        initGameJob = null
+        checkingBoardJob?.cancel()
+        checkingBoardJob = null
+        cleanTimer()
+    }
+
     private fun checkingBoard() {
-        viewModelScope.launch(Dispatchers.IO) {
+        checkingBoardJob = viewModelScope.launch {
 
             _isCleanBoard.value = true
             delay(1000) // waiting for the cleanBoard animation
@@ -297,7 +306,7 @@ class GameViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        cleanTimer()
+        cancelJobs()
     }
 
 }
