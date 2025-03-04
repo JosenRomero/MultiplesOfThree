@@ -13,7 +13,7 @@
     <string name="howToPlay_screen_text_mission_1">Selecciona los números múltiplos de 3.</string>
     <string name="howToPlay_screen_text_mission_2">Selecciona los números múltiplos de 3 y pares.</string>
     <string name="howToPlay_screen_text_mission_3">Selecciona los números múltiplos de 3 e impares.</string>
-    <string name="howToPlay_screen_text_mission_4">Selecciona los números múltiplos de 3 y de 5.</string>
+    <string name="howToPlay_screen_text_mission_4">Selecciona los números que no sean múltiplos de 3.</string>
     <string name="howToPlay_screen_subtitle_game_rules">El objetivo del juego es seleccionar números para completar misiones.</string>
     <string name="howToPlay_screen_text_game_rules_1">Selecciona únicamente los números que cumplan con la condición de la misión.</string>
     <string name="howToPlay_screen_text_game_rules_2">Evita seleccionar números incorrectos para no perder un corazón.</string>

@@ -13,7 +13,7 @@
     <string name="howToPlay_screen_text_mission_1">Select numbers that are multiples of 3.</string>
     <string name="howToPlay_screen_text_mission_2">Select numbers that are multiples of 3 and even.</string>
     <string name="howToPlay_screen_text_mission_3">Select numbers that are multiples of 3 and odd.</string>
-    <string name="howToPlay_screen_text_mission_4">Select numbers that are multiples of 3 and 5.</string>
+    <string name="howToPlay_screen_text_mission_4">Select numbers that are not multiples of 3.</string>
     <string name="howToPlay_screen_subtitle_game_rules">The objective of the game is to select numbers to complete missions.</string>
     <string name="howToPlay_screen_text_game_rules_1">Select only the numbers that meet the mission\'s condition.</string>
     <string name="howToPlay_screen_text_game_rules_2">Avoid selecting incorrect numbers to prevent losing a heart.</string>

@@ -13,7 +13,7 @@
     <string name="howToPlay_screen_text_mission_1">3の倍数の数字を選んでください。</string>
     <string name="howToPlay_screen_text_mission_2">3の倍数かつ偶数の数字を選んでください。</string>
     <string name="howToPlay_screen_text_mission_3">3の倍数かつ奇数の数字を選んでください。</string>
-    <string name="howToPlay_screen_text_mission_4">3と5の倍数の数字を選んでください。</string>
+    <string name="howToPlay_screen_text_mission_4">3の倍数ではない数字を選んでください。</string>
     <string name="howToPlay_screen_subtitle_game_rules">ゲームの目的は、数字を選んでミッションをクリアすることです。</string>
     <string name="howToPlay_screen_text_game_rules_1">ミッションの条件を満たす数字だけを選んでください。</string>
     <string name="howToPlay_screen_text_game_rules_2">間違った数字を選ばないようにして、ハートを失わないようにしましょう。</string>
