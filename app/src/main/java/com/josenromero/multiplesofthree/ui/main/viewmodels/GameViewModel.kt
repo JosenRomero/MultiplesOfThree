@@ -206,7 +206,7 @@ class GameViewModel @Inject constructor(
 
         val currentNumber = _gameState.value.board[position.first][position.second]
 
-        val isCorrectAnswer: Boolean = checkAnswer(currentNumber, _stage.value.listOfNumbers, _stage.value.step)
+        val isCorrectAnswer: Boolean = checkAnswer(currentNumber, _stage.value.listOfNumbers)
 
         val currentScore = _gameState.value.score
 
