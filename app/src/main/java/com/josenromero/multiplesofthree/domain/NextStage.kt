@@ -15,18 +15,16 @@ class NextStage {
 
         if (listOfNumbers.isNotEmpty()) {
 
-            if (step == Step.Step4) {
+            step = nextStep(currentStep = step)
+
+            if (currentStage.step == Step.Step4) {
                 startNumber += 50
                 endNumber += 50
-                listOfNumbers = generateListOfNumbers(startNumber, endNumber)
             }
 
-            step = nextStep(currentStage.step)
-
-        } else {
-            // in this case, currentStage have default values
-            listOfNumbers = generateListOfNumbers(startNumber, endNumber)
         }
+
+        listOfNumbers = generateListOfNumbers(startNumber, endNumber, step)
 
         return Stage(startNumber, endNumber, step, listOfNumbers)
 
@@ -39,7 +37,15 @@ class NextStage {
         return steps[nextIndex]
     }
 
-    private fun generateListOfNumbers(startNumber: Int, endNumber: Int): List<Int> {
-        return IntRange(startNumber, endNumber).toList().filter { it % Constants.TARGET_NUMBER == 0 }
+    private fun generateListOfNumbers(startNumber: Int, endNumber: Int, currentStep: Step): List<Int> {
+
+        val listOfNumbers = IntRange(startNumber, endNumber).toList()
+
+        return when (currentStep) {
+            Step.Step1 -> listOfNumbers.filter { it % Constants.TARGET_NUMBER == 0 }
+            Step.Step2 -> listOfNumbers.filter { it % Constants.TARGET_NUMBER == 0 && it % 2 == 0 }
+            Step.Step3 -> listOfNumbers.filter { it % Constants.TARGET_NUMBER == 0 && it % 2 != 0 }
+            Step.Step4 -> listOfNumbers.filter { it % Constants.TARGET_NUMBER != 0 }
+        }
     }
 }
