@@ -1,7 +1,6 @@
 package com.josenromero.multiplesofthree.domain
 
 import com.josenromero.multiplesofthree.data.PreCleanBoard
-import com.josenromero.multiplesofthree.data.Step
 import com.josenromero.multiplesofthree.utils.Constants
 import javax.inject.Inject
 
@@ -18,7 +17,6 @@ class RemoveNumberToBoardGame @Inject constructor(
     fun checkingBoard(
         boardGame: List<List<Int>>,
         currentListOfNumbers: List<Int>,
-        currentStep: Step
     ): PreCleanBoard {
 
         val lineSize = boardGame.size
@@ -30,7 +28,7 @@ class RemoveNumberToBoardGame @Inject constructor(
                 val cell = boardGame[rowIndex][columIndex]
                 if (cell != Constants.DEFAULT_VALUE) { //checking if this cell has a number
                     // checking if the number is a correct number
-                    val isCorrectNumber: Boolean = checkAnswer(cell, currentListOfNumbers, currentStep)
+                    val isCorrectNumber: Boolean = checkAnswer(cell, currentListOfNumbers)
                     if (!isCorrectNumber) {
                         newBoard[rowIndex][columIndex] = Constants.DEFAULT_VALUE
                     } else {
