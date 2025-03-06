@@ -1,6 +1,7 @@
 package com.josenromero.multiplesofthree.domain
 
 import com.josenromero.multiplesofthree.data.Stage
+import com.josenromero.multiplesofthree.data.Step
 import com.josenromero.multiplesofthree.utils.Constants
 import kotlin.random.Random
 
@@ -61,7 +62,20 @@ class AddNumberToBoardGame {
     }
 
     private fun getNumber(initialNumber: Boolean, stage: Stage): Int {
-        return if (initialNumber) Constants.TARGET_NUMBER else Random.nextInt(stage.startNumber, stage.endNumber)
+        return if (initialNumber) {
+            Constants.TARGET_NUMBER
+        } else {
+
+            val allNumbers: List<Int> = IntRange(stage.startNumber, stage.endNumber).toList()
+            val currentListOfNumbers: List<Int> = stage.listOfNumbers
+
+            return when (stage.step) {
+                Step.Step2, Step.Step3 -> {
+                    allNumbers.plus(currentListOfNumbers).random()
+                }
+                else -> allNumbers.random()
+            }
+        }
     }
 
 }
