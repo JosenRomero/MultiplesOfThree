@@ -70,17 +70,20 @@ class GameViewModel @Inject constructor(
     private val _isPreCleanBoard: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isPreCleanBoard = _isPreCleanBoard.asStateFlow()
 
+    private val _gameMode: MutableStateFlow<GameMode> = MutableStateFlow(GameMode.EASY)
+
     init {
         checkPlayer()
     }
 
     fun initGame(gameMode: GameMode) {
         initGameJob = viewModelScope.launch {
+            _gameMode.value = gameMode
             _gameState.value.isGameOver = false
             removeAllCoins()
             removeAllParticles()
             stageUpdate(currentStage = Stage())
-            startNewGame(gameMode)
+            startNewGame()
             delay(7000) // waiting for the mission animation
             startTimer()
             activeBoard(value = true)
@@ -147,11 +150,11 @@ class GameViewModel @Inject constructor(
         _stage.value = nextStage(currentStage)
     }
 
-    private fun startNewGame(gameMode: GameMode) {
+    private fun startNewGame() {
         gameStateUpdate(
             board = boardGame.createBoard(size = Constants.BOARD_SIZE, stage = _stage.value),
             score = 0,
-            hearts = getNumbersOfHearts(gameMode = gameMode)
+            hearts = getNumbersOfHearts(gameMode = _gameMode.value)
         )
     }
 
