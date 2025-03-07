@@ -17,7 +17,7 @@
     <string name="howToPlay_screen_subtitle_game_rules">ゲームの目的は、数字を選んでミッションをクリアすることです。</string>
     <string name="howToPlay_screen_text_game_rules_1">ミッションの条件を満たす数字だけを選んでください。</string>
     <string name="howToPlay_screen_text_game_rules_2">間違った数字を選ばないようにして、ハートを失わないようにしましょう。</string>
-    <string name="howToPlay_screen_text_game_rules_3">正しい番号を選ばないと、ハートも失います。</string> <!-- ただしい ばんごう を えらばないと、ハート も うしないます。 -->
+    <string name="howToPlay_screen_text_game_rules_3">正しい数字を選ばないと、ハートも失います（イージーモードを除く）。</string> <!-- ただしいすうじをえらばないと、ハートもうしないます（イージーモードをのぞく）。 -->
     <string name="howToPlay_screen_text_game_rules_4">各ミッションをクリアして、次のレベルに進みましょう。</string>
 
     <!-- global text-->

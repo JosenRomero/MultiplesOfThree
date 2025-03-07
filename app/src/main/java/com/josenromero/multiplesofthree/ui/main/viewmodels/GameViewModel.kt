@@ -250,9 +250,10 @@ class GameViewModel @Inject constructor(
     }
 
     private fun removeHearts(board: List<List<Int>>, value: Int) {
+        val hearts = if (value <= 0) 0 else value
         gameStateUpdate(
             board = board,
-            hearts = if (value <= 0) 0 else value
+            hearts = if (_gameMode.value !== GameMode.EASY) hearts else null
         )
     }
 
