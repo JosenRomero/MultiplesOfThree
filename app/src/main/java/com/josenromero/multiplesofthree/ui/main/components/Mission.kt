@@ -95,7 +95,7 @@ fun MissionContent(
                     .padding(vertical = 8.dp)
             ) {
                 CustomText(
-                    text = "${stringResource(id = R.string.playScreen_text_mission)} ${step.ordinal + 1}",
+                    text = stringResource(id = R.string.playScreen_text_mission),
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
