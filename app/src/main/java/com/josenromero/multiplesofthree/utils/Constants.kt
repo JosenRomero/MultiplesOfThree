@@ -59,4 +59,7 @@ object Constants {
         Color(0xFFFFABAB)
     )
 
+    const val UNITY_GAME_ID = "1234567" // ID for test
+    const val TEST_MODE = true
+
 }

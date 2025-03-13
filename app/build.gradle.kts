@@ -89,6 +89,9 @@ dependencies {
     implementation("com.google.code.gson:gson:2.9.0")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    // unity ads
+    implementation("com.unity3d.ads:unity-ads:4.7.0")
 }
 
 kapt {
