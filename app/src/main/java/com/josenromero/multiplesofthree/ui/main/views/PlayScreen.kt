@@ -35,6 +35,7 @@ import com.josenromero.multiplesofthree.data.Particle
 import com.josenromero.multiplesofthree.data.Stage
 import com.josenromero.multiplesofthree.data.Step
 import com.josenromero.multiplesofthree.data.player.PlayerEntity
+import com.josenromero.multiplesofthree.ui.main.components.AdsContent
 import com.josenromero.multiplesofthree.ui.main.components.Board
 import com.josenromero.multiplesofthree.ui.main.components.AnimatedCoin
 import com.josenromero.multiplesofthree.ui.main.components.AnimatedFadeIn
@@ -50,7 +51,10 @@ import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 import com.josenromero.multiplesofthree.utils.Constants
 import com.josenromero.multiplesofthree.utils.checkAchievement
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun PlayScreen(
@@ -74,6 +78,8 @@ fun PlayScreen(
     var isShowMedals by remember { mutableStateOf(false) }
     var scoreCoordinates by remember { mutableStateOf(Offset.Zero) }
     val medals = remember { mutableStateListOf<String>() }
+    var isAds by remember { mutableStateOf(false) }
+    var isShowAd by remember { mutableStateOf(false) }
 
     LaunchedEffect(key1 = gameState.score) {
         if (checkScoreToStageUpdate(gameState.score)) {
@@ -84,6 +90,9 @@ fun PlayScreen(
             val bestScore: Int? = if (gameState.score > player.bestScore) gameState.score else null
 
             if (!checkWin(gameState.score, stage.step)) {
+                if (stage.step == Step.Step2) {
+                    isAds = true
+                }
                 stageUpdate()
                 if (newAchievements.isNotEmpty()) {
                     isShowMedals = true
@@ -92,7 +101,9 @@ fun PlayScreen(
                 }
                 isShowMission = true
                 delay(7000) // waiting for the mission animation
-                activeBoard(true)
+                if (!isAds) { // if there are no ads, continue the game
+                    activeBoard(true)
+                }
                 updatePlayer(bestScore, achievements)
             } else {
                 isShowMedals = true
@@ -162,12 +173,15 @@ fun PlayScreen(
                         MissionAnimated(
                             step = stage.step,
                             btnClose = {
+                                if (isAds) {
+                                    isShowAd = true
+                                }
                                 isShowMission = false
                             }
                         )
                     }
                     // center Column
-                    if (!isShowMission && !isShowMedals) {
+                    if (!isShowMission && !isShowMedals && !isShowAd) {
                         AnimatedFadeIn {
                             Column(
                                 modifier = Modifier
@@ -224,6 +238,19 @@ fun PlayScreen(
                             ),
                             particleDescription = "explosion particle ${particle.id}",
                             audioPlay = audioPlay
+                        )
+                    }
+                    if (isAds) {
+                        AdsContent(
+                            isShowAd = isShowAd,
+                            closeAds = {
+                                CoroutineScope(Dispatchers.Default).launch {
+                                    isAds = false
+                                    isShowAd = false
+                                    delay(2000) // waiting for the board
+                                    activeBoard(true) // after watching the ad, continue the game
+                                }
+                            }
                         )
                     }
                 }
