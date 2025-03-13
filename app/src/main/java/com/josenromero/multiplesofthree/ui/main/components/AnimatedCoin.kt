@@ -34,7 +34,7 @@ fun AnimatedCoin(
 ) {
 
     val offsetX = remember { Animatable(initialPosition.x - (containerSize.value / 2) - (coinSize.value / 2)) }
-    val offsetY = remember { Animatable(initialPosition.y - (containerSize.value / 2) + (coinSize.value / 2)) }
+    val offsetY = remember { Animatable(initialPosition.y - (containerSize.value / 2) - (coinSize.value / 2)) }
     val alpha = remember { Animatable(1f) }
 
     LaunchedEffect(id) {
