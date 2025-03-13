@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -46,11 +47,13 @@ import com.josenromero.multiplesofthree.ui.main.components.HUD
 import com.josenromero.multiplesofthree.ui.main.components.MedalCard
 import com.josenromero.multiplesofthree.ui.main.components.MissionAnimated
 import com.josenromero.multiplesofthree.ui.main.components.MissionText
+import com.josenromero.multiplesofthree.ui.main.components.NotNetwork
 import com.josenromero.multiplesofthree.ui.main.components.SimpleTopAppBar
 import com.josenromero.multiplesofthree.ui.main.navigation.AppScreens
 import com.josenromero.multiplesofthree.ui.theme.MultiplesOfThreeTheme
 import com.josenromero.multiplesofthree.utils.Constants
 import com.josenromero.multiplesofthree.utils.checkAchievement
+import com.josenromero.multiplesofthree.utils.isNetworkAvailable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -74,6 +77,7 @@ fun PlayScreen(
     audioPlay: (name: String) -> Unit,
 ) {
 
+    val isInternet = isNetworkAvailable(LocalContext.current)
     var isShowMission by remember { mutableStateOf(true) }
     var isShowMedals by remember { mutableStateOf(false) }
     var scoreCoordinates by remember { mutableStateOf(Offset.Zero) }
@@ -118,21 +122,23 @@ fun PlayScreen(
         topBar = {
             SimpleTopAppBar(
                 title = {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        CustomText(
-                            text = stringResource(id = gameMode.textId), // the gameMode.textId is like R.string.home_screen_menu_easy_mode
-                            modifier = Modifier
-                                .background(
-                                    color = MaterialTheme.colorScheme.secondary,
-                                    shape = RoundedCornerShape(50.dp)
-                                )
-                                .padding(vertical = 8.dp, horizontal = 16.dp),
-                            color = MaterialTheme.colorScheme.onSecondary,
-                            fontSize = 16.sp
-                        )
+                    if (isInternet) {
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            CustomText(
+                                text = stringResource(id = gameMode.textId), // the gameMode.textId is like R.string.home_screen_menu_easy_mode
+                                modifier = Modifier
+                                    .background(
+                                        color = MaterialTheme.colorScheme.secondary,
+                                        shape = RoundedCornerShape(50.dp)
+                                    )
+                                    .padding(vertical = 8.dp, horizontal = 16.dp),
+                                color = MaterialTheme.colorScheme.onSecondary,
+                                fontSize = 16.sp
+                            )
+                        }
                     }
                 },
                 onNavigateToAScreen = {
@@ -147,113 +153,117 @@ fun PlayScreen(
                 .fillMaxSize()
                 .padding(it)
         ) {
-            BoxWithConstraints {
+            if (isInternet) {
+                BoxWithConstraints {
 
-                val isSmallScreen = maxWidth < Constants.SMALL_SCREEN
-                val cellSize = if (isSmallScreen) Constants.CELL_SIZE_SMALL else Constants.CELL_SIZE
+                    val isSmallScreen = maxWidth < Constants.SMALL_SCREEN
+                    val cellSize = if (isSmallScreen) Constants.CELL_SIZE_SMALL else Constants.CELL_SIZE
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
-                ) {
-                    HUD(
+                    Box(
                         modifier = Modifier
-                            .onGloballyPositioned { layoutCoordinates ->
-                                val pos = layoutCoordinates.positionInRoot()
-                                val width = layoutCoordinates.size.width / 2
-                                val height = layoutCoordinates.size.height
-                                scoreCoordinates = Offset(x = pos.x + width, y = pos.y - height)
-                            },
-                        gameMode = gameMode,
-                        score = gameState.score,
-                        hearts = gameState.hearts
-                    )
-                    if (isShowMission) {
-                        MissionAnimated(
-                            step = stage.step,
-                            btnClose = {
-                                if (isAds) {
-                                    isShowAd = true
-                                }
-                                isShowMission = false
-                            }
+                            .fillMaxSize()
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                    ) {
+                        HUD(
+                            modifier = Modifier
+                                .onGloballyPositioned { layoutCoordinates ->
+                                    val pos = layoutCoordinates.positionInRoot()
+                                    val width = layoutCoordinates.size.width / 2
+                                    val height = layoutCoordinates.size.height
+                                    scoreCoordinates = Offset(x = pos.x + width, y = pos.y - height)
+                                },
+                            gameMode = gameMode,
+                            score = gameState.score,
+                            hearts = gameState.hearts
                         )
-                    }
-                    // center Column
-                    if (!isShowMission && !isShowMedals && !isShowAd) {
-                        AnimatedFadeIn {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxSize(),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Board(
-                                    board = gameState.board,
-                                    cellSize = cellSize,
-                                    isCleanBoard = isCleanBoard,
-                                    isPreCleanBoard = isPreCleanBoard,
-                                    onClick = onClick,
-                                    audioPlay = audioPlay
-                                )
-                                MissionText(
-                                    text = stringResource(id = stage.step.textId) // the step.textId is like R.string.howToPlay_screen_text_mission_1
-                                )
+                        if (isShowMission) {
+                            MissionAnimated(
+                                step = stage.step,
+                                btnClose = {
+                                    if (isAds) {
+                                        isShowAd = true
+                                    }
+                                    isShowMission = false
+                                }
+                            )
+                        }
+                        // center Column
+                        if (!isShowMission && !isShowMedals && !isShowAd) {
+                            AnimatedFadeIn {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxSize(),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Board(
+                                        board = gameState.board,
+                                        cellSize = cellSize,
+                                        isCleanBoard = isCleanBoard,
+                                        isPreCleanBoard = isPreCleanBoard,
+                                        onClick = onClick,
+                                        audioPlay = audioPlay
+                                    )
+                                    MissionText(
+                                        text = stringResource(id = stage.step.textId) // the step.textId is like R.string.howToPlay_screen_text_mission_1
+                                    )
+                                }
                             }
                         }
-                    }
-                    if (isShowMedals) {
-                        MedalCard(
-                            medals = medals,
-                            audioPlay = audioPlay
-                        )
-                    }
-                    if (gameState.isGameOver) {
-                        GameOver(
-                            score = gameState.score,
-                            bestScore = player.bestScore,
-                            onNavigateToAScreen = onNavigateToAScreen,
-                            updatePlayer = {
-                                updatePlayer(gameState.score, null)
-                            },
-                            audioPlay = audioPlay
-                        )
-                    }
-                    coins.toList().forEach { coin ->
-                        AnimatedCoin(
-                            id = coin.id,
-                            initialPosition = coin.coordinate,
-                            finalPosition = scoreCoordinates,
-                            containerSize = cellSize,
-                            audioPlay = audioPlay
-                        )
-                    }
-                    particles.toList().forEach { particle ->
-                        AnimatedParticle(
-                            id = particle.id,
-                            initialPosition = Offset(
-                                x = particle.coordinate.x - (cellSize.value / 2),
-                                y = particle.coordinate.y - (cellSize.value / 2)
-                            ),
-                            particleDescription = "explosion particle ${particle.id}",
-                            audioPlay = audioPlay
-                        )
-                    }
-                    if (isAds) {
-                        AdsContent(
-                            isShowAd = isShowAd,
-                            closeAds = {
-                                CoroutineScope(Dispatchers.Default).launch {
-                                    isAds = false
-                                    isShowAd = false
-                                    delay(2000) // waiting for the board
-                                    activeBoard(true) // after watching the ad, continue the game
+                        if (isShowMedals) {
+                            MedalCard(
+                                medals = medals,
+                                audioPlay = audioPlay
+                            )
+                        }
+                        if (gameState.isGameOver) {
+                            GameOver(
+                                score = gameState.score,
+                                bestScore = player.bestScore,
+                                onNavigateToAScreen = onNavigateToAScreen,
+                                updatePlayer = {
+                                    updatePlayer(gameState.score, null)
+                                },
+                                audioPlay = audioPlay
+                            )
+                        }
+                        coins.toList().forEach { coin ->
+                            AnimatedCoin(
+                                id = coin.id,
+                                initialPosition = coin.coordinate,
+                                finalPosition = scoreCoordinates,
+                                containerSize = cellSize,
+                                audioPlay = audioPlay
+                            )
+                        }
+                        particles.toList().forEach { particle ->
+                            AnimatedParticle(
+                                id = particle.id,
+                                initialPosition = Offset(
+                                    x = particle.coordinate.x - (cellSize.value / 2),
+                                    y = particle.coordinate.y - (cellSize.value / 2)
+                                ),
+                                particleDescription = "explosion particle ${particle.id}",
+                                audioPlay = audioPlay
+                            )
+                        }
+                        if (isAds) {
+                            AdsContent(
+                                isShowAd = isShowAd,
+                                closeAds = {
+                                    CoroutineScope(Dispatchers.Default).launch {
+                                        isAds = false
+                                        isShowAd = false
+                                        delay(2000) // waiting for the board
+                                        activeBoard(true) // after watching the ad, continue the game
+                                    }
                                 }
-                            }
-                        )
+                            )
+                        }
                     }
                 }
+            } else {
+                NotNetwork()
             }
         }
     }

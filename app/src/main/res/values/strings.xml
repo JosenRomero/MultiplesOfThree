@@ -25,6 +25,7 @@
     <string name="text_game_over">Game Over!</string>
     <string name="text_best_score">Best Score</string>
     <string name="text_new_best_score">New Best Score</string>
+    <string name="text_connect_to_the_internet">Connect to the Internet</string>
 
     <!-- buttons -->
     <string name="btn_menu">Menu</string>

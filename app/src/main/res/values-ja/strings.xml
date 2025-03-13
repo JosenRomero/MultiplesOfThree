@@ -25,6 +25,7 @@
     <string name="text_game_over">ゲームオーバー！</string>
     <string name="text_best_score">最高スコア</string> <!-- Saikō Sukoa -->
     <string name="text_new_best_score">新しい最高スコア</string> <!-- Atarashii Saikō Sukoa -->
+    <string name="text_connect_to_the_internet">インターネットに接続してください</string> <!-- Intānetto ni setsuzoku shite kudasai -->
 
     <!-- buttons -->
     <string name="btn_menu">メニュー</string>

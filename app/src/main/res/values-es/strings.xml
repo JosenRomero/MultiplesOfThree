@@ -25,6 +25,7 @@
     <string name="text_game_over">¡Perdiste!</string>
     <string name="text_best_score">Mejor puntuación</string>
     <string name="text_new_best_score">Nuevo Mejor Puntaje</string>
+    <string name="text_connect_to_the_internet">Conéctate a Internet</string>
 
     <!-- buttons -->
     <string name="btn_menu">Menú</string>
