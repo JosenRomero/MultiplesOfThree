@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -19,6 +20,12 @@ import com.unity3d.ads.IUnityAdsShowListener
 import com.unity3d.ads.UnityAds
 import com.unity3d.ads.UnityAdsShowOptions
 
+enum class AdState {
+    LOADING,
+    LOADED,
+    FAILED,
+}
+
 @Composable
 fun AdsContent(
     isShowAd: Boolean,
@@ -27,13 +34,15 @@ fun AdsContent(
 
     val currentActivity = LocalContext.current as Activity
     val adUnitId = "Interstitial_Android"
-    val adsAdLoaded = remember { mutableStateOf("") }
+    val adState: MutableState<AdState> = remember { mutableStateOf(AdState.LOADING) }
+    val adId = remember { mutableStateOf("") }
     val showBtnToClose = remember { mutableStateOf(false) }
 
     UnityAds.load(adUnitId, object : IUnityAdsLoadListener {
         override fun onUnityAdsAdLoaded(placementId: String?) {
             println("onUnityAdsAdLoaded")
-            adsAdLoaded.value = placementId ?: ""
+            adId.value = placementId ?: ""
+            adState.value = AdState.LOADED
         }
 
         override fun onUnityAdsFailedToLoad(
@@ -42,6 +51,7 @@ fun AdsContent(
             message: String?
         ) {
             println("onUnityAdsFailedToLoad")
+            adState.value = AdState.FAILED
         }
     })
 
@@ -73,10 +83,10 @@ fun AdsContent(
 
     }
 
-    LaunchedEffect(isShowAd) {
-        if (isShowAd) {
-            if (adsAdLoaded.value != "") {
-                UnityAds.show(currentActivity, adsAdLoaded.value, UnityAdsShowOptions(), showListener)
+    LaunchedEffect(isShowAd, adState.value) {
+        if (isShowAd && adState.value != AdState.LOADING) {
+            if (adState.value == AdState.LOADED) {
+                UnityAds.show(currentActivity, adId.value, UnityAdsShowOptions(), showListener)
             } else {
                 showBtnToClose.value = true
             }
