@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,6 +52,27 @@ fun NotNetwork() {
             ) {
                 CustomText(text = stringResource(id = R.string.text_connect_to_the_internet))
             }
+        }
+    }
+
+}
+
+@Composable
+fun NotNetworkAndBtn(
+    btn: () -> Unit
+) {
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 10.dp),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        OutlinedButton(
+            onClick = btn
+        ) {
+            CustomText(text = stringResource(id = R.string.text_connect_to_the_internet))
         }
     }
 

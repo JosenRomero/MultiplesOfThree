@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.josenromero.multiplesofthree.R
+import com.josenromero.multiplesofthree.utils.isNetworkAvailable
 import com.unity3d.ads.IUnityAdsLoadListener
 import com.unity3d.ads.IUnityAdsShowListener
 import com.unity3d.ads.UnityAds
@@ -32,28 +33,32 @@ fun AdsContent(
     closeAds: () -> Unit
 ) {
 
+    val context = LocalContext.current
+    val isInternet = remember { mutableStateOf(isNetworkAvailable(context)) }
     val currentActivity = LocalContext.current as Activity
     val adUnitId = "Interstitial_Android"
     val adState: MutableState<AdState> = remember { mutableStateOf(AdState.LOADING) }
     val adId = remember { mutableStateOf("") }
     val showBtnToClose = remember { mutableStateOf(false) }
 
-    UnityAds.load(adUnitId, object : IUnityAdsLoadListener {
-        override fun onUnityAdsAdLoaded(placementId: String?) {
-            println("onUnityAdsAdLoaded")
-            adId.value = placementId ?: ""
-            adState.value = AdState.LOADED
-        }
+    if (isInternet.value) {
+        UnityAds.load(adUnitId, object : IUnityAdsLoadListener {
+            override fun onUnityAdsAdLoaded(placementId: String?) {
+                println("onUnityAdsAdLoaded")
+                adId.value = placementId ?: ""
+                adState.value = AdState.LOADED
+            }
 
-        override fun onUnityAdsFailedToLoad(
-            placementId: String?,
-            error: UnityAds.UnityAdsLoadError?,
-            message: String?
-        ) {
-            println("onUnityAdsFailedToLoad")
-            adState.value = AdState.FAILED
-        }
-    })
+            override fun onUnityAdsFailedToLoad(
+                placementId: String?,
+                error: UnityAds.UnityAdsLoadError?,
+                message: String?
+            ) {
+                println("onUnityAdsFailedToLoad")
+                adState.value = AdState.FAILED
+            }
+        })
+    }
 
     val showListener = object : IUnityAdsShowListener {
         override fun onUnityAdsShowFailure(
@@ -93,20 +98,27 @@ fun AdsContent(
         }
     }
 
-    if (showBtnToClose.value) {
+    if (isInternet.value) {
         Column(
             modifier = Modifier
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            OutlinedButton(
-                onClick = { closeAds() }
-            ) {
-                CustomText(text = stringResource(id = R.string.btn_continue))
+            if (showBtnToClose.value) {
+                OutlinedButton(
+                    onClick = { closeAds() }
+                ) {
+                    CustomText(text = stringResource(id = R.string.btn_continue))
+                }
             }
         }
+    } else {
+        NotNetworkAndBtn(
+            btn = {
+                isInternet.value = isNetworkAvailable(context)
+            }
+        )
     }
 
 }
-
