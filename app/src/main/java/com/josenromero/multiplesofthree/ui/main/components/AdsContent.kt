@@ -112,6 +112,9 @@ fun AdsContent(
                     CustomText(text = stringResource(id = R.string.btn_continue))
                 }
             }
+            if (isShowAd && !showBtnToClose.value) {
+                CustomText(text = stringResource(id = R.string.text_an_ad_will_be_shown_in_a_moment))
+            }
         }
     } else {
         NotNetworkAndBtn(

@@ -26,6 +26,7 @@
     <string name="text_best_score">Best Score</string>
     <string name="text_new_best_score">New Best Score</string>
     <string name="text_connect_to_the_internet">Connect to the Internet</string>
+    <string name="text_an_ad_will_be_shown_in_a_moment">An ad will be shown in a moment</string>
 
     <!-- buttons -->
     <string name="btn_menu">Menu</string>
