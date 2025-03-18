@@ -77,13 +77,17 @@ fun PlayScreen(
     audioPlay: (name: String) -> Unit,
 ) {
 
-    val isInternet = isNetworkAvailable(LocalContext.current)
+    var isInternet: Boolean? by remember { mutableStateOf(null) }
     var isShowMission by remember { mutableStateOf(true) }
     var isShowMedals by remember { mutableStateOf(false) }
     var scoreCoordinates by remember { mutableStateOf(Offset.Zero) }
     val medals = remember { mutableStateListOf<String>() }
     var isAds by remember { mutableStateOf(false) }
     var isShowAd by remember { mutableStateOf(false) }
+
+    if (isInternet == null) {
+        isInternet = isNetworkAvailable(LocalContext.current)
+    }
 
     LaunchedEffect(key1 = gameState.score) {
         if (checkScoreToStageUpdate(gameState.score)) {
@@ -122,7 +126,7 @@ fun PlayScreen(
         topBar = {
             SimpleTopAppBar(
                 title = {
-                    if (isInternet) {
+                    if (isInternet == true) {
                         Column(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalAlignment = Alignment.CenterHorizontally
@@ -153,7 +157,7 @@ fun PlayScreen(
                 .fillMaxSize()
                 .padding(it)
         ) {
-            if (isInternet) {
+            if (isInternet == true) {
                 BoxWithConstraints {
 
                     val isSmallScreen = maxWidth < Constants.SMALL_SCREEN
@@ -262,7 +266,7 @@ fun PlayScreen(
                         }
                     }
                 }
-            } else {
+            } else if (isInternet == false) {
                 NotNetwork()
             }
         }
